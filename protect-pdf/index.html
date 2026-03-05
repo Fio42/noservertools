@@ -281,7 +281,7 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
 <script>
 'use strict';
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -317,24 +317,27 @@ async function initPyodide(){
     if(currentFile) document.getElementById('btnProtect').disabled=false;
     return;
   }
-  if(pyLoading) return; // already loading, don't start again
+  if(pyLoading) return;
   pyLoading=true;
   document.getElementById('loadingEngine').style.display='block';
   document.getElementById('btnProtect').disabled=true;
+  const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error('Timeout loading engine. Please refresh.')),90000));
   try{
-    pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/'});
-    await pyodide.loadPackage('micropip');
-    await pyodide.runPythonAsync(`import micropip; await micropip.install('pypdf')`);
-    pyReady=true;
-    pyLoading=false;
-    document.getElementById('loadingEngine').style.display='none';
-    if(currentFile) document.getElementById('btnProtect').disabled=false;
+    await Promise.race([_loadEngineProtect(), timeout]);
   }catch(e){
     pyLoading=false;
-    pyodide=null; // reset so retry is possible
+    pyodide=null;
     document.getElementById('loadingEngine').style.display='none';
-    showError('Failed to load engine: '+e.message+'. Please refresh the page and try again.');
+    showError('Failed to load engine: '+e.message+'. Try refreshing the page.');
   }
+}
+async function _loadEngineProtect(){
+  pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
+  await pyodide.loadPackage(['micropip','pypdf']);
+  pyReady=true;
+  pyLoading=false;
+  document.getElementById('loadingEngine').style.display='none';
+  if(currentFile) document.getElementById('btnProtect').disabled=false;
 }
 
 function toggleVisibility(id){
