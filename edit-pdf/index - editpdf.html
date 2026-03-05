@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
@@ -76,13 +74,8 @@
     #pdfCanvas{display:block}
     #annotationCanvas{position:absolute;top:0;left:0;cursor:crosshair;touch-action:none}
     /* text inputs on canvas */
-    .text-wrap{position:absolute;z-index:50;cursor:move}
-    .text-wrap.selected{outline:2px solid var(--brand);border-radius:4px}
-    .text-drag-handle{position:absolute;top:-20px;left:0;height:18px;background:var(--brand-dark);border-radius:4px 4px 0 0;padding:0 8px;display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,.8);font-family:'DM Mono',monospace;cursor:move;white-space:nowrap;user-select:none}
-    .text-del-btn{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:13px;line-height:1;padding:0 0 0 4px}
-    .text-del-btn:hover{color:#f87171}
-    .text-input-overlay{background:transparent;border:1.5px dashed rgba(90,135,255,.5);outline:none;font-family:'Outfit',sans-serif;color:#000;resize:none;min-width:80px;min-height:28px;padding:3px 6px;border-radius:0 3px 3px 3px;overflow:hidden;display:block;width:100%}
-    .text-input-overlay:focus{border-color:var(--brand);background:rgba(255,255,255,.06)}
+    .text-input-overlay{position:absolute;background:transparent;border:1.5px dashed rgba(90,135,255,.6);outline:none;font-family:'Outfit',sans-serif;color:#000;resize:none;min-width:60px;min-height:24px;padding:2px 4px;z-index:50;border-radius:3px;overflow:hidden}
+    .text-input-overlay:focus{border-color:var(--brand);background:rgba(255,255,255,.08)}
     /* image overlay */
     .img-overlay{position:absolute;cursor:move;border:1.5px dashed rgba(90,135,255,.6);z-index:50}
     .img-overlay img{display:block;width:100%;height:100%}
@@ -145,7 +138,7 @@
 <div id="dropScreen">
   <div style="text-align:center;margin-bottom:36px">
     <div class="fu" style="margin-bottom:14px">
-      <span class="badge"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span><span data-i18n="badge">No upload · 100% local</span></span>
+      <span class="badge"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span>No upload · 100% local</span>
     </div>
     <h1 class="fd fu2" style="font-size:clamp(28px,5vw,42px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:14px">
       Edit PDF <span style="background:linear-gradient(105deg,#7aa3ff,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Online Free</span>
@@ -187,12 +180,12 @@
   </div>
 
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px">
-    <h2 class="fd" style="font-size:17px;font-weight:700;margin-bottom:16px"><span data-i18n="why_title">Why NoServerTools?</span></h2>
+    <h2 class="fd" style="font-size:17px;font-weight:700;margin-bottom:16px">Why NoServerTools?</h2>
     <div class="why-grid">
-      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🛡️</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px"><span data-i18n="why_uploads">Zero uploads</span></h4><p style="font-size:12.5px;color:var(--muted)"><span data-i18n="why_uploads_d">We never receive your files.</span></p></div></div>
-      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🗑️</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px"><span data-i18n="why_storage">Zero storage</span></h4><p style="font-size:12.5px;color:var(--muted)"><span data-i18n="why_storage_d">Nothing saved anywhere.</span></p></div></div>
-      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🚫</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px"><span data-i18n="why_tracking">Zero tracking</span></h4><p style="font-size:12.5px;color:var(--muted)">We don't know what you edit.</p></div></div>
-      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">📡</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px"><span data-i18n="why_offline">Works offline</span></h4><p style="font-size:12.5px;color:var(--muted)"><span data-i18n="why_offline_d">Once loaded, no internet needed.</span></p></div></div>
+      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🛡️</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px">Zero uploads</h4><p style="font-size:12.5px;color:var(--muted)">We never receive your files.</p></div></div>
+      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🗑️</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px">Zero storage</h4><p style="font-size:12.5px;color:var(--muted)">Nothing saved anywhere.</p></div></div>
+      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🚫</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px">Zero tracking</h4><p style="font-size:12.5px;color:var(--muted)">We don't know what you edit.</p></div></div>
+      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">📡</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px">Works offline</h4><p style="font-size:12.5px;color:var(--muted)">Once loaded, no internet needed.</p></div></div>
     </div>
   </div>
 </div>
@@ -202,7 +195,7 @@
   <!-- TOOLBAR -->
   <div id="toolbar">
     <!-- Mode buttons -->
-    <button class="tool-btn active" id="btnSelect" onclick="setMode('select')" title="Select / Move text boxes">
+    <button class="tool-btn active" id="btnSelect" onclick="setMode('select')" title="Select / Move">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-7 1-3 7z"/></svg>Select
     </button>
     <button class="tool-btn" id="btnText" onclick="setMode('text')" title="Add Text">
@@ -316,7 +309,7 @@
     </nav>
   </div>
   <div class="fm" style="text-align:center;padding:10px 20px;border-top:1px solid rgba(255,255,255,.04);font-size:10px;color:var(--dim);letter-spacing:.05em">
-    <span data-i18n="footer_strip">NO UPLOADS &nbsp;·&nbsp; NO ACCOUNTS &nbsp;·&nbsp; NO TRACKING &nbsp;·&nbsp; NO SERVERS</span>
+    NO UPLOADS &nbsp;·&nbsp; NO ACCOUNTS &nbsp;·&nbsp; NO TRACKING &nbsp;·&nbsp; NO SERVERS
   </div>
 </footer>
 
@@ -376,7 +369,7 @@ async function renderPage(num){
   setStatus('Rendering page '+num+'...');
   // Hide text/image overlays for other pages, show for current
   Object.keys(textInputs).forEach(p=>{
-    textInputs[p].forEach(wrap=>{wrap.style.display=parseInt(p)===num?'block':'none'});
+    textInputs[p].forEach(el=>el.style.display=parseInt(p)===num?'block':'none');
   });
   Object.keys(imageOverlays).forEach(p=>{
     imageOverlays[p].forEach(el=>el.style.display=parseInt(p)===num?'block':'none');
@@ -443,18 +436,11 @@ async function changePage(d){
 // ─── MODE ─────────────────────────────────────────────────────
 function setMode(m){
   mode=m;
-  ['select','text','draw','highlight'].forEach(id=>{
+  ['select','text','draw','highlight','image','sign'].forEach(id=>{
     const btn=document.getElementById('btn'+id.charAt(0).toUpperCase()+id.slice(1));
     if(btn) btn.classList.toggle('active',id===m);
   });
-  // In select mode, disable pointer events on annCanvas so text-wraps underneath get clicks
-  if(m==='select'){
-    annCanvas.style.pointerEvents='none';
-    annCanvas.style.cursor='default';
-  } else {
-    annCanvas.style.pointerEvents='auto';
-    annCanvas.style.cursor = m==='text'?'text':'crosshair';
-  }
+  annCanvas.style.cursor = m==='select'?'default': m==='text'?'text':'crosshair';
   document.getElementById('brushWrap').style.display=(m==='draw'||m==='highlight')?'flex':'none';
 }
 
@@ -471,7 +457,6 @@ function getTouchPos(e){
 }
 
 function onCanvasDown(e){
-  if(mode==='select')return; // in select mode, let text-wraps handle their own events
   const pos=getPos(e);
   if(mode==='text'){addTextInput(pos);return}
   if(mode==='draw'||mode==='highlight'){
@@ -509,62 +494,20 @@ function addTextInput(pos){
   const container=document.getElementById('pageContainer');
   const scaleX=annCanvas.offsetWidth/annCanvas.width;
   const scaleY=annCanvas.offsetHeight/annCanvas.height;
-
-  // Wrapper — this is what we drag
-  const wrap=document.createElement('div');
-  wrap.className='text-wrap';
-  wrap.style.left=(pos.x*scaleX)+'px';
-  wrap.style.top=(pos.y*scaleY)+'px';
-  wrap.setAttribute('data-page',currentPage);
-
-  // Drag handle bar
-  const handle=document.createElement('div');
-  handle.className='text-drag-handle';
-  handle.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="5" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="19" r="1"/></svg>Text';
-  const delBtn=document.createElement('button');
-  delBtn.className='text-del-btn'; delBtn.textContent='×'; delBtn.title='Remove';
-  delBtn.onclick=e=>{e.stopPropagation();wrap.remove();if(textInputs[currentPage])textInputs[currentPage]=textInputs[currentPage].filter(x=>x!==wrap)};
-  handle.appendChild(delBtn);
-  wrap.appendChild(handle);
-
-  // Textarea
   const inp=document.createElement('textarea');
   inp.className='text-input-overlay';
+  inp.style.left=(pos.x*scaleX)+'px';
+  inp.style.top=(pos.y*scaleY)+'px';
   inp.style.fontSize=document.getElementById('fontSize').value+'px';
   inp.style.color=document.getElementById('colorPicker').value;
   inp.rows=1;
+  inp.setAttribute('data-page', currentPage);
   inp.addEventListener('input',()=>{inp.style.height='auto';inp.style.height=inp.scrollHeight+'px'});
-  inp.addEventListener('keydown',e=>{if(e.key==='Escape'){inp.blur();setMode('select')}});
-  // Clicking the textarea in select mode should not propagate to canvas
-  inp.addEventListener('mousedown',e=>e.stopPropagation());
-  wrap.appendChild(inp);
-
-  // Make the whole wrap draggable via handle
-  makeTextDraggable(wrap, handle);
-
-  container.appendChild(wrap);
+  inp.addEventListener('keydown',e=>{if(e.key==='Escape'){inp.blur()}});
+  container.appendChild(inp);
   inp.focus();
   if(!textInputs[currentPage]) textInputs[currentPage]=[];
-  textInputs[currentPage].push(wrap);
-}
-
-function makeTextDraggable(wrap, handle){
-  let ox,oy,sx,sy;
-  const startDrag=e=>{
-    e.preventDefault(); e.stopPropagation();
-    ox=parseInt(wrap.style.left)||0; oy=parseInt(wrap.style.top)||0;
-    sx=e.clientX; sy=e.clientY;
-    const mm=ev=>{wrap.style.left=(ox+ev.clientX-sx)+'px';wrap.style.top=(oy+ev.clientY-sy)+'px'};
-    const mu=()=>{document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu)};
-    document.addEventListener('mousemove',mm);
-    document.addEventListener('mouseup',mu);
-  };
-  handle.addEventListener('mousedown',startDrag);
-  // Also allow dragging the wrap itself when in select mode (not on textarea)
-  wrap.addEventListener('mousedown',e=>{
-    if(e.target.tagName==='TEXTAREA'||e.target.tagName==='BUTTON')return;
-    startDrag(e);
-  });
+  textInputs[currentPage].push(inp);
 }
 
 // ─── IMAGE ────────────────────────────────────────────────────
@@ -664,7 +607,7 @@ function undoLast(){
   else{
     // undo last text input
     const txts=textInputs[currentPage];
-    if(txts&&txts.length){txts[txts.length-1].remove();txts.pop();return}
+    if(txts&&txts.length){txts[txts.length-1].remove();txts.pop()}
     // undo last image
     const imgs=imageOverlays[currentPage];
     if(imgs&&imgs.length){imgs[imgs.length-1].remove();imgs.pop()}
@@ -716,15 +659,12 @@ async function downloadPDF(){
       });
       // Draw text inputs for this page
       const txts=textInputs[n]||[];
-      for(const wrap of txts){
-        const inp=wrap.querySelector('textarea');
-        if(!inp||!inp.value.trim())continue;
+      for(const inp of txts){
+        if(!inp.value.trim())continue;
         const dispW=annCanvas.offsetWidth; const dispH=annCanvas.offsetHeight;
         const sx=vp.width/dispW; const sy=vp.height/dispH;
-        // wrap position includes the handle height (~20px display) offset
-        const wrapTop=parseFloat(wrap.style.top)+20; // skip handle bar
-        const x=parseFloat(wrap.style.left)*sx;
-        const y=wrapTop*sy;
+        const x=parseFloat(inp.style.left)*sx;
+        const y=parseFloat(inp.style.top)*sy;
         const fs=parseFloat(inp.style.fontSize||'16')*scale;
         offCtx.save();
         offCtx.font=`${fs}px Outfit,sans-serif`;
@@ -854,7 +794,7 @@ function resetAll(){
   currentFile=null; pendingSigDataUrl=null;
   // Clear any leftover overlays in container
   const container=document.getElementById('pageContainer');
-  container.querySelectorAll('.text-wrap,.img-overlay').forEach(el=>el.remove());
+  container.querySelectorAll('.text-input-overlay,.img-overlay').forEach(el=>el.remove());
   annCtx.clearRect(0,0,annCanvas.width,annCanvas.height);
   pdfCtx.clearRect(0,0,pdfCanvas.width,pdfCanvas.height);
   document.getElementById('appWrap').style.display='none';
@@ -864,35 +804,5 @@ function resetAll(){
   setMode('select');
 }
 </script>
-
-<script>
-(function(){
-  'use strict';
-  var T={
-    en:{badge:'No upload · 100% local',why_title:'Why NoServerTools?',why_uploads:'Zero uploads',why_uploads_d:"We never receive your files.",why_storage:'Zero storage',why_storage_d:'Nothing saved anywhere.',why_tracking:'Zero tracking',why_tracking_d:"We don't know what you process.",why_offline:'Works offline',why_offline_d:'Once loaded, no internet needed.',footer_strip:'NO UPLOADS &nbsp;&middot;&nbsp; NO ACCOUNTS &nbsp;&middot;&nbsp; NO TRACKING &nbsp;&middot;&nbsp; NO SERVERS'},
-    es:{badge:'Sin subir · 100% local',why_title:'Por que NoServerTools?',why_uploads:'Cero subidas',why_uploads_d:'Nunca recibimos tus archivos.',why_storage:'Cero almacenamiento',why_storage_d:'Nada se guarda en ningun lugar.',why_tracking:'Cero rastreo',why_tracking_d:'No sabemos que procesas.',why_offline:'Funciona sin internet',why_offline_d:'Una vez cargado, no necesitas conexion.',footer_strip:'SIN SUBIDAS &nbsp;&middot;&nbsp; SIN CUENTAS &nbsp;&middot;&nbsp; SIN RASTREO &nbsp;&middot;&nbsp; SIN SERVIDORES'},
-    pt:{badge:'Sem upload · 100% local',why_title:'Por que NoServerTools?',why_uploads:'Zero uploads',why_uploads_d:'Nunca recebemos seus arquivos.',why_storage:'Zero armazenamento',why_storage_d:'Nada e salvo em lugar algum.',why_tracking:'Zero rastreamento',why_tracking_d:'Nao sabemos o que voce processa.',why_offline:'Funciona offline',why_offline_d:'Apos carregar, sem internet necessaria.',footer_strip:'SEM UPLOADS &nbsp;&middot;&nbsp; SEM CONTAS &nbsp;&middot;&nbsp; SEM RASTREIO &nbsp;&middot;&nbsp; SEM SERVIDORES'},
-    fr:{badge:'Sans envoi · 100% local',why_title:'Pourquoi NoServerTools?',why_uploads:'Zero envoi',why_uploads_d:'Nous ne recevons jamais vos fichiers.',why_storage:'Zero stockage',why_storage_d:'Rien n'est sauvegarde nulle part.',why_tracking:'Zero pistage',why_tracking_d:'Nous ne savons pas ce que vous traitez.',why_offline:'Fonctionne hors ligne',why_offline_d:'Une fois charge, pas d'internet requis.',footer_strip:'SANS ENVOI &nbsp;&middot;&nbsp; SANS COMPTE &nbsp;&middot;&nbsp; SANS SUIVI &nbsp;&middot;&nbsp; SANS SERVEURS'},
-    de:{badge:'Kein Upload · 100% lokal',why_title:'Warum NoServerTools?',why_uploads:'Null Uploads',why_uploads_d:'Wir erhalten Ihre Dateien nie.',why_storage:'Null Speicherung',why_storage_d:'Nichts wird irgendwo gespeichert.',why_tracking:'Null Tracking',why_tracking_d:'Wir wissen nicht, was Sie verarbeiten.',why_offline:'Funktioniert offline',why_offline_d:'Einmal geladen, kein Internet notig.',footer_strip:'KEIN UPLOAD &nbsp;&middot;&nbsp; KEIN KONTO &nbsp;&middot;&nbsp; KEIN TRACKING &nbsp;&middot;&nbsp; KEIN SERVER'}
-  };
-  var lang=(navigator.language||navigator.userLanguage||'en').toLowerCase().slice(0,2);
-  var t=T[lang]||T.en;
-  function set(sel,html){var els=document.querySelectorAll(sel);els.forEach(function(el){el.innerHTML=html});}
-  document.addEventListener('DOMContentLoaded',function(){
-    set('[data-i18n="badge"]',t.badge);
-    set('[data-i18n="why_title"]',t.why_title);
-    set('[data-i18n="why_uploads"]',t.why_uploads);
-    set('[data-i18n="why_uploads_d"]',t.why_uploads_d);
-    set('[data-i18n="why_storage"]',t.why_storage);
-    set('[data-i18n="why_storage_d"]',t.why_storage_d);
-    set('[data-i18n="why_tracking"]',t.why_tracking);
-    set('[data-i18n="why_tracking_d"]',t.why_tracking_d);
-    set('[data-i18n="why_offline"]',t.why_offline);
-    set('[data-i18n="why_offline_d"]',t.why_offline_d);
-    set('[data-i18n="footer_strip"]',t.footer_strip);
-  });
-})();
-</script>
-
 </body>
 </html>

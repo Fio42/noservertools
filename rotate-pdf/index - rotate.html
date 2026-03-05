@@ -30,7 +30,8 @@
     .blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
     .blob-1{width:600px;height:600px;top:-200px;left:-200px;background:radial-gradient(circle,rgba(90,135,255,.12),transparent 70%)}
     .blob-2{width:500px;height:500px;bottom:-150px;right:-150px;background:radial-gradient(circle,rgba(31,69,224,.1),transparent 70%)}
-    nav{position:sticky;top:0;z-index:100;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(16px);background:rgba(14,17,23,.7);border-bottom:1px solid var(--border)}
+    nav{position:sticky;top:0;z-index:100;height:54px;backdrop-filter:blur(16px);background:rgba(14,17,23,.7);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:720px;margin:0 auto;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
     .logo-box{width:28px;height:28px;background:var(--brand-dark);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .logo-box svg{width:16px;height:16px}
@@ -126,26 +127,28 @@
 <div class="blob blob-2"></div>
 
 <nav>
-  <a href="../" class="logo">
-    <div class="logo-box">
-      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="6" height="6" rx="1.5" fill="white"/>
-        <rect x="9" y="1" width="6" height="6" rx="1.5" fill="white" opacity=".6"/>
-        <rect x="1" y="9" width="6" height="6" rx="1.5" fill="white" opacity=".6"/>
-        <rect x="9" y="9" width="6" height="6" rx="1.5" fill="white" opacity=".3"/>
-      </svg>
+  <div class="nav-inner">
+    <a href="../" class="logo">
+      <div class="logo-box">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="6" height="6" rx="1.5" fill="white"/>
+          <rect x="9" y="1" width="6" height="6" rx="1.5" fill="white" opacity=".6"/>
+          <rect x="1" y="9" width="6" height="6" rx="1.5" fill="white" opacity=".6"/>
+          <rect x="9" y="9" width="6" height="6" rx="1.5" fill="white" opacity=".3"/>
+        </svg>
+      </div>
+      <span class="logo-text">NoServer<span>Tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="../merge-pdf/">Merge</a>
+      <a href="../compress-pdf/">Compress</a>
+      <a href="../split-pdf/">Split</a>
+      <a href="../pdf-to-jpg/">JPG</a>
+      <a href="../rotate-pdf/" class="active">Rotate</a>
+      <a href="../protect-pdf/">Protect</a>
+      <a href="../unlock-pdf/">Unlock</a>
+      <a href="../edit-pdf/">Edit PDF</a>
     </div>
-    <span class="logo-text">NoServer<span>Tools</span></span>
-  </a>
-  <div class="nav-links">
-    <a href="../merge-pdf/">Merge</a>
-    <a href="../compress-pdf/">Compress</a>
-    <a href="../split-pdf/">Split</a>
-    <a href="../pdf-to-jpg/">JPG</a>
-    <a href="../rotate-pdf/" class="active">Rotate</a>
-    <a href="../protect-pdf/">Protect</a>
-    <a href="../unlock-pdf/">Unlock</a>
-    <a href="../edit-pdf/">Edit PDF</a>
   </div>
 </nav>
 

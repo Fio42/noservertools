@@ -1,0 +1,285 @@
+════════════════════════════════════════════════════════════════
+LOG MAESTRO v6.5 — NOSERVERTOOLS
+PEGAR EN CUALQUIER AI PARA CONTINUAR SIN PREGUNTAS
+════════════════════════════════════════════════════════════════
+
+PROYECTO: NoServerTools
+Tipo: App web estatica — un HTML por herramienta, CERO servidores propios
+Hosting: GitHub Pages — GRATIS — $0 forever
+URL RAIZ: https://noservertools.com/
+Repo: https://github.com/Fio42/noservertools
+Carpeta local: C:/Users/fiocc/OneDrive/Desktop/noservertools/
+Usuario GitHub: Fio42
+Ultimo deploy: v6.5 — fixes unlock-pdf (canonical + footer) y rotate-pdf (nav centrado)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IDENTIDAD DE MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nombre:    NoServerTools
+Dominio:   noservertools.com (activo, HTTPS)
+Tagline:   "Your files never leave your computer."
+Sub:       "Tools that run inside your browser. Not on our servers."
+SIN estadisticas inventadas. SIN reviews falsos. Sin excepcion.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REGLAS PERMANENTES — NUNCA ROMPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  CERO servidores propios. Todo corre en el browser del usuario.
+2.  NUNCA usar em dash en textos visibles del HTML.
+3.  SIEMPRE usar esc() antes de insertar texto del usuario en el DOM.
+4.  Cada herramienta = su propia carpeta + index.html. Nunca mezclar.
+5.  SIEMPRE actualizar sitemap.xml al agregar herramienta nueva.
+6.  SIEMPRE actualizar nav y footer de TODAS las paginas al agregar tool.
+7.  SIEMPRE entregar el LOG actualizado al final de cada sesion como .txt.
+8.  El usuario es principiante — pasos simples, uno a la vez, sin asumir nada.
+9.  NUNCA inventar estadisticas falsas ni reviews falsos.
+10. La marca es NoServerTools — no limitada a PDF, puede agregar cualquier tool.
+11. Todos los HTML deben incluir: CSP meta, X-Frame-Options, X-Content-Type-Options.
+12. SIEMPRE usar 'use strict' en todos los bloques <script>.
+13. SIEMPRE usar esc() — nunca innerHTML con datos del usuario.
+14. translate-pdf ELIMINADA en v6.0. No recrear, no referenciar.
+15. NUNCA agregar tools que envien datos a servidores externos sin aviso prominente.
+16. NUNCA agregar <base href> a ningun HTML. Eliminado en v6.2.
+17. Links en nav/footer usan rutas absolutas desde raiz: /merge-pdf/ /compress-pdf/ etc.
+    EXCEPCION: rotate-pdf usa rutas relativas ../merge-pdf/ (su arquitectura es diferente).
+18. SIEMPRE dar LOG actualizado + git commands completos al final de cada sesion.
+19. rotate-pdf tiene nav con .nav-inner (max-width:720px, margin:0 auto) para centrar.
+    NO tocar esa arquitectura — es diferente al resto pero intencional.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMO SUBIR CAMBIOS AL REPO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+cd "C:/Users/fiocc/OneDrive/Desktop/noservertools"
+git add .
+git commit -m "descripcion del cambio"
+git push
+
+Si git push falla con "rejected fetch first":
+  git pull --rebase
+  git push
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUCTURA DE ARCHIVOS — ESTADO ACTUAL v6.5
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+noservertools/
+  index.html          [v6.3] HUB — 9 tools live, 4 coming
+  sitemap.xml         [v6.3] 9 URLs
+  robots.txt          SEO
+  CNAME               noservertools.com (creado por GitHub)
+  LOG.txt             Este archivo
+
+  merge-pdf/index.html      [v6.3] nav+footer 9 tools
+  compress-pdf/index.html   [v6.3] nav+footer 9 tools
+  split-pdf/index.html      [v6.3] nav+footer 9 tools
+  pdf-to-jpg/index.html     [v6.3] nav+footer 9 tools
+  rotate-pdf/index.html     [v6.5] nav centrado con .nav-inner (max-width:720px)
+  protect-pdf/index.html    [v6.4] reconstruido — confirm password, nav+footer 9 tools
+  unlock-pdf/index.html     [v6.5] canonical corregido, footer sin duplicado, fl.on correcto
+  edit-pdf/index.html       [v6.3] editor completo
+
+  -- PENDIENTES (orden prioridad SEO) --
+  watermark-pdf/      PRIORIDAD 1
+  delete-pages/       PRIORIDAD 2
+  pdf-to-text/        PRIORIDAD 3
+  view-pdf-metadata/  PRIORIDAD 4 — diferenciador privacidad
+  remove-metadata/    PRIORIDAD 5 — diferenciador privacidad
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PATRON NAV — v6.5 (en este orden exacto en TODAS las tools)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Merge | Compress | Split | PDF JPG | Rotate | Protect | Unlock | Edit PDF | [All tools]
+
+Hay 3 estilos de nav segun el archivo — respetar el estilo existente:
+
+ESTILO A (merge/compress/split) — Tailwind classes px-3 py-1.5:
+  <a href="/rotate-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Rotate PDF</a>
+  <a href="/protect-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Protect PDF</a>
+  <a href="/unlock-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Unlock PDF</a>
+  <a href="/edit-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Edit PDF</a>
+  <a href="/" class="ml-2 ...">All tools</a>
+
+  Footer (merge/compress/split):
+  <a href="/rotate-pdf/" class="text-xs text-white/35 hover:text-brand-400">Rotate PDF</a>
+  <a href="/protect-pdf/" class="text-xs text-white/35 hover:text-brand-400">Protect PDF</a>
+  <a href="/unlock-pdf/" class="text-xs text-white/35 hover:text-brand-400">Unlock PDF</a>
+  <a href="/edit-pdf/" class="text-xs text-white/35 hover:text-brand-400">Edit PDF</a>
+
+ESTILO B (hub/pdftojpg/protect/unlock/edit) — .nav-link class:
+  <a href="/edit-pdf/" class="nav-link">Edit PDF</a>
+  <a href="/" class="nav-cta" style="margin-left:6px">All tools</a>
+
+  Footer (fl class):
+  <a href="/edit-pdf/" class="fl">Edit PDF</a>
+  Tool activa lleva class="fl on"
+
+ESTILO C (rotate) — rutas ../ relativas + .nav-inner para centrar:
+  Nav estructura:
+    <nav>
+      <div class="nav-inner">   <-- OBLIGATORIO para centrar
+        <a href="../" class="logo">...</a>
+        <div class="nav-links">
+          <a href="../edit-pdf/">Edit PDF</a>
+        </div>
+      </div>
+    </nav>
+  CSS requerido:
+    nav{position:sticky;top:0;z-index:100;height:54px;backdrop-filter:blur(16px);background:rgba(14,17,23,.7);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:720px;margin:0 auto;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px}
+  Footer: <a href="../edit-pdf/">Edit PDF</a>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DISENO VISUAL — SISTEMA GLOBAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Background:   #0e1117
+Fuentes:      Syne (titulos .fd) | Outfit (cuerpo) | DM Mono (.fm)
+Colores:
+  brand-400: #5a87ff | brand-500: #3363f5 | brand-600: #1f45e0
+  green: #4ade80 | red: #f87171 | yellow: #fbbf24
+  text: #e8eaf0 | surface: rgba(255,255,255,.03) | border: rgba(255,255,255,.08)
+Grid bg: body::before rgba(83,99,255,.055) 52x52px
+Blobs: .blob-a arriba-izquierda | .blob-b derecha-centro
+Nav: sticky, blur(14px), h=54px, bg rgba(14,17,23,.75-.80)
+Footer strip: NO UPLOADS · NO ACCOUNTS · NO TRACKING · NO SERVERS
+Boton descarga: bg #4ade80, texto #0e1117
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECETAS TECNICAS — TODAS LAS HERRAMIENTAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Stack base: Pyodide v0.25.0 + pypdf via micropip
+CDN Pyodide: https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js
+CDN PDF.js:  https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+             worker: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js
+
+MERGE:    PdfWriter.append(BytesIO) x N archivos -> merged.pdf
+COMPRESS: compress_identical_objects + img.replace(quality=N) -> compressed.pdf
+SPLIT:    writer.add_page por rango -> split.pdf
+PDF->JPG: PDF.js page.render -> canvas -> toDataURL jpeg -> page-N.jpg
+JPG->PDF: Pillow Image.save(format='PDF') -> filename.pdf
+ROTATE:   page.rotate(90|180|270) scope all/range -> rotated.pdf
+PROTECT:  writer.clone_reader_document_root(reader) + writer.encrypt(user_password, use_128bit=True) -> protected.pdf
+          UI: dos campos (password + confirm), validacion coincidencia, toggle visibilidad en cada campo
+UNLOCK:   reader.decrypt(pw) casos: ok/wrong_password/not_encrypted -> unlocked.pdf
+
+EDIT PDF (v6.3 — PDF.js + canvas + custom PDF builder):
+  Stack: PDF.js 3.11.174 (render) + canvas API (anotaciones) + builder PDF manual
+  NO usa Pyodide — 100% JavaScript nativo
+  Modos: select, text, draw, highlight, image, firma
+  Descarga: buildPDFFromJpegs — renderiza paginas 2x, ensambla PDF 1.4 manual
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CHECKLIST NUEVA HERRAMIENTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Carpeta nueva: /nombre-tool/index.html
+2. Head: charset, viewport, CSP, X-Frame, X-Content-Type, title, description,
+         keywords, canonical, og:tags, robots, fonts, script CDN, JSON-LD WebApplication
+3. body: blobs, header nav (9 tools + CTA), main, footer
+4. script: 'use strict', esc(), fmt(), handleFile(), proceso, resetAll()
+5. Despues: nav+footer TODAS las tools + hub + sitemap.xml
+
+SEO titulo:  [Tool] Free Online — No Upload, 100% Private | NoServerTools
+Canonical:   https://noservertools.com/[tool-name]/
+JSON-LD:     WebApplication, price 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DNS Y DOMINIO (referencia)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Namecheap Advanced DNS:
+  A Record  @    185.199.108.153  Automatic
+  A Record  @    185.199.109.153  Automatic
+  A Record  @    185.199.110.153  Automatic
+  A Record  @    185.199.111.153  Automatic
+  CNAME     www  fio42.github.io  Automatic
+GitHub Pages Custom Domain: noservertools.com | Enforce HTTPS: activado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEO Y COPYWRITING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Badge verde: "No upload · 100% local"
+Why (4 puntos en todas las tools):
+  Zero uploads | Zero storage | Zero tracking | Works offline
+Keywords diferenciadores: "pdf tools without uploading" "private pdf browser"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HISTORIAL COMPLETO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+v1-v5.2:  Merge, Compress, Split, HUB inicial
+v5.3:     REBRAND a NoServerTools + dark mode global
+v5.4:     Dark mode todas las tools + PDF to JPG inicial
+v5.4.1:   Fix: base href para GitHub Pages subpath
+v5.5:     PDF<->JPG con PDF.js + JPG to PDF con Pillow
+v5.6:     HUB revamp, PDF<->JPG combinado, hardening seguridad
+v5.7:     Translate PDF v1: MyMemory API, 5 idiomas
+v5.8:     Fix descarga PDF en translate: jsPDF real, fallback .txt
+v5.9:     Translate PDF visual: PDF.js JPEG + coordenadas + knockout overlay
+v6.0:     translate-pdf ELIMINADA. rotate-pdf nueva. Tagline actualizado.
+          SEO strategy, arquitectura y copywriting documentados.
+v6.1:     protect-pdf nueva (encrypt use_128bit). unlock-pdf nueva (decrypt).
+          HUB actualizado 8 live. Nav/footer todas las tools.
+v6.2:     Dominio noservertools.com conectado (Namecheap + GitHub Pages).
+          base href="/noservertools/" ELIMINADO de todos los HTML.
+          Hrefs actualizados de /noservertools/X/ a /X/.
+v6.3:     edit-pdf NUEVA — editor PDF completo en browser.
+          Nav y footer de TODAS las tools actualizados a 9 tools.
+          HUB: edit-pdf card live, contador 9 live 4 coming.
+          sitemap.xml: 9 URLs.
+          protect-pdf: canonical corregido (apuntaba a unlock).
+v6.4:     protect-pdf RECONSTRUIDO desde cero:
+            Dos campos de password (nueva + confirmar) con validacion de coincidencia.
+            Toggle visibilidad independiente en cada campo.
+            Nav 9 tools en orden correcto con Estilo B (.nav-link).
+            Footer 9 tools completo con fl.on en Protect PDF.
+v6.5:     unlock-pdf: canonical corregido (apuntaba a /protect-pdf/).
+            Footer corregido: tenia "Unlock PDF" duplicado, ahora una sola entrada con fl.on.
+          rotate-pdf: nav corregido — agregado .nav-inner con max-width:720px y margin:0 auto.
+            Antes el nav se extendia de borde a borde, ahora queda centrado igual que el resto.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROXIMOS PASOS — ORDEN RECOMENDADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. watermark-pdf (siguiente tool — PRIORIDAD 1):
+   Pyodide + pypdf, texto diagonal en todas las paginas, selector opacidad/color
+
+2. delete-pages (PRIORIDAD 2):
+   Pyodide + pypdf, input rango "1,3,5-8", writer.add_page solo paginas NO en rango
+
+3. pdf-to-text (PRIORIDAD 3):
+   Pyodide + pypdf, page.extract_text() por pagina, descarga .txt
+
+4. view-pdf-metadata + remove-pdf-metadata (par privacidad — PRIORIDAD 4-5):
+   view: reader.metadata -> tabla HTML
+   remove: writer.add_metadata({}) -> PDF limpio sin metadatos
+
+5. Google Search Console — si no se hizo aun:
+   https://search.google.com/search-console
+   Agregar propiedad noservertools.com, verificar via DNS TXT en Namecheap,
+   subir sitemap https://noservertools.com/sitemap.xml
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA EL PROXIMO AI — LEER ESTO PRIMERO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  Proyecto: NoServerTools. GitHub Pages. noservertools.com. CERO servidores.
+2.  Fondo: #0e1117. Fuentes: Syne(.fd) Outfit DM-Mono(.fm). Brand: #5a87ff/#3363f5/#1f45e0
+3.  Cada tool = su propia carpeta. Sin <base href>. Sin /noservertools/ en hrefs.
+4.  9 tools activas: merge, compress, split, pdf-to-jpg, rotate, protect, unlock, edit
+5.  Nav orden: Merge|Compress|Split|PDF JPG|Rotate|Protect|Unlock|Edit PDF|[All tools CTA]
+6.  3 estilos de nav (ver seccion PATRON NAV). Respetar el estilo de cada archivo.
+7.  rotate-pdf usa rutas ../ relativas Y tiene .nav-inner para centrar. Ver CSS en PATRON NAV.
+8.  Pyodide v0.25.0 + pypdf para: merge,compress,split,rotate,protect,unlock
+    PDF.js 3.11.174 para: pdf-to-jpg, edit-pdf
+    edit-pdf NO usa Pyodide — JavaScript puro + canvas + PDF builder manual
+9.  translate-pdf ELIMINADA v6.0. No recrear.
+10. Al agregar tool nueva: nav+footer TODAS las 9 tools + hub + sitemap.xml
+11. CSP + X-Frame + X-Content-Type + 'use strict' + esc() en todo HTML nuevo.
+12. NUNCA estadisticas inventadas. NUNCA reviews falsos.
+13. Usuario principiante. Pasos exactos al final. Git commands listos para copiar.
+14. LOG completo al final de cada sesion como .txt descargable.
+15. Leer HTML completo antes de modificar. str_replace quirurgico.
+16. Pyodide carga LAZY con spinner "Loading engine (first time: 10-20 seconds)".
+17. Boton descarga: bg #4ade80 texto #0e1117.
+18. Canonical URLs: https://noservertools.com/[tool]/ (sin /noservertools/)
+19. SIEMPRE dar LOG actualizado + git commands completos al final de cada sesion.
+
+════════════════════════════════════════════════════════════════
+FIN DEL LOG MAESTRO v6.5 — NoServerTools
+════════════════════════════════════════════════════════════════
