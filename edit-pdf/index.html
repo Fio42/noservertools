@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; font-src https://fonts.gstatic.com; worker-src blob:; frame-ancestors 'none'">
+  <title>Edit PDF Online Free — Add Text, Images, Signature | NoServerTools</title>
+  <meta name="description" content="Edit PDF files online for free. Add text, images, draw, highlight and sign PDFs directly in your browser. No upload, no server, 100% private.">
+  <meta name="keywords" content="edit pdf online free, add text to pdf, sign pdf online free, draw on pdf, pdf editor no upload, annotate pdf browser">
+  <link rel="canonical" href="https://noservertools.com/edit-pdf/">
+  <meta property="og:title" content="Edit PDF Online Free — No Upload | NoServerTools">
+  <meta property="og:description" content="Add text, images, signatures and drawings to any PDF. 100% in your browser. No upload, no server.">
+  <meta property="og:url" content="https://noservertools.com/edit-pdf/">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Edit PDF","url":"https://noservertools.com/edit-pdf/","description":"Edit PDF files locally in your browser. Add text, images, signatures. No upload, no server.","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0e1117;--brand:#5a87ff;--brand-dark:#1f45e0;--brand-mid:#3363f5;
+      --green:#4ade80;--red:#f87171;--yellow:#fbbf24;
+      --text:#e8eaf0;--muted:rgba(255,255,255,.45);--dim:rgba(255,255,255,.22);
+      --surface:rgba(255,255,255,.032);--border:rgba(255,255,255,.08);
+    }
+    body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(83,99,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(83,99,255,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+    .blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+    .blob-a{width:600px;height:600px;background:radial-gradient(circle,rgba(55,80,255,.10),transparent 65%);top:-150px;left:-120px}
+    .blob-b{width:500px;height:500px;background:radial-gradient(circle,rgba(120,60,255,.08),transparent 65%);top:250px;right:-120px}
+    .fd{font-family:'Syne',sans-serif} .fm{font-family:'DM Mono',monospace}
+    /* NAV */
+    header{position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border);backdrop-filter:blur(14px);background:rgba(14,17,23,.8)}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+    .logo-box{width:28px;height:28px;border-radius:8px;background:var(--brand-dark);display:flex;align-items:center;justify-content:center}
+    .nav-links{display:flex;align-items:center;gap:2px;overflow-x:auto}
+    .nav-link{padding:6px 12px;border-radius:8px;font-size:13px;color:var(--muted);transition:color .15s,background .15s;text-decoration:none;white-space:nowrap}
+    .nav-link:hover{color:var(--text);background:rgba(255,255,255,.06)}
+    .nav-link.on{color:var(--brand);background:rgba(90,135,255,.12);font-weight:600}
+    .nav-cta{padding:6px 16px;border-radius:9px;font-size:13px;background:var(--brand-dark);color:#fff;font-weight:600;transition:background .15s;text-decoration:none;white-space:nowrap}
+    .nav-cta:hover{background:var(--brand-mid)}
+    /* LAYOUT */
+    #appWrap{display:none;height:calc(100vh - 54px);flex-direction:column}
+    #dropScreen{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:48px 20px 80px;width:100%}
+    /* DROP */
+    .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(83,99,255,.12);border:1px solid rgba(83,99,255,.25);border-radius:999px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;color:#8aaeff;text-transform:uppercase}
+    .drop-zone{border:2px dashed rgba(83,99,255,.3);border-radius:16px;background:rgba(83,99,255,.04);transition:all .2s;padding:48px 24px;text-align:center;cursor:pointer;margin-bottom:20px}
+    .drop-zone:hover,.drop-zone.on{border-color:var(--brand);background:rgba(83,99,255,.09)}
+    /* TOOLBAR */
+    #toolbar{background:rgba(14,17,23,.95);border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex-shrink:0;z-index:100}
+    .tool-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;transition:all .18s;white-space:nowrap}
+    .tool-btn:hover{border-color:var(--brand);color:var(--text);background:rgba(90,135,255,.08)}
+    .tool-btn.active{border-color:var(--brand);color:var(--brand);background:rgba(90,135,255,.12)}
+    .tool-btn svg{width:15px;height:15px;flex-shrink:0}
+    .tool-sep{width:1px;height:24px;background:var(--border);margin:0 4px;flex-shrink:0}
+    #colorPicker{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);cursor:pointer;padding:2px;background:var(--surface)}
+    #fontSize{width:52px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;padding:5px 6px;font-family:'DM Mono',monospace}
+    #brushSize{width:60px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;padding:5px 6px;font-family:'DM Mono',monospace}
+    #pageNav{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+    #pageNav button{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .18s}
+    #pageNav button:hover{border-color:var(--brand);color:var(--text)}
+    #pageLabel{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap}
+    /* EDITOR */
+    #editorArea{flex:1;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:24px;background:rgba(0,0,0,.2)}
+    #pageContainer{position:relative;box-shadow:0 8px 40px rgba(0,0,0,.5);border-radius:4px;overflow:hidden;flex-shrink:0}
+    #pdfCanvas{display:block}
+    #annotationCanvas{position:absolute;top:0;left:0;cursor:crosshair;touch-action:none}
+    /* text inputs on canvas */
+    .text-input-overlay{position:absolute;background:transparent;border:1.5px dashed rgba(90,135,255,.6);outline:none;font-family:'Outfit',sans-serif;color:#000;resize:none;min-width:60px;min-height:24px;padding:2px 4px;z-index:50;border-radius:3px;overflow:hidden}
+    .text-input-overlay:focus{border-color:var(--brand);background:rgba(255,255,255,.08)}
+    /* image overlay */
+    .img-overlay{position:absolute;cursor:move;border:1.5px dashed rgba(90,135,255,.6);z-index:50}
+    .img-overlay img{display:block;width:100%;height:100%}
+    .img-overlay .resize-handle{position:absolute;bottom:-5px;right:-5px;width:10px;height:10px;background:var(--brand);border-radius:2px;cursor:se-resize}
+    .img-overlay .del-btn{position:absolute;top:-10px;right:-10px;width:18px;height:18px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:#fff;border:none;line-height:1}
+    /* sig canvas */
+    #sigModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center}
+    #sigModal.open{display:flex}
+    #sigBox{background:#1a1d27;border:1px solid var(--border);border-radius:16px;padding:24px;width:min(500px,95vw)}
+    #sigCanvas{background:#fff;border-radius:8px;width:100%;height:180px;cursor:crosshair;display:block;touch-action:none}
+    /* bottom bar */
+    #bottomBar{background:rgba(14,17,23,.95);border-top:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .btn-dl{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;background:var(--green);color:#0e1117;border-radius:10px;font-weight:700;font-size:14px;border:none;cursor:pointer;transition:opacity .2s}
+    .btn-dl:hover{opacity:.85}
+    .btn-dl:disabled{opacity:.4;cursor:not-allowed}
+    .btn-ghost2{padding:8px 16px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+    .btn-ghost2:hover{color:var(--text);border-color:var(--dim)}
+    #statusMsg{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);margin-left:auto}
+    /* steps/why sections */
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+    @media(max-width:600px){.info-grid{grid-template-columns:1fr}}
+    .info-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:500px){.why-grid{grid-template-columns:1fr}}
+    /* footer */
+    .fl{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
+    .fl:hover{color:var(--brand)} .fl.on{color:var(--brand);font-weight:600}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .4s ease both} .fu2{animation:fadeUp .4s .07s ease both} .fu3{animation:fadeUp .4s .14s ease both}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+  </style>
+</head>
+<body>
+<div class="blob blob-a"></div>
+<div class="blob blob-b"></div>
+
+<!-- NAV -->
+<header>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".3"/></svg></div>
+      <span class="fd" style="font-weight:800;font-size:15px;color:#fff">NoServer<span style="color:var(--brand)">Tools</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="/merge-pdf/" class="nav-link">Merge</a>
+      <a href="/compress-pdf/" class="nav-link">Compress</a>
+      <a href="/split-pdf/" class="nav-link">Split</a>
+      <a href="/pdf-to-jpg/" class="nav-link">JPG</a>
+      <a href="/rotate-pdf/" class="nav-link">Rotate</a>
+      <a href="/protect-pdf/" class="nav-link">Protect</a>
+      <a href="/unlock-pdf/" class="nav-link">Unlock</a>
+      <a href="/edit-pdf/" class="nav-link on">Edit PDF</a>
+      <a href="/" class="nav-cta" style="margin-left:6px">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<!-- DROP SCREEN -->
+<div id="dropScreen">
+  <div style="text-align:center;margin-bottom:36px">
+    <div class="fu" style="margin-bottom:14px">
+      <span class="badge"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span>No upload · 100% local</span>
+    </div>
+    <h1 class="fd fu2" style="font-size:clamp(28px,5vw,42px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:14px">
+      Edit PDF <span style="background:linear-gradient(105deg,#7aa3ff,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Online Free</span>
+    </h1>
+    <p class="fu3" style="color:var(--muted);font-size:15px;line-height:1.6;max-width:460px;margin:0 auto">
+      Add text, images, signatures and freehand drawings to any PDF. Everything runs in your browser — nothing is uploaded.
+    </p>
+  </div>
+
+  <div id="errorBox" style="display:none;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:13px 18px;color:var(--red);font-size:14px;margin-bottom:16px"></div>
+
+  <div class="drop-zone" id="dropZone"
+    onclick="document.getElementById('fileInput').click()"
+    ondragover="event.preventDefault();this.classList.add('on')"
+    ondragleave="this.classList.remove('on')"
+    ondrop="event.preventDefault();this.classList.remove('on');handleFile(event.dataTransfer.files[0])">
+    <div style="font-size:40px;margin-bottom:12px">✏️</div>
+    <p style="color:rgba(255,255,255,.7);font-weight:500;margin-bottom:4px">Drop your PDF here or <span style="color:var(--brand)">browse</span></p>
+    <p style="color:var(--muted);font-size:13px">Single PDF · Max 100 MB · Processed 100% locally</p>
+    <input type="file" id="fileInput" accept=".pdf,application/pdf" style="display:none" onchange="handleFile(this.files[0])">
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="fm" style="font-size:10px;color:var(--brand);margin-bottom:8px">TEXT</div>
+      <h4 style="font-size:14px;font-weight:600;margin-bottom:4px">Add text</h4>
+      <p style="font-size:12.5px;color:var(--muted);line-height:1.5">Click anywhere to type. Choose font size and color.</p>
+    </div>
+    <div class="info-card">
+      <div class="fm" style="font-size:10px;color:var(--brand);margin-bottom:8px">DRAW</div>
+      <h4 style="font-size:14px;font-weight:600;margin-bottom:4px">Draw freely</h4>
+      <p style="font-size:12.5px;color:var(--muted);line-height:1.5">Freehand drawing and highlight tool.</p>
+    </div>
+    <div class="info-card">
+      <div class="fm" style="font-size:10px;color:var(--brand);margin-bottom:8px">SIGN</div>
+      <h4 style="font-size:14px;font-weight:600;margin-bottom:4px">Sign PDF</h4>
+      <p style="font-size:12.5px;color:var(--muted);line-height:1.5">Draw your signature and place it anywhere.</p>
+    </div>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px">
+    <h2 class="fd" style="font-size:17px;font-weight:700;margin-bottom:16px">Why NoServerTools?</h2>
+    <div class="why-grid">
+      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🛡️</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px">Zero uploads</h4><p style="font-size:12.5px;color:var(--muted)">We never receive your files.</p></div></div>
+      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🗑️</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px">Zero storage</h4><p style="font-size:12.5px;color:var(--muted)">Nothing saved anywhere.</p></div></div>
+      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">🚫</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px">Zero tracking</h4><p style="font-size:12.5px;color:var(--muted)">We don't know what you edit.</p></div></div>
+      <div style="display:flex;gap:11px"><div style="width:30px;height:30px;background:rgba(83,99,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px">📡</div><div><h4 style="font-size:13.5px;font-weight:600;margin-bottom:2px">Works offline</h4><p style="font-size:12.5px;color:var(--muted)">Once loaded, no internet needed.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDITOR APP (hidden until file loaded) -->
+<div id="appWrap">
+  <!-- TOOLBAR -->
+  <div id="toolbar">
+    <!-- Mode buttons -->
+    <button class="tool-btn active" id="btnSelect" onclick="setMode('select')" title="Select / Move">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-7 1-3 7z"/></svg>Select
+    </button>
+    <button class="tool-btn" id="btnText" onclick="setMode('text')" title="Add Text">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>Text
+    </button>
+    <button class="tool-btn" id="btnDraw" onclick="setMode('draw')" title="Freehand Draw">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Draw
+    </button>
+    <button class="tool-btn" id="btnHighlight" onclick="setMode('highlight')" title="Highlight">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="8" rx="2"/><line x1="7" y1="8" x2="7" y2="16"/></svg>Highlight
+    </button>
+    <button class="tool-btn" id="btnImage" onclick="triggerImageUpload()" title="Add Image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>Image
+    </button>
+    <button class="tool-btn" id="btnSign" onclick="openSigModal()" title="Signature">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17c3-3 5-7 7-7s2 4 4 4 3-2 4-2"/><line x1="3" y1="21" x2="21" y2="21"/></svg>Sign
+    </button>
+
+    <div class="tool-sep"></div>
+
+    <!-- Color -->
+    <label style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace">Color</label>
+    <input type="color" id="colorPicker" value="#000000" title="Color">
+
+    <!-- Font size -->
+    <label style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace">Size</label>
+    <input type="number" id="fontSize" value="16" min="6" max="120" title="Font / Brush size">
+
+    <!-- Brush size for draw -->
+    <div id="brushWrap" style="display:none;align-items:center;gap:6px">
+      <label style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace">Brush</label>
+      <input type="number" id="brushSize" value="3" min="1" max="40" title="Brush width">
+    </div>
+
+    <div class="tool-sep"></div>
+
+    <button class="tool-btn" onclick="undoLast()" title="Undo last annotation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,14 4,9 9,4"/><path d="M20 20v-7a4 4 0 00-4-4H4"/></svg>Undo
+    </button>
+    <button class="tool-btn" onclick="clearPage()" title="Clear all annotations on this page" style="color:rgba(248,113,113,.7)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14H6L5 6"/></svg>Clear
+    </button>
+
+    <div id="pageNav">
+      <button onclick="changePage(-1)" id="btnPrev">&#8592;</button>
+      <span id="pageLabel" class="fm">1 / 1</span>
+      <button onclick="changePage(1)" id="btnNext">&#8594;</button>
+    </div>
+  </div>
+
+  <!-- EDITOR CANVAS AREA -->
+  <div id="editorArea">
+    <div id="pageContainer">
+      <canvas id="pdfCanvas"></canvas>
+      <canvas id="annotationCanvas"
+        onmousedown="onCanvasDown(event)" onmousemove="onCanvasMove(event)" onmouseup="onCanvasUp(event)"
+        ontouchstart="onTouchStart(event)" ontouchmove="onTouchMove(event)" ontouchend="onTouchEnd(event)">
+      </canvas>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div id="bottomBar">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div id="fileChipName" class="fm" style="font-size:12px;color:var(--muted)"></div>
+    </div>
+    <button class="btn-ghost2" onclick="resetAll()">Change file</button>
+    <button class="btn-dl" id="btnDownload" onclick="downloadPDF()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Edited PDF
+    </button>
+    <span id="statusMsg"></span>
+  </div>
+</div>
+
+<!-- SIGNATURE MODAL -->
+<div id="sigModal">
+  <div id="sigBox">
+    <h3 class="fd" style="font-size:17px;font-weight:700;color:#fff;margin-bottom:6px">Draw your signature</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Sign with your mouse or finger, then click Place.</p>
+    <canvas id="sigCanvas"></canvas>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button onclick="clearSig()" style="padding:8px 18px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px">Clear</button>
+      <button onclick="closeSigModal()" style="padding:8px 18px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px">Cancel</button>
+      <button onclick="placeSig()" style="padding:8px 22px;background:var(--brand-dark);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;margin-left:auto">Place Signature</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="imgInput" accept="image/*" style="display:none" onchange="handleImageFile(this.files[0])">
+
+<!-- FOOTER (shown only on drop screen) -->
+<footer id="footerEl" style="border-top:1px solid var(--border);background:rgba(0,0,0,.3);position:relative;z-index:1">
+  <div style="max-width:1200px;margin:0 auto;padding:24px 20px;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:16px">
+    <div>
+      <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:4px">
+        <div style="width:20px;height:20px;border-radius:5px;background:var(--brand-dark);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".3"/></svg></div>
+        <span class="fd" style="font-size:13px;font-weight:700;color:#fff">NoServer<span style="color:var(--brand)">Tools</span></span>
+      </a>
+      <p class="fm" style="font-size:11px;color:var(--dim)">&copy; 2025 NoServerTools &nbsp;·&nbsp; Free forever</p>
+    </div>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px 16px">
+      <a href="/merge-pdf/" class="fl">Merge PDF</a>
+      <a href="/compress-pdf/" class="fl">Compress PDF</a>
+      <a href="/split-pdf/" class="fl">Split PDF</a>
+      <a href="/pdf-to-jpg/" class="fl">PDF ↔ JPG</a>
+      <a href="/rotate-pdf/" class="fl">Rotate PDF</a>
+      <a href="/protect-pdf/" class="fl">Protect PDF</a>
+      <a href="/unlock-pdf/" class="fl">Unlock PDF</a>
+      <a href="/edit-pdf/" class="fl on">Edit PDF</a>
+    </nav>
+  </div>
+  <div class="fm" style="text-align:center;padding:10px 20px;border-top:1px solid rgba(255,255,255,.04);font-size:10px;color:var(--dim);letter-spacing:.05em">
+    NO UPLOADS &nbsp;·&nbsp; NO ACCOUNTS &nbsp;·&nbsp; NO TRACKING &nbsp;·&nbsp; NO SERVERS
+  </div>
+</footer>
+
+<script>
+'use strict';
+// ─── STATE ────────────────────────────────────────────────────
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fmt = b => b>1048576?(b/1048576).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB';
+
+let pdfDoc = null, currentPage = 1, totalPages = 0;
+let mode = 'select';
+let isDrawing = false, drawPath = [];
+let annotations = {}; // { pageNum: [ {type, data} ] }
+let textInputs  = {}; // { pageNum: [ domElement ] }
+let imageOverlays = {}; // { pageNum: [ domElement ] }
+let currentFile = null;
+let pendingSigDataUrl = null;
+
+const pdfCanvas   = document.getElementById('pdfCanvas');
+const annCanvas   = document.getElementById('annotationCanvas');
+const pdfCtx      = pdfCanvas.getContext('2d');
+const annCtx      = annCanvas.getContext('2d');
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+// ─── FILE HANDLING ────────────────────────────────────────────
+function showError(msg){const b=document.getElementById('errorBox');b.textContent=msg;b.style.display='block';setTimeout(()=>b.style.display='none',6000)}
+function setStatus(msg){document.getElementById('statusMsg').textContent=msg}
+
+function handleFile(f){
+  if(!f)return;
+  if(f.type!=='application/pdf'&&!f.name.endsWith('.pdf')){showError('Please select a valid PDF file.');return}
+  if(f.size>100*1024*1024){showError('File too large. Max 100 MB.');return}
+  currentFile=f;
+  document.getElementById('fileChipName').textContent=esc(f.name)+' · '+fmt(f.size);
+  loadPDF(f);
+}
+
+async function loadPDF(f){
+  setStatus('Loading PDF...');
+  try{
+    const ab = await f.arrayBuffer();
+    pdfDoc = await pdfjsLib.getDocument({data:ab}).promise;
+    totalPages = pdfDoc.numPages;
+    currentPage = 1;
+    annotations = {}; textInputs = {}; imageOverlays = {};
+    document.getElementById('dropScreen').style.display='none';
+    document.getElementById('footerEl').style.display='none';
+    document.getElementById('appWrap').style.display='flex';
+    await renderPage(currentPage);
+    setStatus('Ready');
+  }catch(e){showError('Could not load PDF: '+e.message)}
+}
+
+// ─── RENDER ───────────────────────────────────────────────────
+async function renderPage(num){
+  setStatus('Rendering page '+num+'...');
+  // Hide text/image overlays for other pages, show for current
+  Object.keys(textInputs).forEach(p=>{
+    textInputs[p].forEach(el=>el.style.display=parseInt(p)===num?'block':'none');
+  });
+  Object.keys(imageOverlays).forEach(p=>{
+    imageOverlays[p].forEach(el=>el.style.display=parseInt(p)===num?'block':'none');
+  });
+
+  const page = await pdfDoc.getPage(num);
+  const scale = Math.min(window.innerWidth*0.85/page.getViewport({scale:1}).width, 1.6);
+  const vp = page.getViewport({scale});
+  pdfCanvas.width = vp.width; pdfCanvas.height = vp.height;
+  annCanvas.width = vp.width; annCanvas.height = vp.height;
+  annCanvas.style.width  = vp.width+'px';
+  annCanvas.style.height = vp.height+'px';
+  await page.render({canvasContext:pdfCtx,viewport:vp}).promise;
+  redrawAnnotations(num);
+  updatePageLabel();
+  setStatus('');
+}
+
+function redrawAnnotations(num){
+  annCtx.clearRect(0,0,annCanvas.width,annCanvas.height);
+  const anns = annotations[num]||[];
+  anns.forEach(a=>{
+    if(a.type==='draw') replayDraw(a.data);
+    if(a.type==='highlight') replayHighlight(a.data);
+  });
+}
+
+function replayDraw(d){
+  if(!d.path||d.path.length<2)return;
+  annCtx.save();
+  annCtx.strokeStyle=d.color; annCtx.lineWidth=d.width;
+  annCtx.lineCap='round'; annCtx.lineJoin='round';
+  annCtx.beginPath();
+  annCtx.moveTo(d.path[0].x,d.path[0].y);
+  d.path.forEach(p=>annCtx.lineTo(p.x,p.y));
+  annCtx.stroke(); annCtx.restore();
+}
+
+function replayHighlight(d){
+  if(!d.path||d.path.length<2)return;
+  annCtx.save();
+  annCtx.globalAlpha=0.35;
+  annCtx.strokeStyle=d.color||'#fbbf24'; annCtx.lineWidth=d.width||18;
+  annCtx.lineCap='square'; annCtx.lineJoin='round';
+  annCtx.beginPath();
+  annCtx.moveTo(d.path[0].x,d.path[0].y);
+  d.path.forEach(p=>annCtx.lineTo(p.x,p.y));
+  annCtx.stroke(); annCtx.restore();
+}
+
+// ─── PAGE NAV ─────────────────────────────────────────────────
+function updatePageLabel(){
+  document.getElementById('pageLabel').textContent=currentPage+' / '+totalPages;
+  document.getElementById('btnPrev').disabled=currentPage<=1;
+  document.getElementById('btnNext').disabled=currentPage>=totalPages;
+}
+async function changePage(d){
+  const np=currentPage+d;
+  if(np<1||np>totalPages)return;
+  currentPage=np;
+  await renderPage(currentPage);
+}
+
+// ─── MODE ─────────────────────────────────────────────────────
+function setMode(m){
+  mode=m;
+  ['select','text','draw','highlight','image','sign'].forEach(id=>{
+    const btn=document.getElementById('btn'+id.charAt(0).toUpperCase()+id.slice(1));
+    if(btn) btn.classList.toggle('active',id===m);
+  });
+  annCanvas.style.cursor = m==='select'?'default': m==='text'?'text':'crosshair';
+  document.getElementById('brushWrap').style.display=(m==='draw'||m==='highlight')?'flex':'none';
+}
+
+// ─── CANVAS EVENTS ────────────────────────────────────────────
+function getPos(e){
+  const r=annCanvas.getBoundingClientRect();
+  const scaleX=annCanvas.width/r.width, scaleY=annCanvas.height/r.height;
+  return {x:(e.clientX-r.left)*scaleX, y:(e.clientY-r.top)*scaleY};
+}
+function getTouchPos(e){
+  e.preventDefault();
+  const t=e.touches[0];
+  return getPos(t);
+}
+
+function onCanvasDown(e){
+  const pos=getPos(e);
+  if(mode==='text'){addTextInput(pos);return}
+  if(mode==='draw'||mode==='highlight'){
+    isDrawing=true; drawPath=[pos];
+    annCtx.beginPath(); annCtx.moveTo(pos.x,pos.y);
+  }
+}
+function onCanvasMove(e){
+  if(!isDrawing)return;
+  const pos=getPos(e);
+  drawPath.push(pos);
+  annCtx.save();
+  if(mode==='highlight'){annCtx.globalAlpha=0.35;annCtx.lineWidth=parseInt(document.getElementById('fontSize').value)||18;annCtx.strokeStyle=document.getElementById('colorPicker').value||'#fbbf24';}
+  else{annCtx.globalAlpha=1;annCtx.lineWidth=parseInt(document.getElementById('fontSize').value)||3;annCtx.strokeStyle=document.getElementById('colorPicker').value||'#000';}
+  annCtx.lineCap='round'; annCtx.lineJoin='round';
+  annCtx.lineTo(pos.x,pos.y); annCtx.stroke(); annCtx.restore();
+}
+function onCanvasUp(){
+  if(!isDrawing)return;
+  isDrawing=false;
+  if(drawPath.length>1){
+    if(!annotations[currentPage]) annotations[currentPage]=[];
+    const color=document.getElementById('colorPicker').value;
+    const width=parseInt(document.getElementById('fontSize').value)||(mode==='highlight'?18:3);
+    annotations[currentPage].push({type:mode,data:{path:[...drawPath],color,width}});
+  }
+  drawPath=[];
+}
+function onTouchStart(e){onCanvasDown(e.touches[0]);e.preventDefault()}
+function onTouchMove(e){onCanvasMove(e.touches[0]);e.preventDefault()}
+function onTouchEnd(){onCanvasUp()}
+
+// ─── TEXT INPUT ───────────────────────────────────────────────
+function addTextInput(pos){
+  const container=document.getElementById('pageContainer');
+  const scaleX=annCanvas.offsetWidth/annCanvas.width;
+  const scaleY=annCanvas.offsetHeight/annCanvas.height;
+  const inp=document.createElement('textarea');
+  inp.className='text-input-overlay';
+  inp.style.left=(pos.x*scaleX)+'px';
+  inp.style.top=(pos.y*scaleY)+'px';
+  inp.style.fontSize=document.getElementById('fontSize').value+'px';
+  inp.style.color=document.getElementById('colorPicker').value;
+  inp.rows=1;
+  inp.setAttribute('data-page', currentPage);
+  inp.addEventListener('input',()=>{inp.style.height='auto';inp.style.height=inp.scrollHeight+'px'});
+  inp.addEventListener('keydown',e=>{if(e.key==='Escape'){inp.blur()}});
+  container.appendChild(inp);
+  inp.focus();
+  if(!textInputs[currentPage]) textInputs[currentPage]=[];
+  textInputs[currentPage].push(inp);
+}
+
+// ─── IMAGE ────────────────────────────────────────────────────
+function triggerImageUpload(){document.getElementById('imgInput').click()}
+function handleImageFile(f){
+  if(!f)return;
+  const reader=new FileReader();
+  reader.onload=e=>placeImage(e.target.result);
+  reader.readAsDataURL(f);
+  document.getElementById('imgInput').value='';
+}
+function placeImage(src){
+  const container=document.getElementById('pageContainer');
+  const wrap=document.createElement('div');
+  wrap.className='img-overlay';
+  wrap.style.left='60px'; wrap.style.top='60px';
+  wrap.style.width='160px'; wrap.style.height='120px';
+  wrap.setAttribute('data-page',currentPage);
+
+  const img=document.createElement('img');
+  img.src=src; img.draggable=false;
+  wrap.appendChild(img);
+
+  const delBtn=document.createElement('button');
+  delBtn.className='del-btn'; delBtn.textContent='×';
+  delBtn.onclick=()=>{wrap.remove();if(imageOverlays[currentPage])imageOverlays[currentPage]=imageOverlays[currentPage].filter(x=>x!==wrap)};
+  wrap.appendChild(delBtn);
+
+  const rh=document.createElement('div');
+  rh.className='resize-handle';
+  wrap.appendChild(rh);
+
+  makeDraggable(wrap);
+  makeResizable(wrap,rh);
+  container.appendChild(wrap);
+  if(!imageOverlays[currentPage]) imageOverlays[currentPage]=[];
+  imageOverlays[currentPage].push(wrap);
+}
+
+function makeDraggable(el){
+  let ox,oy,sx,sy;
+  el.addEventListener('mousedown',e=>{
+    if(e.target.classList.contains('resize-handle')||e.target.classList.contains('del-btn'))return;
+    e.preventDefault();
+    ox=parseInt(el.style.left)||0; oy=parseInt(el.style.top)||0;
+    sx=e.clientX; sy=e.clientY;
+    const mm=ev=>{el.style.left=(ox+ev.clientX-sx)+'px';el.style.top=(oy+ev.clientY-sy)+'px'};
+    const mu=()=>{document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu)};
+    document.addEventListener('mousemove',mm);
+    document.addEventListener('mouseup',mu);
+  });
+}
+function makeResizable(el,handle){
+  handle.addEventListener('mousedown',e=>{
+    e.preventDefault(); e.stopPropagation();
+    const sw=parseInt(el.style.width)||160, sh=parseInt(el.style.height)||120;
+    const sx=e.clientX, sy=e.clientY;
+    const mm=ev=>{el.style.width=Math.max(40,sw+ev.clientX-sx)+'px';el.style.height=Math.max(30,sh+ev.clientY-sy)+'px'};
+    const mu=()=>{document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu)};
+    document.addEventListener('mousemove',mm);
+    document.addEventListener('mouseup',mu);
+  });
+}
+
+// ─── SIGNATURE ────────────────────────────────────────────────
+let sigDrawing=false, sigCtx=null;
+function openSigModal(){
+  const modal=document.getElementById('sigModal');
+  modal.classList.add('open');
+  const sc=document.getElementById('sigCanvas');
+  sc.width=sc.offsetWidth||460; sc.height=180;
+  sigCtx=sc.getContext('2d');
+  sigCtx.fillStyle='#fff'; sigCtx.fillRect(0,0,sc.width,sc.height);
+  sigCtx.strokeStyle='#1f45e0'; sigCtx.lineWidth=2.5; sigCtx.lineCap='round';
+  sc.addEventListener('mousedown',sigDown); sc.addEventListener('mousemove',sigMove);
+  sc.addEventListener('mouseup',sigUp); sc.addEventListener('mouseleave',sigUp);
+  sc.addEventListener('touchstart',e=>{e.preventDefault();sigDown(e.touches[0])},{passive:false});
+  sc.addEventListener('touchmove',e=>{e.preventDefault();sigMove(e.touches[0])},{passive:false});
+  sc.addEventListener('touchend',sigUp);
+}
+function sigDown(e){sigDrawing=true;const r=document.getElementById('sigCanvas').getBoundingClientRect();sigCtx.beginPath();sigCtx.moveTo(e.clientX-r.left,e.clientY-r.top)}
+function sigMove(e){if(!sigDrawing)return;const r=document.getElementById('sigCanvas').getBoundingClientRect();sigCtx.lineTo(e.clientX-r.left,e.clientY-r.top);sigCtx.stroke()}
+function sigUp(){sigDrawing=false}
+function clearSig(){const sc=document.getElementById('sigCanvas');sigCtx.fillStyle='#fff';sigCtx.fillRect(0,0,sc.width,sc.height)}
+function closeSigModal(){document.getElementById('sigModal').classList.remove('open')}
+function placeSig(){
+  const sc=document.getElementById('sigCanvas');
+  const url=sc.toDataURL('image/png');
+  closeSigModal();
+  placeImage(url);
+}
+
+// ─── UNDO / CLEAR ─────────────────────────────────────────────
+function undoLast(){
+  const anns=annotations[currentPage];
+  if(anns&&anns.length){anns.pop();redrawAnnotations(currentPage)}
+  else{
+    // undo last text input
+    const txts=textInputs[currentPage];
+    if(txts&&txts.length){txts[txts.length-1].remove();txts.pop()}
+    // undo last image
+    const imgs=imageOverlays[currentPage];
+    if(imgs&&imgs.length){imgs[imgs.length-1].remove();imgs.pop()}
+  }
+}
+function clearPage(){
+  annotations[currentPage]=[];
+  redrawAnnotations(currentPage);
+  (textInputs[currentPage]||[]).forEach(el=>el.remove());
+  textInputs[currentPage]=[];
+  (imageOverlays[currentPage]||[]).forEach(el=>el.remove());
+  imageOverlays[currentPage]=[];
+}
+
+// ─── DOWNLOAD ─────────────────────────────────────────────────
+async function downloadPDF(){
+  const btn=document.getElementById('btnDownload');
+  btn.disabled=true; setStatus('Building PDF...');
+  try{
+    // We render each page to a full canvas (pdf + annotations + overlays)
+    // then encode as JPEG and assemble with a minimal PDF builder
+    const pages=[];
+    for(let n=1;n<=totalPages;n++){
+      const page=await pdfDoc.getPage(n);
+      const scale=2.0;
+      const vp=page.getViewport({scale});
+      const offC=document.createElement('canvas');
+      offC.width=vp.width; offC.height=vp.height;
+      const offCtx=offC.getContext('2d');
+      // Draw PDF page
+      await page.render({canvasContext:offCtx,viewport:vp}).promise;
+      // Draw saved annotations
+      const anns=annotations[n]||[];
+      anns.forEach(a=>{
+        if(a.type==='draw'){
+          offCtx.save();offCtx.strokeStyle=a.data.color;offCtx.lineWidth=a.data.width*scale;
+          offCtx.lineCap='round';offCtx.lineJoin='round';offCtx.beginPath();
+          offCtx.moveTo(a.data.path[0].x*scale,a.data.path[0].y*scale);
+          a.data.path.forEach(p=>offCtx.lineTo(p.x*scale,p.y*scale));
+          offCtx.stroke();offCtx.restore();
+        }
+        if(a.type==='highlight'){
+          offCtx.save();offCtx.globalAlpha=0.35;offCtx.strokeStyle=a.data.color||'#fbbf24';
+          offCtx.lineWidth=a.data.width*scale;offCtx.lineCap='square';offCtx.lineJoin='round';
+          offCtx.beginPath();offCtx.moveTo(a.data.path[0].x*scale,a.data.path[0].y*scale);
+          a.data.path.forEach(p=>offCtx.lineTo(p.x*scale,p.y*scale));
+          offCtx.stroke();offCtx.restore();
+        }
+      });
+      // Draw text inputs for this page
+      const txts=textInputs[n]||[];
+      for(const inp of txts){
+        if(!inp.value.trim())continue;
+        const dispW=annCanvas.offsetWidth; const dispH=annCanvas.offsetHeight;
+        const sx=vp.width/dispW; const sy=vp.height/dispH;
+        const x=parseFloat(inp.style.left)*sx;
+        const y=parseFloat(inp.style.top)*sy;
+        const fs=parseFloat(inp.style.fontSize||'16')*scale;
+        offCtx.save();
+        offCtx.font=`${fs}px Outfit,sans-serif`;
+        offCtx.fillStyle=inp.style.color||'#000';
+        const lines=inp.value.split('\n');
+        lines.forEach((line,i)=>offCtx.fillText(line,x,y+fs*(i+1)));
+        offCtx.restore();
+      }
+      // Draw image overlays for this page
+      const imgs=imageOverlays[n]||[];
+      for(const wrap of imgs){
+        const imgEl=wrap.querySelector('img');
+        if(!imgEl)continue;
+        const dispW=annCanvas.offsetWidth;
+        const sx=vp.width/dispW;
+        const x=parseFloat(wrap.style.left)*sx;
+        const y=parseFloat(wrap.style.top)*sx;
+        const w=parseFloat(wrap.style.width)*sx;
+        const h=parseFloat(wrap.style.height)*sx;
+        offCtx.drawImage(imgEl,x,y,w,h);
+      }
+      pages.push({dataUrl:offC.toDataURL('image/jpeg',0.92),w:vp.width,h:vp.height});
+    }
+    setStatus('Encoding...');
+    // Build PDF manually (JPEG pages)
+    const pdfBytes = buildPDFFromJpegs(pages);
+    const blob=new Blob([pdfBytes],{type:'application/pdf'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download=currentFile.name.replace(/\.pdf$/i,'')+'-edited.pdf';
+    a.click(); setTimeout(()=>URL.revokeObjectURL(url),3000);
+    setStatus('Downloaded!');
+    setTimeout(()=>setStatus(''),3000);
+  }catch(e){setStatus('Error: '+e.message)}
+  btn.disabled=false;
+}
+
+function buildPDFFromJpegs(pages){
+  // Minimal valid PDF with JPEG XObjects
+  const enc=new TextEncoder();
+  let body=''; const offsets=[]; let xrefs=[];
+  const w=s=>body+=s;
+  w('%PDF-1.4\n');
+  // Each page: image XObject + page content
+  const imgRefs=[]; const pageRefs=[];
+  const catalogRef=pages.length*3+2;
+  const pagesRef=pages.length*3+3;
+
+  pages.forEach((pg,i)=>{
+    const imgNum=i*3+1; // obj for image
+    const contNum=i*3+2; // obj for content stream
+    const pageNum=i*3+3; // obj for page
+    const b64=pg.dataUrl.split(',')[1];
+    const jpegBytes=atob(b64);
+    const jbuf=new Uint8Array(jpegBytes.length);
+    for(let j=0;j<jpegBytes.length;j++)jbuf[j]=jpegBytes.charCodeAt(j);
+    imgRefs.push(imgNum);
+    pageRefs.push(pageNum);
+  });
+
+  // Build binary manually using Uint8Array accumulation
+  const parts=[];
+  const pushStr=s=>{parts.push(enc.encode(s))};
+  const pushBytes=b=>{parts.push(b)};
+  const getOff=()=>parts.reduce((a,p)=>a+p.length,0);
+
+  pushStr('%PDF-1.4\n%\xFF\xFF\xFF\xFF\n');
+  const objOffsets={};
+
+  pages.forEach((pg,i)=>{
+    const imgNum=i*3+1;
+    const contNum=i*3+2;
+    const pageNum=i*3+3;
+    const b64=pg.dataUrl.split(',')[1];
+    const jpegBytes=atob(b64);
+    const jbuf=new Uint8Array(jpegBytes.length);
+    for(let j=0;j<jpegBytes.length;j++)jbuf[j]=jpegBytes.charCodeAt(j);
+    const wp=pg.w, hp=pg.h;
+
+    // Image object
+    objOffsets[imgNum]=getOff();
+    pushStr(`${imgNum} 0 obj\n<</Type /XObject /Subtype /Image /Width ${wp} /Height ${hp} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jbuf.length}>>\nstream\n`);
+    pushBytes(jbuf);
+    pushStr('\nendstream\nendobj\n');
+
+    // Content stream
+    const cs=`q ${wp} 0 0 ${hp} 0 0 cm /Im${i} Do Q\n`;
+    const csb=enc.encode(cs);
+    objOffsets[contNum]=getOff();
+    pushStr(`${contNum} 0 obj\n<</Length ${csb.length}>>\nstream\n`);
+    pushBytes(csb);
+    pushStr('\nendstream\nendobj\n');
+
+    // Page object
+    objOffsets[pageNum]=getOff();
+    pushStr(`${pageNum} 0 obj\n<</Type /Page /Parent ${pagesRef} 0 R /MediaBox [0 0 ${wp} ${hp}] /Contents ${contNum} 0 R /Resources <</XObject <</Im${i} ${imgNum} 0 R>>>>>>\nendobj\n`);
+  });
+
+  // Pages object
+  objOffsets[pagesRef]=getOff();
+  pushStr(`${pagesRef} 0 obj\n<</Type /Pages /Count ${pages.length} /Kids [${pageRefs.map(r=>r+' 0 R').join(' ')}]>>\nendobj\n`);
+
+  // Catalog
+  objOffsets[catalogRef]=getOff();
+  pushStr(`${catalogRef} 0 obj\n<</Type /Catalog /Pages ${pagesRef} 0 R>>\nendobj\n`);
+
+  // Xref
+  const xrefPos=getOff();
+  const totalObjs=catalogRef+1;
+  pushStr(`xref\n0 ${totalObjs}\n0000000000 65535 f \n`);
+  for(let k=1;k<totalObjs;k++){
+    pushStr((objOffsets[k]||0).toString().padStart(10,'0')+' 00000 n \n');
+  }
+  pushStr(`trailer\n<</Size ${totalObjs} /Root ${catalogRef} 0 R>>\nstartxref\n${xrefPos}\n%%EOF`);
+
+  // Combine all parts
+  let total=0; parts.forEach(p=>total+=p.length);
+  const out=new Uint8Array(total); let off=0;
+  parts.forEach(p=>{out.set(p,off);off+=p.length});
+  return out;
+}
+
+// ─── RESET ────────────────────────────────────────────────────
+function resetAll(){
+  pdfDoc=null; currentPage=1; totalPages=0;
+  annotations={}; textInputs={}; imageOverlays={};
+  currentFile=null; pendingSigDataUrl=null;
+  // Clear any leftover overlays in container
+  const container=document.getElementById('pageContainer');
+  container.querySelectorAll('.text-input-overlay,.img-overlay').forEach(el=>el.remove());
+  annCtx.clearRect(0,0,annCanvas.width,annCanvas.height);
+  pdfCtx.clearRect(0,0,pdfCanvas.width,pdfCanvas.height);
+  document.getElementById('appWrap').style.display='none';
+  document.getElementById('dropScreen').style.display='block';
+  document.getElementById('footerEl').style.display='block';
+  document.getElementById('fileInput').value='';
+  setMode('select');
+}
+</script>
+</body>
+</html>
