@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; font-src https://fonts.gstatic.com; worker-src blob:; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; font-src https://fonts.gstatic.com; worker-src blob:; connect-src https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; frame-ancestors 'none'">
   <title>Edit PDF Online Free — Add Text, Images, Signature | NoServerTools</title>
   <meta name="description" content="Edit PDF files online for free. Add text, images, draw, highlight and sign PDFs directly in your browser. No upload, no server, 100% private.">
   <meta name="keywords" content="edit pdf online free, add text to pdf, sign pdf online free, draw on pdf, pdf editor no upload, annotate pdf browser">
@@ -891,7 +891,7 @@ function resetAll(){
   currentFile=null; pendingSigDataUrl=null;
   // Clear any leftover overlays in container
   const container=document.getElementById('pageContainer');
-  container.querySelectorAll('.text-input-overlay,.img-overlay').forEach(el=>el.remove());
+  container.querySelectorAll('.text-box,.img-overlay').forEach(el=>el.remove());
   annCtx.clearRect(0,0,annCanvas.width,annCanvas.height);
   pdfCtx.clearRect(0,0,pdfCanvas.width,pdfCanvas.height);
   document.getElementById('appWrap').style.display='none';
