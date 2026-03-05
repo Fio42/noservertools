@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <base href="/noservertools/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <title>Translate PDF Free — Spanish, English, French &amp; More | NoServerTools</title>
+  <meta name="description" content="Translate PDF documents free online. Spanish to English, English to Spanish, French and more. Extract text locally, translate instantly. No upload needed for text extraction.">
+  <meta name="keywords" content="translate pdf free, pdf translator spanish english, translate document online, pdf translation no upload, traducir pdf gratis">
+  <link rel="canonical" href="https://noservertools.com/translate-pdf/">
+  <meta property="og:title" content="Translate PDF Free — No Upload | NoServerTools">
+  <meta property="og:description" content="Translate PDF documents between Spanish, English, French and more. Text extracted locally in your browser.">
+  <meta property="og:url" content="https://noservertools.com/translate-pdf/">
+  <meta name="robots" content="index, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset & base ───────────────────────────────────────────── */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0e1117;
+      --surface:rgba(255,255,255,.028);
+      --border:rgba(255,255,255,.08);
+      --border-hover:rgba(90,135,255,.35);
+      --text:rgba(255,255,255,.88);
+      --muted:rgba(255,255,255,.42);
+      --dim:rgba(255,255,255,.25);
+      --brand:#5a87ff;
+      --brand-dark:#1f45e0;
+      --brand-mid:#3363f5;
+      --green:#4ade80;
+      --red:#f87171;
+      --fd:'Syne',sans-serif;
+      --fm:'DM Mono',monospace;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+    /* ── Background ─────────────────────────────────────────────── */
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(83,99,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(83,99,255,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+    .blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+    .blob-a{width:700px;height:700px;background:radial-gradient(circle,rgba(55,80,255,.10) 0%,transparent 65%);top:-200px;left:-150px}
+    .blob-b{width:500px;height:500px;background:radial-gradient(circle,rgba(120,60,255,.08) 0%,transparent 65%);bottom:-100px;right:-100px}
+
+    /* ── Typography helpers ─────────────────────────────────────── */
+    .fd{font-family:var(--fd)}
+    .fm{font-family:var(--fm)}
+    .gt{background:linear-gradient(105deg,#7aa3ff,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    .wrap{max-width:900px;margin:0 auto;padding:0 16px}
+    .wrap-wide{max-width:1200px;margin:0 auto;padding:0 16px}
+
+    /* ── Nav ────────────────────────────────────────────────────── */
+    .nav{position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(14,17,23,.8)}
+    .nav-inner{height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+    .logo-box{width:28px;height:28px;border-radius:8px;background:var(--brand-dark);display:flex;align-items:center;justify-content:center}
+    .logo-text{font-family:var(--fd);font-weight:800;font-size:15px;color:#fff}
+    .nav-links{display:flex;align-items:center;gap:2px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+    .nav-links::-webkit-scrollbar{display:none}
+    .nl{padding:6px 11px;border-radius:8px;font-size:13px;color:rgba(255,255,255,.5);transition:all .15s;text-decoration:none;white-space:nowrap}
+    .nl:hover{color:rgba(255,255,255,.88);background:rgba(255,255,255,.06)}
+    .nl.on{color:var(--brand);background:rgba(90,135,255,.12);font-weight:600}
+    .nav-cta{padding:6px 14px;border-radius:9px;font-size:13px;background:var(--brand-dark);color:#fff;font-weight:600;transition:background .15s;text-decoration:none;white-space:nowrap;flex-shrink:0}
+    .nav-cta:hover{background:var(--brand-mid)}
+
+    /* ── Lang switch bar ────────────────────────────────────────── */
+    .lang-bar{background:rgba(255,255,255,.03);border-bottom:1px solid var(--border);padding:7px 0}
+    .lang-btns{display:flex;align-items:center;gap:6px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+    .lang-btns::-webkit-scrollbar{display:none}
+    .lang-btn{padding:4px 12px;border-radius:7px;border:1px solid rgba(255,255,255,.08);background:transparent;color:rgba(255,255,255,.4);font-size:12.5px;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .lang-btn:hover{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.05)}
+    .lang-btn.on{color:var(--brand);border-color:rgba(90,135,255,.4);background:rgba(90,135,255,.1);font-weight:600}
+    .lang-label{font-family:var(--fm);font-size:10.5px;color:rgba(255,255,255,.25);white-space:nowrap;flex-shrink:0}
+
+    /* ── Hero ───────────────────────────────────────────────────── */
+    .hero{padding:40px 0 28px;text-align:center}
+    .pill{display:inline-flex;align-items:center;gap:7px;background:rgba(83,99,255,.1);border:1px solid rgba(83,99,255,.22);border-radius:999px;padding:5px 14px;font-family:var(--fm);font-size:11px;letter-spacing:.07em;color:#8aaeff;text-transform:uppercase;margin-bottom:16px}
+    .hero-title{font-family:var(--fd);font-weight:800;font-size:clamp(26px,5vw,44px);line-height:1.13;color:#fff;margin-bottom:10px}
+    .hero-sub{font-size:clamp(13.5px,2vw,15.5px);color:var(--muted);max-width:520px;margin:0 auto 6px;line-height:1.65}
+    .hero-note{font-family:var(--fm);font-size:11px;color:rgba(255,255,255,.2)}
+
+    /* ── Steps indicator ────────────────────────────────────────── */
+    .steps-track{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:28px}
+    .step-item{display:flex;align-items:center;gap:0}
+    .step-dot{width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(255,255,255,.12);background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:12px;color:var(--dim);transition:all .3s;flex-shrink:0}
+    .step-dot.done{background:rgba(74,222,128,.15);border-color:rgba(74,222,128,.4);color:var(--green)}
+    .step-dot.active{background:rgba(90,135,255,.2);border-color:var(--brand);color:var(--brand);box-shadow:0 0 0 3px rgba(90,135,255,.15)}
+    .step-label{font-size:11.5px;color:var(--dim);margin-top:5px;white-space:nowrap;transition:color .3s}
+    .step-label.active{color:var(--brand)}
+    .step-label.done{color:var(--green)}
+    .step-col{display:flex;flex-direction:column;align-items:center;gap:0}
+    .step-line{width:40px;height:1.5px;background:rgba(255,255,255,.08);margin-bottom:18px;transition:background .3s}
+    .step-line.done{background:rgba(74,222,128,.3)}
+    @media(max-width:480px){.step-label{font-size:10px}.step-line{width:24px}}
+
+    /* ── Main card ──────────────────────────────────────────────── */
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:16px}
+    @media(min-width:600px){.card{padding:32px}}
+
+    /* ── Drop zone ──────────────────────────────────────────────── */
+    .dz{border:2px dashed rgba(83,99,255,.28);border-radius:14px;background:rgba(83,99,255,.03);transition:all .22s;cursor:pointer;text-align:center;padding:36px 16px}
+    .dz:hover,.dz.on{border-color:var(--brand);background:rgba(83,99,255,.08)}
+    .dz-icon{font-size:44px;margin-bottom:12px;display:block}
+    .dz-title{font-size:16px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:6px}
+    .dz-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+    .dz-hint{font-family:var(--fm);font-size:11px;color:rgba(255,255,255,.2)}
+
+    /* ── File chip ──────────────────────────────────────────────── */
+    .file-chip{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:20px}
+    .file-chip-icon{width:36px;height:36px;border-radius:9px;background:rgba(31,69,224,.2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+    .file-chip-name{font-size:13.5px;font-weight:500;color:rgba(255,255,255,.85);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .file-chip-meta{font-family:var(--fm);font-size:11px;color:rgba(255,255,255,.3)}
+    .chip-del{width:28px;height:28px;border-radius:7px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.25);font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;line-height:1}
+    .chip-del:hover{background:rgba(239,68,68,.18);color:#f87171}
+
+    /* ── Language selector ──────────────────────────────────────── */
+    .lang-row{display:grid;grid-template-columns:1fr 44px 1fr;gap:10px;align-items:end;margin-bottom:20px}
+    @media(max-width:480px){.lang-row{grid-template-columns:1fr 36px 1fr;gap:6px}}
+    .lang-select-wrap{display:flex;flex-direction:column;gap:6px}
+    .lang-select-label{font-size:12px;font-weight:500;color:var(--dim);font-family:var(--fm);letter-spacing:.04em;text-transform:uppercase}
+    .lang-select{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:11px;color:#fff;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:14px;outline:none;cursor:pointer;transition:border-color .18s;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+    .lang-select:focus{border-color:var(--brand)}
+    .lang-select option{background:#1a1d2e;color:#fff}
+    .swap-btn{width:44px;height:44px;border-radius:50%;background:rgba(83,99,255,.15);border:1.5px solid rgba(83,99,255,.3);color:#8aaeff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .22s;font-size:18px;align-self:flex-end}
+    .swap-btn:hover{background:rgba(83,99,255,.3);transform:rotate(180deg)}
+    @media(max-width:480px){.swap-btn{width:36px;height:36px;font-size:15px}}
+
+    /* ── Privacy notice ─────────────────────────────────────────── */
+    .privacy-note{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.18);border-radius:11px;padding:12px 16px;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start}
+    .privacy-note-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+    .privacy-note-text{font-size:12.5px;color:rgba(255,255,230,.55);line-height:1.55}
+
+    /* ── Buttons ────────────────────────────────────────────────── */
+    .btn-p{background:var(--brand-dark);color:#fff;font-weight:600;border-radius:12px;padding:13px 22px;transition:all .2s;cursor:pointer;border:none;font-family:'Outfit',sans-serif;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%}
+    .btn-p:hover{background:var(--brand-mid);transform:translateY(-1px);box-shadow:0 8px 22px rgba(31,69,224,.3)}
+    .btn-p:disabled{opacity:.32;cursor:not-allowed;transform:none;box-shadow:none}
+    .btn-g{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);border-radius:12px;padding:12px 18px;transition:all .2s;cursor:pointer;font-family:'Outfit',sans-serif;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+    .btn-g:hover{background:rgba(255,255,255,.09)}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-row .btn-p{flex:1;min-width:140px}
+    .btn-row .btn-g{flex-shrink:0}
+
+    /* ── Progress ───────────────────────────────────────────────── */
+    .progress-card{text-align:center;padding:28px 16px}
+    .progress-emoji{font-size:36px;margin-bottom:12px;display:block}
+    .progress-label{font-size:15px;font-weight:500;color:rgba(255,255,255,.8);margin-bottom:4px}
+    .progress-sub{font-family:var(--fm);font-size:11.5px;color:rgba(255,255,255,.3);margin-bottom:18px}
+    .pbar{height:5px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden}
+    .pfill{height:100%;background:linear-gradient(90deg,var(--brand-dark),#a78bfa);border-radius:5px;transition:width .4s ease;width:0%}
+    .progress-detail{font-family:var(--fm);font-size:11px;color:rgba(255,255,255,.25);margin-top:8px;display:flex;justify-content:space-between}
+
+    /* ── Text preview panels ────────────────────────────────────── */
+    .panels{display:grid;gap:14px;margin-bottom:16px}
+    @media(min-width:700px){.panels{grid-template-columns:1fr 1fr}}
+    .panel{display:flex;flex-direction:column;gap:0}
+    .panel-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-bottom:none;border-radius:12px 12px 0 0}
+    .panel-lang-badge{font-family:var(--fm);font-size:11px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);border-radius:6px;padding:3px 9px}
+    .panel-copy-btn{background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:13px;padding:3px 7px;border-radius:6px;transition:all .15s;font-family:'Outfit',sans-serif}
+    .panel-copy-btn:hover{color:var(--brand);background:rgba(90,135,255,.1)}
+    .panel-text{flex:1;min-height:220px;max-height:340px;overflow-y:auto;padding:14px;border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;background:rgba(255,255,255,.02);font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.75);white-space:pre-wrap;word-break:break-word}
+    .panel-text::-webkit-scrollbar{width:3px}
+    .panel-text::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+    .panel-placeholder{color:rgba(255,255,255,.2);font-style:italic}
+
+    /* ── Result actions ─────────────────────────────────────────── */
+    .result-actions{display:grid;gap:10px}
+    @media(min-width:480px){.result-actions{grid-template-columns:1fr 1fr 1fr}}
+
+    /* ── Error ──────────────────────────────────────────────────── */
+    .err-box{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:14px 16px;margin-top:14px}
+    .err-text{font-size:13.5px;color:#f87171;line-height:1.5}
+
+    /* ── Info cards below ───────────────────────────────────────── */
+    .info-grid{display:grid;gap:12px;margin-top:40px}
+    @media(min-width:600px){.info-grid{grid-template-columns:1fr 1fr}}
+    .info-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
+    .info-card h3{font-family:var(--fd);font-size:15px;font-weight:700;color:#fff;margin-bottom:10px}
+    .info-card p,.info-card li{font-size:13px;color:var(--muted);line-height:1.65}
+    .info-card ul{padding-left:16px;display:flex;flex-direction:column;gap:5px}
+
+    /* ── FAQ ────────────────────────────────────────────────────── */
+    .faq{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 22px;margin-top:12px}
+    .faq h2{font-family:var(--fd);font-size:17px;font-weight:700;color:#fff;margin-bottom:18px}
+    .faq-item{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+    .faq-item:last-child{border-bottom:none;padding-bottom:0}
+    .faq-q{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.88);margin-bottom:6px}
+    .faq-a{font-size:13px;color:var(--muted);line-height:1.65}
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    .footer{border-top:1px solid var(--border);background:rgba(0,0,0,.3);margin-top:56px}
+    .footer-inner{padding:28px 0;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:20px}
+    .footer-logo{font-family:var(--fd);font-size:14px;font-weight:700;color:#fff;text-decoration:none}
+    .footer-copy{font-family:var(--fm);font-size:10.5px;color:rgba(255,255,255,.2);margin-top:4px}
+    .footer-links{display:flex;flex-wrap:wrap;gap:8px 18px}
+    .fl{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
+    .fl:hover{color:var(--brand)}
+    .fl.on{color:var(--brand);font-weight:600}
+    .footer-bottom{text-align:center;padding:12px 0;border-top:1px solid rgba(255,255,255,.04);font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.15);letter-spacing:.05em}
+
+    /* ── Animations ─────────────────────────────────────────────── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .5s ease both}
+    .fu2{animation:fadeUp .5s .07s ease both}
+    .fu3{animation:fadeUp .5s .14s ease both}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .spin{display:inline-block;animation:spin .75s linear infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .pulse{animation:pulse 1.6s ease infinite}
+
+    /* ── Mobile tweaks ──────────────────────────────────────────── */
+    @media(max-width:480px){
+      .card{padding:18px}
+      .dz{padding:28px 12px}
+      .hero{padding:28px 0 20px}
+      .hero-title{font-size:26px}
+    }
+  </style>
+</head>
+<body>
+<div class="blob blob-a"></div>
+<div class="blob blob-b"></div>
+
+<!-- NAV -->
+<header class="nav" role="banner">
+  <div class="wrap-wide nav-inner">
+    <a href="/noservertools/" class="logo" aria-label="NoServerTools home">
+      <div class="logo-box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".3"/></svg></div>
+      <span class="logo-text">NoServer<span style="color:var(--brand)">Tools</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="/noservertools/merge-pdf/" class="nl" data-i18n="nav_merge">Merge PDF</a>
+      <a href="/noservertools/compress-pdf/" class="nl" data-i18n="nav_compress">Compress</a>
+      <a href="/noservertools/split-pdf/" class="nl" data-i18n="nav_split">Split PDF</a>
+      <a href="/noservertools/pdf-to-jpg/" class="nl">PDF ↔ JPG</a>
+      <a href="/noservertools/translate-pdf/" class="nl on" aria-current="page" data-i18n="nav_translate">Translate</a>
+      <a href="/noservertools/" class="nav-cta" style="margin-left:6px" data-i18n="nav_all">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<!-- UI LANGUAGE BAR -->
+<div class="lang-bar" role="navigation" aria-label="Interface language">
+  <div class="wrap-wide">
+    <div class="lang-btns">
+      <span class="lang-label fm">Interface:</span>
+      <button class="lang-btn on" onclick="setUiLang('en')" id="uilang-en">🇺🇸 English</button>
+      <button class="lang-btn" onclick="setUiLang('es')" id="uilang-es">🇲🇽 Español</button>
+      <button class="lang-btn" onclick="setUiLang('fr')" id="uilang-fr">🇫🇷 Français</button>
+      <button class="lang-btn" onclick="setUiLang('de')" id="uilang-de">🇩🇪 Deutsch</button>
+      <button class="lang-btn" onclick="setUiLang('pt')" id="uilang-pt">🇧🇷 Português</button>
+    </div>
+  </div>
+</div>
+
+<main role="main" style="position:relative;z-index:1">
+  <div class="wrap">
+
+    <!-- HERO -->
+    <section class="hero fu" aria-labelledby="hero-title">
+      <div><span class="pill"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span><span data-i18n="pill_text">Text extracted locally · Translation via API</span></span></div>
+      <h1 class="hero-title fu2" id="hero-title">
+        <span data-i18n="hero_title">Translate your</span> <span class="gt">PDF</span><br>
+        <span data-i18n="hero_title2">instantly, for free</span>
+      </h1>
+      <p class="hero-sub fu3" data-i18n="hero_sub">Extract text from your PDF locally in your browser, then translate it between Spanish, English, French, and more. Download the result as TXT or PDF.</p>
+      <p class="hero-note fu3" data-i18n="hero_note">Text extraction: 100% local · Translation: sent to MyMemory API (text only, no file)</p>
+    </section>
+
+    <!-- STEPS INDICATOR -->
+    <div class="steps-track fu3" id="steps-track" role="progressbar" aria-label="Progress steps" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3">
+      <div class="step-col">
+        <div class="step-dot active" id="dot-1">1</div>
+        <div class="step-label active" id="lbl-1" data-i18n="step1">Upload</div>
+      </div>
+      <div class="step-line" id="line-1"></div>
+      <div class="step-col">
+        <div class="step-dot" id="dot-2">2</div>
+        <div class="step-label" id="lbl-2" data-i18n="step2">Languages</div>
+      </div>
+      <div class="step-line" id="line-2"></div>
+      <div class="step-col">
+        <div class="step-dot" id="dot-3">3</div>
+        <div class="step-label" id="lbl-3" data-i18n="step3">Translate</div>
+      </div>
+    </div>
+
+    <!-- MAIN CARD -->
+    <div class="card">
+
+      <!-- STEP 1: Upload -->
+      <div id="s-upload">
+        <div class="dz" id="dz" onclick="triggerFile()" ondragover="onDragOver(event)" ondragleave="onDragLeave()" ondrop="onDrop(event)" role="button" tabindex="0" aria-label="Drop PDF or TXT file here" onkeydown="if(event.key==='Enter'||event.key===' ')triggerFile()">
+          <span class="dz-icon">📄</span>
+          <p class="dz-title" data-i18n="dz_title">Drop your PDF or TXT here</p>
+          <p class="dz-sub" data-i18n="dz_sub">or click to browse</p>
+          <span class="dz-hint" data-i18n="dz_hint">PDF · TXT · Max 20 MB · Text extracted in your browser</span>
+          <input type="file" id="file-input" accept=".pdf,application/pdf,.txt,text/plain" class="hidden" onchange="handleFiles(this.files)" style="display:none" aria-label="Select file">
+        </div>
+      </div>
+
+      <!-- STEP 2: Language config -->
+      <div id="s-lang" style="display:none">
+        <div class="file-chip" id="file-chip">
+          <div class="file-chip-icon">📄</div>
+          <div style="flex:1;min-width:0">
+            <div class="file-chip-name" id="chip-name"></div>
+            <div class="file-chip-meta" id="chip-meta"></div>
+          </div>
+          <button class="chip-del" onclick="resetAll()" aria-label="Remove file">×</button>
+        </div>
+
+        <div class="lang-row">
+          <div class="lang-select-wrap">
+            <label class="lang-select-label" for="lang-from" data-i18n="from_label">FROM</label>
+            <select class="lang-select" id="lang-from" aria-label="Source language"></select>
+          </div>
+          <button class="swap-btn" onclick="swapLangs()" aria-label="Swap languages" title="Swap languages">⇄</button>
+          <div class="lang-select-wrap">
+            <label class="lang-select-label" for="lang-to" data-i18n="to_label">TO</label>
+            <select class="lang-select" id="lang-to" aria-label="Target language"></select>
+          </div>
+        </div>
+
+        <div class="privacy-note" role="note">
+          <span class="privacy-note-icon">⚠️</span>
+          <p class="privacy-note-text" data-i18n="privacy_note">The extracted text (not your file) is sent to MyMemory, a free translation API. Do not use this tool for highly confidential documents. For sensitive text, we recommend a private translation service.</p>
+        </div>
+
+        <button class="btn-p" onclick="startTranslation()" id="translate-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+          <span data-i18n="btn_translate">Translate document</span>
+        </button>
+      </div>
+
+      <!-- STEP 3: Progress -->
+      <div id="s-progress" style="display:none">
+        <div class="progress-card">
+          <span class="progress-emoji pulse" id="p-emoji">⚙️</span>
+          <p class="progress-label" id="p-label" data-i18n="p_extracting">Extracting text from PDF...</p>
+          <p class="progress-sub" id="p-sub" data-i18n="p_local">This runs locally in your browser</p>
+          <div class="pbar"><div class="pfill" id="pfill"></div></div>
+          <div class="progress-detail">
+            <span id="p-pages"></span>
+            <span id="p-pct" class="fm">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Results -->
+      <div id="s-results" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+          <div>
+            <p style="font-size:15px;font-weight:600;color:#fff" id="r-title"></p>
+            <p class="fm" style="font-size:11px;color:var(--dim);margin-top:3px" id="r-sub"></p>
+          </div>
+          <button class="btn-g" onclick="resetAll()" style="font-size:13px;padding:9px 14px">
+            <span data-i18n="btn_new">New document</span>
+          </button>
+        </div>
+
+        <!-- Side-by-side panels -->
+        <div class="panels" id="panels">
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-lang-badge" id="panel-from-lang"></span>
+              <button class="panel-copy-btn" onclick="copyText('original')" id="copy-orig-btn" data-i18n="btn_copy">Copy</button>
+            </div>
+            <div class="panel-text" id="panel-original" role="region" aria-label="Original text" tabindex="0"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-lang-badge" id="panel-to-lang"></span>
+              <button class="panel-copy-btn" onclick="copyText('translated')" id="copy-trans-btn" data-i18n="btn_copy">Copy</button>
+            </div>
+            <div class="panel-text" id="panel-translated" role="region" aria-label="Translated text" tabindex="0">
+              <span class="panel-placeholder pulse" data-i18n="translating">Translating...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download buttons -->
+        <div class="result-actions" id="result-actions" style="display:none">
+          <button class="btn-p" onclick="downloadTxt('translated')" style="font-size:13.5px;padding:11px 14px">
+            ⬇ <span data-i18n="dl_txt_translated">Download translation (.txt)</span>
+          </button>
+          <button class="btn-p" style="font-size:13.5px;padding:11px 14px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.75)" onclick="downloadTxt('original')">
+            ⬇ <span data-i18n="dl_txt_original">Download original (.txt)</span>
+          </button>
+          <button class="btn-p" onclick="downloadPdf()" id="dl-pdf-btn" style="font-size:13.5px;padding:11px 14px;background:rgba(83,99,255,.25);border:1px solid rgba(83,99,255,.4)">
+            ⬇ <span data-i18n="dl_pdf">Download as PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div id="s-error" style="display:none" class="err-box" role="alert">
+        <p class="err-text" id="err-msg"></p>
+        <button onclick="clearErr()" style="margin-top:8px;font-size:12px;color:var(--dim);background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;text-decoration:underline" data-i18n="btn_dismiss">Dismiss</button>
+      </div>
+    </div>
+
+    <!-- INFO CARDS -->
+    <div class="info-grid">
+      <div class="info-card">
+        <h3 data-i18n="info1_title">🔒 How it works</h3>
+        <ul>
+          <li data-i18n="info1_1">Your PDF is read locally by your browser using Pyodide (Python/WASM)</li>
+          <li data-i18n="info1_2">Only the extracted text is sent to the translation API</li>
+          <li data-i18n="info1_3">Your original file is never uploaded anywhere</li>
+          <li data-i18n="info1_4">Translation uses MyMemory free API — no key needed</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="info2_title">🌐 Supported languages</h3>
+        <p data-i18n="info2_body">Spanish, English, French, German, Portuguese, Italian, Chinese, Japanese, Korean, Arabic, Russian, Dutch, Polish, Turkish, and many more. Auto-detect available.</p>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq">
+      <h2 data-i18n="faq_title">FAQ</h2>
+      <div class="faq-item"><p class="faq-q" data-i18n="faq1q">Is my file uploaded to a server?</p><p class="faq-a" data-i18n="faq1a">No. Your PDF file is never uploaded. Only the text extracted from it is sent to the translation API. The extraction itself runs 100% locally in your browser.</p></div>
+      <div class="faq-item"><p class="faq-q" data-i18n="faq2q">What is MyMemory?</p><p class="faq-a" data-i18n="faq2a">MyMemory is a free public translation API that supports 100+ language pairs. It does not require an account or API key. It processes text, not files.</p></div>
+      <div class="faq-item"><p class="faq-q" data-i18n="faq3q">Can I translate confidential documents?</p><p class="faq-a" data-i18n="faq3a">We advise caution. While your file stays local, the text content is sent to an external API for translation. For highly sensitive documents, use a private translation service.</p></div>
+      <div class="faq-item"><p class="faq-q" data-i18n="faq4q">Is there a page or size limit?</p><p class="faq-a" data-i18n="faq4a">Files up to 20 MB. Very long documents may be split into chunks for translation. The free API has rate limits — large documents may take a moment.</p></div>
+      <div class="faq-item"><p class="faq-q" data-i18n="faq5q">Can I download the translation?</p><p class="faq-a" data-i18n="faq5a">Yes — download as TXT (original or translated) or as a simple PDF. All generated locally in your browser.</p></div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="wrap-wide">
+    <div class="footer-inner">
+      <div>
+        <a href="/noservertools/" class="footer-logo">NoServer<span style="color:var(--brand)">Tools</span></a>
+        <p class="footer-copy fm">&copy; 2025 NoServerTools &nbsp;·&nbsp; Free forever</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/noservertools/merge-pdf/" class="fl" data-i18n="nav_merge">Merge PDF</a>
+        <a href="/noservertools/compress-pdf/" class="fl" data-i18n="nav_compress">Compress PDF</a>
+        <a href="/noservertools/split-pdf/" class="fl" data-i18n="nav_split">Split PDF</a>
+        <a href="/noservertools/pdf-to-jpg/" class="fl">PDF ↔ JPG</a>
+        <a href="/noservertools/translate-pdf/" class="fl on" data-i18n="nav_translate">Translate PDF</a>
+        <a href="/noservertools/rotate-pdf/" class="fl" style="opacity:.4">Rotate PDF</a>
+        <a href="/noservertools/protect-pdf/" class="fl" style="opacity:.4">Protect PDF</a>
+      </nav>
+    </div>
+    <div class="footer-bottom fm">NO UPLOADS &nbsp;·&nbsp; NO ACCOUNTS &nbsp;·&nbsp; NO TRACKING &nbsp;·&nbsp; FREE FOREVER</div>
+  </div>
+</footer>
+
+<!-- PDF.js for rendering pages as images + text position extraction -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- jsPDF for real PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Pyodide (kept for TXT fallback only) -->
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+<script>
+'use strict';
+
+/* ─── i18n strings ──────────────────────────────────────────────────────── */
+const I18N = {
+  en: {
+    nav_merge:'Merge PDF', nav_compress:'Compress', nav_split:'Split PDF',
+    nav_translate:'Translate', nav_all:'All tools',
+    pill_text:'Text extracted locally · Translation via API',
+    hero_title:'Translate your', hero_title2:'instantly, for free',
+    hero_sub:'Extract text from your PDF locally in your browser, then translate it between Spanish, English, French, and more. Download the result as TXT or PDF.',
+    hero_note:'Text extraction: 100% local · Translation: sent to MyMemory API (text only, no file)',
+    step1:'Upload', step2:'Languages', step3:'Translate',
+    dz_title:'Drop your PDF or TXT here', dz_sub:'or click to browse',
+    dz_hint:'PDF · TXT · Max 20 MB · Text extracted in your browser',
+    from_label:'FROM', to_label:'TO',
+    privacy_note:'The extracted text (not your file) is sent to MyMemory, a free translation API. Do not use for highly confidential documents.',
+    btn_translate:'Translate document', btn_new:'New document',
+    btn_copy:'Copy', btn_dismiss:'Dismiss',
+    p_extracting:'Extracting text from PDF...', p_local:'This runs locally in your browser',
+    dl_txt_translated:'Download translation (.txt)', dl_txt_original:'Download original (.txt)', dl_pdf:'Download as PDF',
+    translating:'Translating...',
+    info1_title:'🔒 How it works',
+    info1_1:'Your PDF is read locally using Pyodide (Python/WASM)',
+    info1_2:'Only the extracted text is sent to the translation API',
+    info1_3:'Your original file is never uploaded anywhere',
+    info1_4:'Translation uses MyMemory free API — no key needed',
+    info2_title:'🌐 Supported languages',
+    info2_body:'Spanish, English, French, German, Portuguese, Italian, Chinese, Japanese, Korean, Arabic, Russian, Dutch, Polish, Turkish, and more. Auto-detect available.',
+    faq_title:'FAQ',
+    faq1q:'Is my file uploaded to a server?', faq1a:'No. Your PDF file is never uploaded. Only the extracted text is sent to the translation API. Extraction runs 100% locally in your browser.',
+    faq2q:'What is MyMemory?', faq2a:'MyMemory is a free public translation API supporting 100+ language pairs. No account or API key required. It processes text, not files.',
+    faq3q:'Can I translate confidential documents?', faq3a:'We advise caution. While your file stays local, the text content is sent externally for translation. Use a private service for sensitive documents.',
+    faq4q:'Is there a page or size limit?', faq4a:'Files up to 20 MB. Long documents are split into chunks. The free API has rate limits — large documents may take a moment.',
+    faq5q:'Can I download the translation?', faq5a:'Yes — download as TXT or as a simple PDF. All generated locally in your browser.',
+  },
+  es: {
+    nav_merge:'Unir PDF', nav_compress:'Comprimir', nav_split:'Dividir PDF',
+    nav_translate:'Traducir', nav_all:'Todas las tools',
+    pill_text:'Extraccion local · Traduccion via API',
+    hero_title:'Traduce tu', hero_title2:'al instante, gratis',
+    hero_sub:'Extrae el texto de tu PDF directamente en tu navegador y tradúcelo entre español, inglés, francés y más. Descarga el resultado en TXT o PDF.',
+    hero_note:'Extraccion: 100% local · Traduccion: se envia a API MyMemory (solo texto, no el archivo)',
+    step1:'Subir', step2:'Idiomas', step3:'Traducir',
+    dz_title:'Suelta tu PDF o TXT aquí', dz_sub:'o haz clic para seleccionar',
+    dz_hint:'PDF · TXT · Max 20 MB · Texto extraido en tu navegador',
+    from_label:'DESDE', to_label:'HACIA',
+    privacy_note:'El texto extraido (no tu archivo) se envia a MyMemory, una API gratuita. No uses esta herramienta para documentos altamente confidenciales.',
+    btn_translate:'Traducir documento', btn_new:'Nuevo documento',
+    btn_copy:'Copiar', btn_dismiss:'Cerrar',
+    p_extracting:'Extrayendo texto del PDF...', p_local:'Esto corre en tu navegador',
+    dl_txt_translated:'Descargar traduccion (.txt)', dl_txt_original:'Descargar original (.txt)', dl_pdf:'Descargar como PDF',
+    translating:'Traduciendo...',
+    info1_title:'🔒 Como funciona',
+    info1_1:'Tu PDF se lee localmente usando Pyodide (Python/WASM)',
+    info1_2:'Solo el texto extraido se envia a la API de traduccion',
+    info1_3:'Tu archivo original nunca se sube a ningun servidor',
+    info1_4:'Traduccion via MyMemory API gratuita — sin cuenta necesaria',
+    info2_title:'🌐 Idiomas soportados',
+    info2_body:'Espanol, Ingles, Frances, Aleman, Portugues, Italiano, Chino, Japones, Coreano, Arabe, Ruso, Holandes, Polaco, Turco y mas.',
+    faq_title:'Preguntas frecuentes',
+    faq1q:'¿Se sube mi archivo a un servidor?', faq1a:'No. Tu PDF nunca se sube. Solo el texto extraido se envia a la API de traduccion. La extraccion corre 100% en tu navegador.',
+    faq2q:'¿Que es MyMemory?', faq2a:'MyMemory es una API publica gratuita de traduccion con mas de 100 pares de idiomas. No requiere cuenta ni API key.',
+    faq3q:'¿Puedo traducir documentos confidenciales?', faq3a:'Con precaucion. Tu archivo no sale de tu dispositivo, pero el texto si se envia a una API externa. Para documentos sensibles, usa un servicio privado.',
+    faq4q:'¿Hay limite de paginas o tamano?', faq4a:'Archivos hasta 20 MB. Los documentos largos se dividen en partes. La API gratuita tiene limites — documentos grandes pueden tardar un poco.',
+    faq5q:'¿Puedo descargar la traduccion?', faq5a:'Si — descarga como TXT o como PDF simple. Todo se genera en tu navegador.',
+  },
+  fr: {
+    nav_merge:'Fusionner PDF', nav_compress:'Compresser', nav_split:'Diviser PDF',
+    nav_translate:'Traduire', nav_all:'Tous les outils',
+    pill_text:'Extraction locale · Traduction via API',
+    hero_title:'Traduisez votre', hero_title2:'instantanément, gratuitement',
+    hero_sub:'Extrayez le texte de votre PDF localement puis traduisez-le entre l\'espagnol, l\'anglais, le français et plus encore.',
+    hero_note:'Extraction: 100% locale · Traduction: envoyee a l\'API MyMemory (texte uniquement)',
+    step1:'Charger', step2:'Langues', step3:'Traduire',
+    dz_title:'Deposez votre PDF ou TXT ici', dz_sub:'ou cliquez pour parcourir',
+    dz_hint:'PDF · TXT · Max 20 Mo · Texte extrait dans votre navigateur',
+    from_label:'DE', to_label:'VERS',
+    privacy_note:'Le texte extrait (pas votre fichier) est envoye a MyMemory, une API gratuite. Ne pas utiliser pour des documents tres confidentiels.',
+    btn_translate:'Traduire le document', btn_new:'Nouveau document',
+    btn_copy:'Copier', btn_dismiss:'Fermer',
+    p_extracting:'Extraction du texte...', p_local:'Cela s\'execute dans votre navigateur',
+    dl_txt_translated:'Telecharger la traduction (.txt)', dl_txt_original:'Telecharger l\'original (.txt)', dl_pdf:'Telecharger en PDF',
+    translating:'Traduction en cours...',
+    info1_title:'🔒 Comment ca marche',
+    info1_1:'Votre PDF est lu localement via Pyodide (Python/WASM)',
+    info1_2:'Seul le texte extrait est envoye a l\'API',
+    info1_3:'Votre fichier original n\'est jamais uploade',
+    info1_4:'Traduction via MyMemory API gratuite',
+    info2_title:'🌐 Langues supportees',
+    info2_body:'Espagnol, Anglais, Francais, Allemand, Portugais, Italien, Chinois, Japonais, Coreen, Arabe, Russe et plus.',
+    faq_title:'FAQ',
+    faq1q:'Mon fichier est-il uploade?', faq1a:'Non. Seul le texte extrait est envoye a l\'API. L\'extraction est 100% locale.',
+    faq2q:'Qu\'est-ce que MyMemory?', faq2a:'MyMemory est une API de traduction publique et gratuite supportant plus de 100 paires de langues.',
+    faq3q:'Puis-je traduire des documents confidentiels?', faq3a:'Prudence conseilee. Votre fichier reste local mais le texte est envoye a une API externe.',
+    faq4q:'Y a-t-il une limite?', faq4a:'Fichiers jusqu\'a 20 Mo. Les grands documents sont decoupes en morceaux.',
+    faq5q:'Puis-je telecharger la traduction?', faq5a:'Oui — en TXT ou en PDF simple, genere localement.',
+  },
+  de: {
+    nav_merge:'PDF Zusammenfuehren', nav_compress:'Komprimieren', nav_split:'PDF Teilen',
+    nav_translate:'Uebersetzen', nav_all:'Alle Tools',
+    pill_text:'Lokale Extraktion · Uebersetzung via API',
+    hero_title:'Ubersetzen Sie Ihr', hero_title2:'sofort, kostenlos',
+    hero_sub:'Text aus Ihrem PDF lokal extrahieren und zwischen Spanisch, Englisch, Franzosisch und mehr ubersetzen.',
+    hero_note:'Extraktion: 100% lokal · Ubersetzung: an MyMemory API gesendet (nur Text)',
+    step1:'Hochladen', step2:'Sprachen', step3:'Ubersetzen',
+    dz_title:'PDF oder TXT hier ablegen', dz_sub:'oder zum Durchsuchen klicken',
+    dz_hint:'PDF · TXT · Max 20 MB · Text im Browser extrahiert',
+    from_label:'VON', to_label:'NACH',
+    privacy_note:'Der extrahierte Text (nicht Ihre Datei) wird an MyMemory gesendet. Nicht fur hochvertrauliche Dokumente verwenden.',
+    btn_translate:'Dokument ubersetzen', btn_new:'Neues Dokument',
+    btn_copy:'Kopieren', btn_dismiss:'Schliessen',
+    p_extracting:'Text wird extrahiert...', p_local:'Lauft in Ihrem Browser',
+    dl_txt_translated:'Ubersetzung herunterladen (.txt)', dl_txt_original:'Original herunterladen (.txt)', dl_pdf:'Als PDF herunterladen',
+    translating:'Wird ubersetzt...',
+    info1_title:'🔒 So funktioniert es',
+    info1_1:'Ihre PDF wird lokal mit Pyodide verarbeitet',
+    info1_2:'Nur der extrahierte Text wird an die API gesendet',
+    info1_3:'Ihre Originaldatei wird niemals hochgeladen',
+    info1_4:'Ubersetzung uber kostenlose MyMemory API',
+    info2_title:'🌐 Unterstutzte Sprachen',
+    info2_body:'Spanisch, Englisch, Franzosisch, Deutsch, Portugiesisch, Italienisch, Chinesisch, Japanisch, Koreanisch, Arabisch, Russisch und mehr.',
+    faq_title:'FAQ',
+    faq1q:'Wird meine Datei hochgeladen?', faq1a:'Nein. Nur der extrahierte Text wird gesendet. Die Extraktion erfolgt 100% lokal.',
+    faq2q:'Was ist MyMemory?', faq2a:'MyMemory ist eine kostenlose oeffentliche Ubersetzungs-API mit uber 100 Sprachpaaren.',
+    faq3q:'Kann ich vertrauliche Dokumente ubersetzen?', faq3a:'Vorsicht empfohlen. Ihre Datei bleibt lokal, aber der Text wird extern gesendet.',
+    faq4q:'Gibt es eine Groessenbeschraenkung?', faq4a:'Dateien bis 20 MB. Lange Dokumente werden in Teile aufgeteilt.',
+    faq5q:'Kann ich die Ubersetzung herunterladen?', faq5a:'Ja — als TXT oder einfaches PDF, lokal generiert.',
+  },
+  pt: {
+    nav_merge:'Unir PDF', nav_compress:'Comprimir', nav_split:'Dividir PDF',
+    nav_translate:'Traduzir', nav_all:'Todas as ferramentas',
+    pill_text:'Extracao local · Traducao via API',
+    hero_title:'Traduza seu', hero_title2:'instantaneamente, de graca',
+    hero_sub:'Extraia o texto do seu PDF localmente e traduza entre espanhol, ingles, frances e mais. Baixe como TXT ou PDF.',
+    hero_note:'Extracao: 100% local · Traducao: enviada a API MyMemory (so texto, nao o arquivo)',
+    step1:'Enviar', step2:'Idiomas', step3:'Traduzir',
+    dz_title:'Solte seu PDF ou TXT aqui', dz_sub:'ou clique para selecionar',
+    dz_hint:'PDF · TXT · Max 20 MB · Texto extraido no navegador',
+    from_label:'DE', to_label:'PARA',
+    privacy_note:'O texto extraido (nao seu arquivo) e enviado ao MyMemory, uma API gratuita. Nao use para documentos altamente confidenciais.',
+    btn_translate:'Traduzir documento', btn_new:'Novo documento',
+    btn_copy:'Copiar', btn_dismiss:'Fechar',
+    p_extracting:'Extraindo texto do PDF...', p_local:'Rodando no seu navegador',
+    dl_txt_translated:'Baixar traducao (.txt)', dl_txt_original:'Baixar original (.txt)', dl_pdf:'Baixar como PDF',
+    translating:'Traduzindo...',
+    info1_title:'🔒 Como funciona',
+    info1_1:'Seu PDF e lido localmente via Pyodide (Python/WASM)',
+    info1_2:'Apenas o texto extraido e enviado a API',
+    info1_3:'Seu arquivo original nunca e carregado',
+    info1_4:'Traducao via MyMemory API gratuita',
+    info2_title:'🌐 Idiomas suportados',
+    info2_body:'Espanhol, Ingles, Frances, Alemao, Portugues, Italiano, Chines, Japones, Coreano, Arabe, Russo e mais.',
+    faq_title:'FAQ',
+    faq1q:'Meu arquivo e carregado?', faq1a:'Nao. Apenas o texto extraido e enviado. A extracao e 100% local.',
+    faq2q:'O que e MyMemory?', faq2a:'MyMemory e uma API de traducao publica e gratuita com mais de 100 pares de idiomas.',
+    faq3q:'Posso traduzir documentos confidenciais?', faq3a:'Cuidado. Seu arquivo fica local, mas o texto e enviado externamente.',
+    faq4q:'Ha limite de tamanho?', faq4a:'Arquivos ate 20 MB. Documentos longos sao divididos em partes.',
+    faq5q:'Posso baixar a traducao?', faq5a:'Sim — como TXT ou PDF simples, gerado localmente.',
+  }
+};
+
+/* ─── Language pairs ────────────────────────────────────────────────────── */
+const LANGS = [
+  {code:'en', label:'English'},
+  {code:'es', label:'Español'},
+  {code:'fr', label:'Français'},
+  {code:'de', label:'Deutsch'},
+  {code:'pt', label:'Português'},
+  {code:'it', label:'Italiano'},
+  {code:'nl', label:'Nederlands'},
+  {code:'pl', label:'Polski'},
+  {code:'ru', label:'Русский'},
+  {code:'tr', label:'Türkçe'},
+  {code:'ar', label:'العربية'},
+  {code:'zh', label:'中文'},
+  {code:'ja', label:'日本語'},
+  {code:'ko', label:'한국어'},
+  {code:'sv', label:'Svenska'},
+  {code:'da', label:'Dansk'},
+  {code:'fi', label:'Suomi'},
+  {code:'no', label:'Norsk'},
+  {code:'ro', label:'Română'},
+  {code:'uk', label:'Українська'},
+  {code:'cs', label:'Čeština'},
+  {code:'hu', label:'Magyar'},
+  {code:'el', label:'Ελληνικά'},
+  {code:'he', label:'עברית'},
+  {code:'id', label:'Bahasa Indonesia'},
+  {code:'th', label:'ภาษาไทย'},
+  {code:'vi', label:'Tiếng Việt'},
+];
+
+/* ─── State ─────────────────────────────────────────────────────────────── */
+const esc = s => String(s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const fmt = b => b > 1048576 ? (b/1048576).toFixed(1)+' MB' : (b/1024).toFixed(0)+' KB';
+
+let uiLang = 'en';
+let currentFile = null;
+let pyodide = null, pyReady = false;
+let extractedText = '';
+let translatedText = '';
+let currentStep = 1;
+// PDF.js page data: array of { imageDataUrl, textItems, viewport, width, height }
+let pdfPageData = [];
+let isPdfFile = false;
+
+/* ─── UI Language detection ─────────────────────────────────────────────── */
+(function detectLang() {
+  const nav = (navigator.language || navigator.userLanguage || 'en').split('-')[0].toLowerCase();
+  const supported = ['en','es','fr','de','pt'];
+  const detected = supported.includes(nav) ? nav : 'en';
+  setUiLang(detected, false);
+})();
+
+function setUiLang(lang, save = true) {
+  uiLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  const btn = document.getElementById('uilang-' + lang);
+  if (btn) btn.classList.add('on');
+  const strings = I18N[lang] || I18N.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (strings[key]) el.textContent = strings[key];
+  });
+  // Update html lang attr
+  document.getElementById('html-root').setAttribute('lang', lang);
+  if (save) populateLangSelects();
+}
+
+/* ─── Language selects ──────────────────────────────────────────────────── */
+function populateLangSelects() {
+  ['lang-from','lang-to'].forEach((id, idx) => {
+    const sel = document.getElementById(id);
+    const prev = sel.value;
+    sel.innerHTML = '';
+    LANGS.forEach(({code, label}) => {
+      const opt = document.createElement('option');
+      opt.value = code;
+      opt.textContent = label;
+      sel.appendChild(opt);
+    });
+    if (prev && sel.querySelector(`option[value="${prev}"]`)) {
+      sel.value = prev;
+    } else {
+      // Smart defaults based on UI language
+      const fromDefaults = {en:'es', es:'es', fr:'fr', de:'de', pt:'pt'};
+      const toDefaults   = {en:'en', es:'en', fr:'en', de:'en', pt:'en'};
+      if (id === 'lang-from') sel.value = fromDefaults[uiLang] || 'es';
+      else                    sel.value = toDefaults[uiLang]   || 'en';
+    }
+  });
+}
+
+function swapLangs() {
+  const from = document.getElementById('lang-from');
+  const to   = document.getElementById('lang-to');
+  const tmp  = from.value;
+  from.value = to.value;
+  to.value   = tmp;
+}
+
+/* ─── Steps ─────────────────────────────────────────────────────────────── */
+function setStep(n) {
+  currentStep = n;
+  [1,2,3].forEach(i => {
+    const dot = document.getElementById('dot-' + i);
+    const lbl = document.getElementById('lbl-' + i);
+    const line = document.getElementById('line-' + i);
+    dot.className = 'step-dot' + (i < n ? ' done' : i === n ? ' active' : '');
+    lbl.className = 'step-label' + (i < n ? ' done' : i === n ? ' active' : '');
+    if (line) line.className = 'step-line' + (i < n ? ' done' : '');
+    if (i < n) dot.textContent = '✓';
+    else dot.textContent = i;
+  });
+  document.getElementById('steps-track').setAttribute('aria-valuenow', n);
+}
+
+/* ─── File handling ─────────────────────────────────────────────────────── */
+function triggerFile() { document.getElementById('file-input').click(); }
+function onDragOver(e) { e.preventDefault(); document.getElementById('dz').classList.add('on'); }
+function onDragLeave() { document.getElementById('dz').classList.remove('on'); }
+function onDrop(e) { e.preventDefault(); onDragLeave(); handleFiles(e.dataTransfer.files); }
+
+function handleFiles(files) {
+  const f = Array.from(files).find(f =>
+    f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf') ||
+    f.type === 'text/plain' || f.name.toLowerCase().endsWith('.txt')
+  );
+  if (!f) { showErr('Please select a PDF or TXT file.'); return; }
+  if (f.size > 20 * 1024 * 1024) { showErr('File too large. Maximum 20 MB.'); return; }
+  currentFile = f;
+  clearErr();
+  document.getElementById('chip-name').textContent = f.name;
+  document.getElementById('chip-meta').textContent = fmt(f.size) + ' · ' + (f.name.endsWith('.txt') ? 'TXT' : 'PDF');
+  showSection('s-lang');
+  setStep(2);
+  populateLangSelects();
+  initPyodide(); // preload in background
+}
+
+/* ─── Pyodide init ──────────────────────────────────────────────────────── */
+async function initPyodide() {
+  if (pyodide || pyReady) return;
+  try {
+    pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' });
+    await pyodide.loadPackage('micropip');
+    await pyodide.runPythonAsync(`import micropip; await micropip.install('pypdf')`);
+    pyReady = true;
+  } catch(e) { console.error('Pyodide init:', e.message); }
+}
+
+/* ─── Translation ───────────────────────────────────────────────────────── */
+function showSection(id) {
+  ['s-upload','s-lang','s-progress','s-results'].forEach(s => {
+    document.getElementById(s).style.display = s === id ? '' : 'none';
+  });
+}
+
+function setProg(pct, label, sub, pages) {
+  document.getElementById('pfill').style.width = pct + '%';
+  document.getElementById('p-label').textContent = label;
+  document.getElementById('p-sub').textContent = sub || '';
+  document.getElementById('p-pct').textContent = Math.round(pct) + '%';
+  if (pages !== undefined) document.getElementById('p-pages').textContent = pages;
+}
+
+/* ─── PDF.js extraction: renders pages as images + captures text positions ── */
+async function extractWithPdfJs(arrayBuffer) {
+  // Configure PDF.js worker
+  if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const numPages = pdf.numPages;
+  pdfPageData = [];
+  const allText = [];
+
+  // Render scale: higher = better image quality but more memory
+  const SCALE = 2.0;
+
+  for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+    setProg(
+      5 + Math.round((pageNum / numPages) * 30),
+      `Rendering page ${pageNum} of ${numPages}...`,
+      'Capturing visual layout locally'
+    );
+
+    const page = await pdf.getPage(pageNum);
+    const viewport = page.getViewport({ scale: SCALE });
+
+    // Render page to canvas (captures all visual elements: colors, images, fonts)
+    const canvas = document.createElement('canvas');
+    canvas.width  = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext('2d');
+    await page.render({ canvasContext: ctx, viewport }).promise;
+    const imageDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+
+    // Extract text items WITH positions (normalized 0-1 relative to page)
+    const textContent = await page.getTextContent();
+    const vp1 = page.getViewport({ scale: 1.0 }); // unscaled for position math
+    const textItems = textContent.items
+      .filter(item => item.str && item.str.trim().length > 0)
+      .map(item => {
+        // PDF coordinate system: origin bottom-left, y increases upward
+        // item.transform = [scaleX, skewX, skewY, scaleY, tx, ty]
+        const tx = item.transform[4];
+        const ty = item.transform[5];
+        const fontSize = Math.abs(item.transform[3]); // scaleY = fontSize in PDF coords
+        // Convert to top-left origin, normalize to 0-1
+        return {
+          str:      item.str,
+          x:        tx / vp1.width,
+          y:        1 - (ty / vp1.height),  // flip Y axis
+          fontSize: fontSize / vp1.height,   // normalized font size
+          width:    (item.width || 0) / vp1.width
+        };
+      });
+
+    // Collect page text for translation (preserve reading order)
+    const pageText = textContent.items.map(i => i.str).join(' ').trim();
+    if (pageText) allText.push(pageText);
+
+    pdfPageData.push({
+      imageDataUrl,
+      textItems,
+      pageWidth:  vp1.width,
+      pageHeight: vp1.height,
+      canvasWidth:  canvas.width,
+      canvasHeight: canvas.height
+    });
+  }
+
+  return allText.join('\n\n');
+}
+
+async function startTranslation() {
+  if (!currentFile) return;
+  clearErr();
+  showSection('s-progress');
+  setStep(3);
+  const strings = I18N[uiLang] || I18N.en;
+
+  try {
+    setProg(5, strings.p_extracting, strings.p_local);
+    document.getElementById('p-emoji').textContent = '📄';
+    pdfPageData = [];
+
+    if (currentFile.name.toLowerCase().endsWith('.txt')) {
+      isPdfFile = false;
+      extractedText = await currentFile.text();
+      setProg(40, strings.p_extracting, strings.p_local);
+    } else {
+      isPdfFile = true;
+      // Use PDF.js for both rendering AND text extraction
+      setProg(8, 'Loading PDF...', 'Reading your file locally');
+      const buf = await currentFile.arrayBuffer();
+      extractedText = await extractWithPdfJs(buf);
+      setProg(40, strings.p_extracting, strings.p_local, `${pdfPageData.length} pages`);
+    }
+
+    if (!extractedText || extractedText.trim().length < 5) {
+      throw new Error('Could not extract text from this PDF. The file may be image-based (scanned). Try a PDF with real text.');
+    }
+
+    // Show original text preview
+    showSection('s-results');
+    const origPanel = document.getElementById('panel-original');
+    origPanel.textContent = extractedText;
+
+    const fromCode = document.getElementById('lang-from').value;
+    const toCode   = document.getElementById('lang-to').value;
+    if (!fromCode || !toCode) throw new Error('Please select both languages.');
+    if (fromCode === toCode) throw new Error('Source and target languages must be different.');
+    const langPair  = fromCode + '|' + toCode;
+    const fromLabel = LANGS.find(l => l.code === fromCode)?.label || fromCode;
+    const toLabel   = LANGS.find(l => l.code === toCode)?.label   || toCode;
+    document.getElementById('panel-from-lang').textContent = fromLabel;
+    document.getElementById('panel-to-lang').textContent = toLabel;
+    document.getElementById('r-title').textContent = '✅ ' + (strings.btn_translate || 'Translation complete');
+    document.getElementById('r-sub').textContent = `${fromLabel} → ${toLabel} · ${currentFile.name}`;
+
+    // Translate via MyMemory API (with email key) + LibreTranslate fallback
+    const transPanel = document.getElementById('panel-translated');
+    transPanel.innerHTML = `<span class="panel-placeholder pulse">${strings.translating || 'Translating...'}</span>`;
+
+    const chunks = splitIntoChunks(extractedText, 450);
+    const translated = [];
+    for (let i = 0; i < chunks.length; i++) {
+      const result = await translateChunk(chunks[i], langPair);
+      translated.push(result);
+      transPanel.textContent = translated.join('\n\n') + (i < chunks.length - 1 ? '\n\n...' : '');
+      // 600ms delay between chunks — reduces 429 errors significantly
+      if (i < chunks.length - 1) await sleep(600);
+    }
+    translatedText = translated.join('\n\n');
+    transPanel.textContent = translatedText;
+
+    // Show download buttons
+    document.getElementById('result-actions').style.display = '';
+
+  } catch(e) {
+    showErr(e.message);
+    showSection('s-lang');
+    setStep(2);
+  }
+}
+
+function splitIntoChunks(text, maxLen) {
+  const sentences = text.match(/[^.!?\n]+[.!?\n]*/g) || [text];
+  const chunks = [];
+  let current = '';
+  for (const s of sentences) {
+    if ((current + s).length > maxLen && current.length > 0) {
+      chunks.push(current.trim());
+      current = s;
+    } else {
+      current += s;
+    }
+  }
+  if (current.trim()) chunks.push(current.trim());
+  return chunks.filter(c => c.length > 0);
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// MyMemory with email key (10x more daily quota) + auto fallback to LibreTranslate
+async function translateChunk(text, langPair) {
+  // Try MyMemory first (with email key for higher quota)
+  try {
+    return await translateMyMemory(text, langPair);
+  } catch(e) {
+    const is429 = e.message.includes('429') || e.message.includes('QUERY LENGTH') || e.message.includes('rate') || e.message.includes('limit');
+    if (is429) {
+      // Wait 1.5s then try LibreTranslate fallback
+      await sleep(1500);
+      try {
+        return await translateLibre(text, langPair);
+      } catch(e2) {
+        // Both failed — wait and retry MyMemory once more
+        await sleep(3000);
+        return await translateMyMemory(text, langPair);
+      }
+    }
+    throw e;
+  }
+}
+
+async function translateMyMemory(text, langPair) {
+  const email = 'amne420@gmail.com';
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(langPair)}&de=${encodeURIComponent(email)}`;
+  const resp = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+  if (!resp.ok) throw new Error(`Translation API error: ${resp.status}`);
+  const data = await resp.json();
+  // 429 or quota errors come back as responseStatus 429 or in responseDetails
+  if (data.responseStatus === 429 || (data.responseDetails && data.responseDetails.toLowerCase().includes('limit'))) {
+    throw new Error(`429 rate limit`);
+  }
+  if (data.responseStatus !== 200) throw new Error('Translation failed: ' + (data.responseDetails || 'API error'));
+  return data.responseData.translatedText;
+}
+
+async function translateLibre(text, langPair) {
+  // LibreTranslate public instance — free, no key needed for basic use
+  const [from, to] = langPair.split('|');
+  const resp = await fetch('https://libretranslate.com/translate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ q: text, source: from, target: to, format: 'text' })
+  });
+  if (!resp.ok) throw new Error(`LibreTranslate error: ${resp.status}`);
+  const data = await resp.json();
+  if (data.error) throw new Error('LibreTranslate: ' + data.error);
+  return data.translatedText;
+}
+
+/* ─── Copy ──────────────────────────────────────────────────────────────── */
+function copyText(which) {
+  const text = which === 'original' ? extractedText : translatedText;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(which === 'original' ? 'copy-orig-btn' : 'copy-trans-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    btn.style.color = 'var(--green)';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 2000);
+  }).catch(() => {});
+}
+
+/* ─── Downloads ─────────────────────────────────────────────────────────── */
+function downloadTxt(which) {
+  const text = which === 'original' ? extractedText : translatedText;
+  if (!text) return;
+  const base = currentFile ? currentFile.name.replace(/\.[^.]+$/, '') : 'document';
+  const fname = base + (which === 'translated' ? '-translated' : '-original') + '.txt';
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fname;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+async function downloadPdf() {
+  if (!translatedText) return;
+
+  const btn = document.getElementById('dl-pdf-btn');
+  const span = btn.querySelector('span');
+  const origLabel = span ? span.textContent : '';
+  if (span) span.textContent = 'Building PDF...';
+  btn.disabled = true;
+
+  const toCode   = document.getElementById('lang-to').value;
+  const fromCode = document.getElementById('lang-from').value;
+  const toLabel  = LANGS.find(l => l.code === toCode)?.label  || toCode;
+  const fromLabel = LANGS.find(l => l.code === fromCode)?.label || fromCode;
+  const base = currentFile ? currentFile.name.replace(/\.[^.]+$/, '') : 'document';
+
+  try {
+    const { jsPDF } = window.jspdf;
+
+    // ── VISUAL MODE: PDF has page images + translated text overlay ──────
+    if (isPdfFile && pdfPageData.length > 0) {
+      await buildVisualPdf(base, fromLabel, toLabel, jsPDF);
+    } else {
+      // ── TEXT MODE: TXT file, plain formatted PDF ─────────────────────
+      buildTextPdf(base, fromLabel, toLabel, jsPDF);
+    }
+
+  } catch (err) {
+    console.error('PDF generation error:', err);
+    downloadTxt('translated');
+    if (span) span.textContent = 'Saved as .txt (error)';
+  } finally {
+    btn.disabled = false;
+    if (span) span.textContent = origLabel;
+  }
+}
+
+/* ── Visual PDF: page image as background + translated text overlay ──────── */
+async function buildVisualPdf(base, fromLabel, toLabel, jsPDF) {
+  // Build a word-level translation map:
+  // original words -> translated words, distributed proportionally
+  const origWords  = extractedText.trim().split(/\s+/);
+  const transWords = translatedText.trim().split(/\s+/);
+
+  // Map: for each original word index, what's the translated equivalent?
+  // We distribute translated words proportionally across original positions
+  function getTranslatedWordAt(origIdx) {
+    if (origWords.length === 0) return '';
+    const ratio = origIdx / Math.max(origWords.length - 1, 1);
+    const transIdx = Math.round(ratio * (transWords.length - 1));
+    return transWords[Math.min(transIdx, transWords.length - 1)] || '';
+  }
+
+  // Build per-page translated segments proportionally
+  // Count total original text items across all pages
+  let totalItems = 0;
+  pdfPageData.forEach(p => { totalItems += p.textItems.length; });
+
+  let globalItemIdx = 0;
+
+  // Determine PDF page size from first page (use original aspect ratio)
+  const firstPage = pdfPageData[0];
+  const pdfW = firstPage.pageWidth;   // points (PDF units)
+  const pdfH = firstPage.pageHeight;
+
+  // Create jsPDF with first page dimensions
+  const doc = new jsPDF({
+    unit: 'pt',
+    format: [pdfW, pdfH],
+    orientation: pdfW > pdfH ? 'landscape' : 'portrait'
+  });
+
+  for (let pi = 0; pi < pdfPageData.length; pi++) {
+    const pageData = pdfPageData[pi];
+    if (pi > 0) {
+      doc.addPage([pageData.pageWidth, pageData.pageHeight],
+        pageData.pageWidth > pageData.pageHeight ? 'landscape' : 'portrait');
+    }
+
+    const pw = pageData.pageWidth;
+    const ph = pageData.pageHeight;
+
+    // 1. Draw full-page background image (preserves ALL visual design)
+    doc.addImage(
+      pageData.imageDataUrl,
+      'JPEG',
+      0, 0,
+      pw, ph,
+      undefined,
+      'FAST'
+    );
+
+    // 2. Overlay translated text at original text positions
+    const items = pageData.textItems;
+
+    for (let ii = 0; ii < items.length; ii++) {
+      const item = items[ii];
+
+      // Calculate how many translated words map to this original item
+      // Original item may have multiple words; distribute proportionally
+      const origItemWords = item.str.trim().split(/\s+/).filter(Boolean);
+      if (origItemWords.length === 0) { globalItemIdx++; continue; }
+
+      // Gather translated words for this item's proportion
+      const startRatio = globalItemIdx / Math.max(totalItems - 1, 1);
+      const endRatio   = (globalItemIdx + origItemWords.length) / Math.max(totalItems - 1, 1);
+      const startTIdx  = Math.round(startRatio * (transWords.length - 1));
+      const endTIdx    = Math.round(endRatio   * (transWords.length - 1));
+      const transSlice = transWords.slice(
+        Math.min(startTIdx, transWords.length - 1),
+        Math.min(endTIdx + 1, transWords.length)
+      ).join(' ');
+
+      globalItemIdx += origItemWords.length;
+
+      if (!transSlice.trim()) continue;
+
+      // Convert normalized coords back to PDF points
+      const x = item.x * pw;
+      // item.y is top-relative (0=top), PDF y is from top in our setup
+      const y = item.y * ph;
+
+      // Font size: normalized back to points, clamped to readable range
+      const fs = Math.max(6, Math.min(item.fontSize * ph, 72));
+
+      // Draw white knockout behind text for readability
+      // (small semi-transparent rect behind each text block)
+      const textW = item.width > 0 ? item.width * pw : fs * transSlice.length * 0.55;
+      const textH = fs * 1.2;
+
+      doc.setFillColor(255, 255, 255);
+      doc.setGState(new doc.GState({ opacity: 0.75 }));
+      doc.rect(x, y - textH * 0.85, Math.min(textW, pw - x), textH, 'F');
+
+      // Draw translated text
+      doc.setGState(new doc.GState({ opacity: 1.0 }));
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(fs);
+      doc.setTextColor(10, 10, 10);
+      doc.text(transSlice, x, y, { maxWidth: Math.max(pw - x - 4, 20) });
+    }
+  }
+
+  doc.save(base + '-translated.pdf');
+}
+
+/* ── Text PDF: clean formatted PDF for TXT files ────────────────────────── */
+function buildTextPdf(base, fromLabel, toLabel, jsPDF) {
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const mL = 56, mR = 56, mT = 60, mB = 60;
+  const cW = pageW - mL - mR;
+  let y = mT;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(15);
+  doc.setTextColor(30, 30, 30);
+  const titleLines = doc.splitTextToSize(base, cW);
+  doc.text(titleLines, mL, y);
+  y += titleLines.length * 20 + 4;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(120, 120, 120);
+  doc.text(`${fromLabel} to ${toLabel}  |  NoServerTools.com`, mL, y);
+  y += 14;
+
+  doc.setDrawColor(210, 210, 220);
+  doc.setLineWidth(0.5);
+  doc.line(mL, y, pageW - mR, y);
+  y += 18;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(40, 40, 40);
+
+  for (const para of translatedText.split(/\n\n+/)) {
+    if (!para.trim()) continue;
+    const lines = doc.splitTextToSize(para.trim(), cW);
+    const bH = lines.length * 15;
+    if (y + bH > pageH - mB) { doc.addPage(); y = mT; }
+    doc.text(lines, mL, y);
+    y += bH + 10;
+  }
+
+  const total = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= total; i++) {
+    doc.setPage(i);
+    doc.setFontSize(8);
+    doc.setTextColor(170, 170, 170);
+    doc.text(`${base} — ${fromLabel} to ${toLabel}`, mL, pageH - 28);
+    doc.text(`${i} / ${total}`, pageW - mR, pageH - 28, { align: 'right' });
+    doc.setDrawColor(220, 220, 225);
+    doc.setLineWidth(0.4);
+    doc.line(mL, pageH - 38, pageW - mR, pageH - 38);
+  }
+
+  doc.save(base + '-translated.pdf');
+}
+
+/* ─── Error ─────────────────────────────────────────────────────────────── */
+function showErr(msg) {
+  const el = document.getElementById('s-error');
+  document.getElementById('err-msg').textContent = msg;
+  el.style.display = '';
+}
+function clearErr() { document.getElementById('s-error').style.display = 'none'; }
+
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+function resetAll() {
+  currentFile = null;
+  extractedText = '';
+  translatedText = '';
+  pdfPageData = [];
+  isPdfFile = false;
+  document.getElementById('file-input').value = '';
+  document.getElementById('panel-original').textContent = '';
+  document.getElementById('panel-translated').textContent = '';
+  document.getElementById('result-actions').style.display = 'none';
+  document.getElementById('pfill').style.width = '0%';
+  document.getElementById('p-pages').textContent = '';
+  clearErr();
+  showSection('s-upload');
+  setStep(1);
+}
+
+/* ─── Init ──────────────────────────────────────────────────────────────── */
+populateLangSelects();
+showSection('s-upload');
+setStep(1);
+</script>
+</body>
+</html>

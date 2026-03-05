@@ -210,6 +210,22 @@ FLUJO COMPLETO DE LA HERRAMIENTA:
     - Entre cada chunk: 300ms de delay para no exceder rate limit
     - Formato del par de idiomas: "es|en", "fr|de", etc. (NUNCA con autodetect)
     - Los chunks traducidos se van mostrando en tiempo real en el panel
+Cambios v5.10 — translate-pdf:
+Problema resuelto: Error 429 (rate limit) al traducir.
+Que se cambio en el codigo:
+
+Funcion translateChunk() reescrita con logica de reintentos:
+
+Primero intenta MyMemory con tu email amne420@gmail.com agregado como parametro &de= en la URL — esto sube el limite de ~50 a ~500 requests/dia
+Si responde 429 o cualquier error de limite, espera 1.5 segundos y prueba con LibreTranslate (segunda API gratuita, sin key)
+Si LibreTranslate tambien falla, espera 3 segundos y reintenta MyMemory una vez mas
+
+
+Nueva funcion translateMyMemory(text, langPair) — llama a MyMemory con email key
+Nueva funcion translateLibre(text, langPair) — llama a libretranslate.com/translate via POST como fallback automatico
+Delay entre chunks aumentado de 300ms a 600ms para reducir la probabilidad de llegar al limite en documentos largos
+
+Archivos modificados: solo translate-pdf/index.html
 
   PASO 5 — DESCARGA PDF
 
