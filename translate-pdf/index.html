@@ -296,7 +296,7 @@
 
       <!-- STEP 1: Upload -->
       <div id="s-upload">
-        <div class="dz" id="dz" onclick="triggerFile()" ondragover="onDragOver(event)" ondragleave="onDragLeave()" ondrop="onDrop(event)" role="button" tabindex="0" aria-label="Drop PDF or TXT file here" onkeydown="if(event.key==='Enter'||event.key===' ')triggerFile()">
+        <div class="dz" id="dz" onclick="triggerFile()" ondragover="onDragOver(event)" ondragleave="onDragLeave()" ondrop="onDrop(event)" role="button" tabindex="0" aria-label="Drop PDF or TXT file here">
           <span class="dz-icon">📄</span>
           <p class="dz-title" data-i18n="dz_title">Drop your PDF or TXT here</p>
           <p class="dz-sub" data-i18n="dz_sub">or click to browse</p>
@@ -445,4 +445,638 @@
         <p class="footer-copy fm">&copy; 2025 NoServerTools &nbsp;·&nbsp; Free forever</p>
       </div>
       <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/noservertools/merge-pdf/" class
+        <a href="/noservertools/merge-pdf/" class="fl" data-i18n="nav_merge">Merge PDF</a>
+        <a href="/noservertools/compress-pdf/" class="fl" data-i18n="nav_compress">Compress PDF</a>
+        <a href="/noservertools/split-pdf/" class="fl" data-i18n="nav_split">Split PDF</a>
+        <a href="/noservertools/pdf-to-jpg/" class="fl">PDF ↔ JPG</a>
+        <a href="/noservertools/translate-pdf/" class="fl on" data-i18n="nav_translate">Translate PDF</a>
+        <a href="/noservertools/rotate-pdf/" class="fl" style="opacity:.4">Rotate PDF</a>
+        <a href="/noservertools/protect-pdf/" class="fl" style="opacity:.4">Protect PDF</a>
+      </nav>
+    </div>
+    <div class="footer-bottom fm">NO UPLOADS &nbsp;·&nbsp; NO ACCOUNTS &nbsp;·&nbsp; NO TRACKING &nbsp;·&nbsp; FREE FOREVER</div>
+  </div>
+</footer>
+
+<!-- PDF.js for ultra-fast text extraction -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- jsPDF for clean text PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+'use strict';
+
+/* ─── i18n strings (ALL LANGUAGES RESTORED) ─────────────────────────────── */
+const I18N = {
+  en: {
+    nav_merge:'Merge PDF', nav_compress:'Compress', nav_split:'Split PDF',
+    nav_translate:'Translate', nav_all:'All tools',
+    pill_text:'Fast & Clean Text Extraction',
+    hero_title:'Translate your', hero_title2:'instantly, for free',
+    hero_sub:'Extract text from your PDF locally in your browser, then translate it. Download a clean, readable PDF document.',
+    hero_note:'Text extraction: 100% local · Translation: sent to Free APIs (text only, no file)',
+    step1:'Upload', step2:'Languages', step3:'Translate',
+    dz_title:'Drop your PDF or TXT here', dz_sub:'or click to browse',
+    dz_hint:'PDF · TXT · Max 20 MB · Fast Text Extraction',
+    from_label:'FROM', to_label:'TO',
+    privacy_note:'The extracted text (not your file) is sent to free translation APIs. Do not use for highly confidential documents.',
+    btn_translate:'Translate document', btn_new:'New document',
+    btn_copy:'Copy', btn_dismiss:'Dismiss',
+    p_extracting:'Extracting text...', p_local:'This runs locally in your browser',
+    dl_txt_translated:'Download as TXT', dl_txt_original:'Original (.txt)', dl_pdf:'Download Clean PDF',
+    translating:'Translating...',
+    info1_title:'🔒 How it works',
+    info1_1:'Your PDF is read locally using PDF.js',
+    info1_2:'Only the extracted text is sent to the translation API',
+    info1_3:'Your original file is never uploaded anywhere',
+    info1_4:'Translation uses Free APIs — no key needed',
+    info2_title:'🌐 Supported languages',
+    info2_body:'Spanish, English, French, German, Portuguese, Italian, Chinese, Japanese, Korean, Arabic, Russian, Dutch, Polish, Turkish, and more.',
+    faq_title:'FAQ',
+    faq1q:'Is my file uploaded to a server?', faq1a:'No. Your PDF file is never uploaded. Only the extracted text is sent to the translation API. Extraction runs 100% locally in your browser.',
+    faq2q:'What is MyMemory?', faq2a:'MyMemory is a free public translation API supporting 100+ language pairs. No account or API key required. It processes text, not files.',
+    faq3q:'Can I translate confidential documents?', faq3a:'We advise caution. While your file stays local, the text content is sent externally for translation. Use a private service for sensitive documents.',
+    faq4q:'Is there a page or size limit?', faq4a:'Files up to 20 MB. Long documents are split into chunks. The free API has rate limits — large documents may take a moment.',
+    faq5q:'Can I download the translation?', faq5a:'Yes — download as TXT or as a clean formatted PDF. All generated locally in your browser.'
+  },
+  es: {
+    nav_merge:'Unir PDF', nav_compress:'Comprimir', nav_split:'Dividir PDF',
+    nav_translate:'Traducir', nav_all:'Todas las tools',
+    pill_text:'Extracción rápida y limpia',
+    hero_title:'Traduce tu', hero_title2:'al instante, gratis',
+    hero_sub:'Extrae el texto de tu PDF directamente en tu navegador y tradúcelo. Descarga un documento PDF limpio y fácil de leer.',
+    hero_note:'Extracción: 100% local · Traducción: APIs Gratuitas (solo texto, no el archivo)',
+    step1:'Subir', step2:'Idiomas', step3:'Traducir',
+    dz_title:'Suelta tu PDF o TXT aquí', dz_sub:'o haz clic para seleccionar',
+    dz_hint:'PDF · TXT · Max 20 MB · Extracción de texto rápida',
+    from_label:'DESDE', to_label:'HACIA',
+    privacy_note:'El texto extraído (no tu archivo) se envía a APIs gratuitas. No uses esta herramienta para documentos altamente confidenciales.',
+    btn_translate:'Traducir documento', btn_new:'Nuevo documento',
+    btn_copy:'Copiar', btn_dismiss:'Cerrar',
+    p_extracting:'Extrayendo texto...', p_local:'Esto corre en tu navegador',
+    dl_txt_translated:'Descargar en TXT', dl_txt_original:'Original (.txt)', dl_pdf:'Descargar PDF Limpio',
+    translating:'Traduciendo...',
+    info1_title:'🔒 Cómo funciona',
+    info1_1:'Tu PDF se lee localmente usando PDF.js',
+    info1_2:'Solo el texto extraído se envía a la API de traducción',
+    info1_3:'Tu archivo original nunca se sube a ningún servidor',
+    info1_4:'Traducción via APIs gratuitas — sin cuenta necesaria',
+    info2_title:'🌐 Idiomas soportados',
+    info2_body:'Español, Inglés, Francés, Alemán, Portugués, Italiano, Chino, Japonés, Coreano, Árabe, Ruso, Holandés, Polaco, Turco y más.',
+    faq_title:'Preguntas frecuentes',
+    faq1q:'¿Se sube mi archivo a un servidor?', faq1a:'No. Tu PDF nunca se sube. Solo el texto extraído se envía a la API de traducción. La extracción corre 100% en tu navegador.',
+    faq2q:'¿Qué es MyMemory?', faq2a:'MyMemory es una API pública gratuita de traducción con más de 100 pares de idiomas. No requiere cuenta.',
+    faq3q:'¿Puedo traducir documentos confidenciales?', faq3a:'Con precaución. Tu archivo no sale de tu dispositivo, pero el texto sí se envía a una API externa.',
+    faq4q:'¿Hay límite de páginas o tamaño?', faq4a:'Archivos hasta 20 MB. Los documentos largos se dividen en partes. Las APIs gratuitas tienen límites.',
+    faq5q:'¿Puedo descargar la traducción?', faq5a:'Sí — descarga como TXT o como un PDF de texto limpio. Todo se genera en tu navegador.'
+  },
+  fr: {
+    nav_merge:'Fusionner PDF', nav_compress:'Compresser', nav_split:'Diviser PDF',
+    nav_translate:'Traduire', nav_all:'Tous les outils',
+    pill_text:'Extraction rapide et propre',
+    hero_title:'Traduisez votre', hero_title2:'instantanément, gratuitement',
+    hero_sub:'Extrayez le texte de votre PDF localement puis traduisez-le. Téléchargez un document PDF clair et lisible.',
+    hero_note:'Extraction: 100% locale · Traduction: APIs gratuites (texte uniquement)',
+    step1:'Charger', step2:'Langues', step3:'Traduire',
+    dz_title:'Déposez votre PDF ou TXT ici', dz_sub:'ou cliquez pour parcourir',
+    dz_hint:'PDF · TXT · Max 20 Mo · Extraction de texte rapide',
+    from_label:'DE', to_label:'VERS',
+    privacy_note:'Le texte extrait (pas votre fichier) est envoyé à des APIs gratuites. Ne pas utiliser pour des documents très confidentiels.',
+    btn_translate:'Traduire le document', btn_new:'Nouveau document',
+    btn_copy:'Copier', btn_dismiss:'Fermer',
+    p_extracting:'Extraction du texte...', p_local:'Cela s\'exécute dans votre navigateur',
+    dl_txt_translated:'Télécharger en TXT', dl_txt_original:'Original (.txt)', dl_pdf:'Télécharger PDF Propre',
+    translating:'Traduction en cours...',
+    info1_title:'🔒 Comment ça marche',
+    info1_1:'Votre PDF est lu localement via PDF.js',
+    info1_2:'Seul le texte extrait est envoyé à l\'API',
+    info1_3:'Votre fichier original n\'est jamais uploadé',
+    info1_4:'Traduction via APIs gratuites — sans compte',
+    info2_title:'🌐 Langues supportées',
+    info2_body:'Espagnol, Anglais, Français, Allemand, Portugais, Italien, Chinois, Japonais, Coréen, Arabe, Russe et plus.',
+    faq_title:'FAQ',
+    faq1q:'Mon fichier est-il uploadé?', faq1a:'Non. Seul le texte extrait est envoyé à l\'API. L\'extraction est 100% locale.',
+    faq2q:'Qu\'est-ce que MyMemory?', faq2a:'Une API de traduction publique et gratuite supportant plus de 100 langues.',
+    faq3q:'Puis-je traduire des documents confidentiels?', faq3a:'Prudence conseillée. Votre fichier reste local mais le texte est envoyé à une API externe.',
+    faq4q:'Y a-t-il une limite?', faq4a:'Fichiers jusqu\'à 20 Mo. Les grands documents sont découpés.',
+    faq5q:'Puis-je télécharger la traduction?', faq5a:'Oui — en TXT ou en PDF propre, généré localement.'
+  },
+  de: {
+    nav_merge:'PDF Zusammenführen', nav_compress:'Komprimieren', nav_split:'PDF Teilen',
+    nav_translate:'Übersetzen', nav_all:'Alle Tools',
+    pill_text:'Schnelle und saubere Textextraktion',
+    hero_title:'Übersetzen Sie Ihr', hero_title2:'sofort, kostenlos',
+    hero_sub:'Text aus Ihrem PDF lokal extrahieren und übersetzen. Laden Sie ein sauberes, lesbares PDF herunter.',
+    hero_note:'Extraktion: 100% lokal · Übersetzung: an kostenlose APIs gesendet (nur Text)',
+    step1:'Hochladen', step2:'Sprachen', step3:'Übersetzen',
+    dz_title:'PDF oder TXT hier ablegen', dz_sub:'oder zum Durchsuchen klicken',
+    dz_hint:'PDF · TXT · Max 20 MB · Schnelle Textextraktion',
+    from_label:'VON', to_label:'NACH',
+    privacy_note:'Der extrahierte Text wird an kostenlose APIs gesendet. Nicht für hochvertrauliche Dokumente verwenden.',
+    btn_translate:'Dokument übersetzen', btn_new:'Neues Dokument',
+    btn_copy:'Kopieren', btn_dismiss:'Schließen',
+    p_extracting:'Text wird extrahiert...', p_local:'Läuft in Ihrem Browser',
+    dl_txt_translated:'Als TXT herunterladen', dl_txt_original:'Original (.txt)', dl_pdf:'Sauberes PDF herunterladen',
+    translating:'Wird übersetzt...',
+    info1_title:'🔒 So funktioniert es',
+    info1_1:'Ihre PDF wird lokal mit PDF.js verarbeitet',
+    info1_2:'Nur der extrahierte Text wird an die API gesendet',
+    info1_3:'Ihre Originaldatei wird niemals hochgeladen',
+    info1_4:'Übersetzung über kostenlose APIs',
+    info2_title:'🌐 Unterstützte Sprachen',
+    info2_body:'Spanisch, Englisch, Französisch, Deutsch, Portugiesisch, Italienisch, Chinesisch, Japanisch, Koreanisch, Arabisch, Russisch und mehr.',
+    faq_title:'FAQ',
+    faq1q:'Wird meine Datei hochgeladen?', faq1a:'Nein. Nur der extrahierte Text wird gesendet. Die Extraktion erfolgt 100% lokal.',
+    faq2q:'Was ist MyMemory?', faq2a:'Eine kostenlose öffentliche Übersetzungs-API mit über 100 Sprachpaaren.',
+    faq3q:'Kann ich vertrauliche Dokumente übersetzen?', faq3a:'Vorsicht empfohlen. Ihre Datei bleibt lokal, aber der Text wird extern gesendet.',
+    faq4q:'Gibt es eine Größenbeschränkung?', faq4a:'Dateien bis 20 MB. Lange Dokumente werden in Teile aufgeteilt.',
+    faq5q:'Kann ich die Übersetzung herunterladen?', faq5a:'Ja — als TXT oder sauberes PDF, lokal generiert.'
+  },
+  pt: {
+    nav_merge:'Unir PDF', nav_compress:'Comprimir', nav_split:'Dividir PDF',
+    nav_translate:'Traduzir', nav_all:'Todas as ferramentas',
+    pill_text:'Extração Rápida e Limpa',
+    hero_title:'Traduza seu', hero_title2:'instantaneamente, de graça',
+    hero_sub:'Extraia o texto do seu PDF localmente e traduza-o. Baixe um documento PDF limpo e legível.',
+    hero_note:'Extração: 100% local · Tradução: enviada a APIs gratuitas (só texto)',
+    step1:'Enviar', step2:'Idiomas', step3:'Traduzir',
+    dz_title:'Solte seu PDF ou TXT aqui', dz_sub:'ou clique para selecionar',
+    dz_hint:'PDF · TXT · Max 20 MB · Extração Rápida',
+    from_label:'DE', to_label:'PARA',
+    privacy_note:'O texto extraído (não seu arquivo) é enviado a APIs gratuitas. Não use para documentos altamente confidenciais.',
+    btn_translate:'Traduzir documento', btn_new:'Novo documento',
+    btn_copy:'Copiar', btn_dismiss:'Fechar',
+    p_extracting:'Extraindo texto...', p_local:'Rodando no seu navegador',
+    dl_txt_translated:'Baixar em TXT', dl_txt_original:'Original (.txt)', dl_pdf:'Baixar PDF Limpo',
+    translating:'Traduzindo...',
+    info1_title:'🔒 Como funciona',
+    info1_1:'Seu PDF é lido localmente via PDF.js',
+    info1_2:'Apenas o texto extraído é enviado à API',
+    info1_3:'Seu arquivo original nunca é carregado',
+    info1_4:'Tradução via APIs gratuitas',
+    info2_title:'🌐 Idiomas suportados',
+    info2_body:'Espanhol, Inglês, Francês, Alemão, Português, Italiano, Chinês, Japonês, Coreano, Árabe, Russo e mais.',
+    faq_title:'FAQ',
+    faq1q:'Meu arquivo é carregado?', faq1a:'Não. Apenas o texto extraído é enviado. A extração é 100% local.',
+    faq2q:'O que é MyMemory?', faq2a:'Uma API de tradução pública e gratuita com mais de 100 idiomas.',
+    faq3q:'Posso traduzir documentos confidenciais?', faq3a:'Cuidado. Seu arquivo fica local, mas o texto é enviado externamente.',
+    faq4q:'Há limite de tamanho?', faq4a:'Arquivos até 20 MB. Documentos longos são divididos.',
+    faq5q:'Posso baixar a tradução?', faq5a:'Sim — como TXT ou PDF limpo, gerado localmente.'
+  }
+};
+
+/* ─── Language pairs ────────────────────────────────────────────────────── */
+const LANGS =[
+  {code:'en', label:'English'},
+  {code:'es', label:'Español'},
+  {code:'fr', label:'Français'},
+  {code:'de', label:'Deutsch'},
+  {code:'pt', label:'Português'},
+  {code:'it', label:'Italiano'},
+  {code:'nl', label:'Nederlands'},
+  {code:'pl', label:'Polski'},
+  {code:'ru', label:'Русский'},
+  {code:'tr', label:'Türkçe'},
+  {code:'ar', label:'العربية'},
+  {code:'zh', label:'中文'},
+  {code:'ja', label:'日本語'},
+  {code:'ko', label:'한국어'},
+  {code:'sv', label:'Svenska'},
+  {code:'da', label:'Dansk'},
+  {code:'fi', label:'Suomi'},
+  {code:'no', label:'Norsk'},
+  {code:'ro', label:'Română'},
+  {code:'uk', label:'Українська'},
+  {code:'cs', label:'Čeština'},
+  {code:'hu', label:'Magyar'},
+  {code:'el', label:'Ελληνικά'},
+  {code:'he', label:'עברית'},
+  {code:'id', label:'Bahasa Indonesia'},
+  {code:'th', label:'ภาษาไทย'},
+  {code:'vi', label:'Tiếng Việt'},
+];
+
+/* ─── State ─────────────────────────────────────────────────────────────── */
+const esc = s => String(s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const fmt = b => b > 1048576 ? (b/1048576).toFixed(1)+' MB' : (b/1024).toFixed(0)+' KB';
+
+let uiLang = 'en';
+let currentFile = null;
+let extractedText = '';
+let translatedText = '';
+let currentStep = 1;
+
+/* ─── UI Language detection ─────────────────────────────────────────────── */
+(function detectLang() {
+  const nav = (navigator.language || navigator.userLanguage || 'en').split('-')[0].toLowerCase();
+  const supported = ['en','es','fr','de','pt'];
+  const detected = supported.includes(nav) ? nav : 'en';
+  setUiLang(detected, false);
+})();
+
+function setUiLang(lang, save = true) {
+  uiLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('on'));
+  const btn = document.getElementById('uilang-' + lang);
+  if (btn) btn.classList.add('on');
+  const strings = I18N[lang] || I18N.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (strings[key]) el.textContent = strings[key];
+  });
+  document.getElementById('html-root').setAttribute('lang', lang);
+  if (save) populateLangSelects();
+}
+
+/* ─── Language selects ──────────────────────────────────────────────────── */
+function populateLangSelects() {
+  ['lang-from','lang-to'].forEach(id => {
+    const sel = document.getElementById(id);
+    const prev = sel.value;
+    sel.innerHTML = '';
+    LANGS.forEach(({code, label}) => {
+      const opt = document.createElement('option');
+      opt.value = code;
+      opt.textContent = label;
+      sel.appendChild(opt);
+    });
+    if (prev && sel.querySelector(`option[value="${prev}"]`)) {
+      sel.value = prev;
+    } else {
+      const fromDefaults = {en:'es', es:'en', fr:'fr', de:'de', pt:'pt'};
+      const toDefaults   = {en:'en', es:'es', fr:'en', de:'en', pt:'en'};
+      if (id === 'lang-from') sel.value = fromDefaults[uiLang] || 'es';
+      else                    sel.value = toDefaults[uiLang]   || 'en';
+    }
+  });
+}
+
+function swapLangs() {
+  const from = document.getElementById('lang-from');
+  const to   = document.getElementById('lang-to');
+  const tmp  = from.value;
+  from.value = to.value;
+  to.value   = tmp;
+}
+
+/* ─── Steps ─────────────────────────────────────────────────────────────── */
+function setStep(n) {
+  currentStep = n;
+  [1,2,3].forEach(i => {
+    const dot = document.getElementById('dot-' + i);
+    const lbl = document.getElementById('lbl-' + i);
+    const line = document.getElementById('line-' + i);
+    dot.className = 'step-dot' + (i < n ? ' done' : i === n ? ' active' : '');
+    lbl.className = 'step-label' + (i < n ? ' done' : i === n ? ' active' : '');
+    if (line) line.className = 'step-line' + (i < n ? ' done' : '');
+    if (i < n) dot.textContent = '✓';
+    else dot.textContent = i;
+  });
+  document.getElementById('steps-track').setAttribute('aria-valuenow', n);
+}
+
+/* ─── File handling ─────────────────────────────────────────────────────── */
+function triggerFile() {
+  const fi = document.getElementById('file-input');
+  // EL TRUCO ESTÁ AQUÍ: Reseteamos el input para que el navegador siempre registre el click
+  fi.value = ''; 
+  fi.click();
+}
+
+function onDragOver(e) { e.preventDefault(); document.getElementById('dz').classList.add('on'); }
+function onDragLeave() { document.getElementById('dz').classList.remove('on'); }
+function onDrop(e) { e.preventDefault(); onDragLeave(); handleFiles(e.dataTransfer.files); }
+
+function handleFiles(files) {
+  if (!files || files.length === 0) return;
+  const f = files[0];
+  const name = f.name.toLowerCase();
+  
+  if (!name.endsWith('.pdf') && !name.endsWith('.txt')) {
+    showErr('Please select a valid PDF or TXT file.');
+    return;
+  }
+  if (f.size > 20 * 1024 * 1024) {
+    showErr('File too large. Maximum 20 MB.');
+    return;
+  }
+  
+  currentFile = f;
+  clearErr();
+  document.getElementById('chip-name').textContent = f.name;
+  document.getElementById('chip-meta').textContent = fmt(f.size) + ' · ' + (name.endsWith('.txt') ? 'TXT' : 'PDF');
+  showSection('s-lang');
+  setStep(2);
+  populateLangSelects();
+}
+
+function showSection(id) {['s-upload','s-lang','s-progress','s-results'].forEach(s => {
+    document.getElementById(s).style.display = (s === id) ? '' : 'none';
+  });
+}
+
+function setProg(pct, label, sub, pages) {
+  document.getElementById('pfill').style.width = pct + '%';
+  document.getElementById('p-label').textContent = label;
+  document.getElementById('p-sub').textContent = sub || '';
+  document.getElementById('p-pct').textContent = Math.round(pct) + '%';
+  if (pages !== undefined) document.getElementById('p-pages').textContent = pages;
+}
+
+/* ─── PDF.js Fast Extraction (No canvas rendering) ──────────────────────── */
+async function extractWithPdfJs(arrayBuffer) {
+  if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const numPages = pdf.numPages;
+  const allText =[];
+
+  for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+    setProg(5 + Math.round((pageNum / numPages) * 30), `Extracting page ${pageNum} of ${numPages}...`, 'Fast local text extraction');
+    const page = await pdf.getPage(pageNum);
+    const textContent = await page.getTextContent();
+    const pageText = textContent.items.map(i => i.str).join(' ').replace(/\s+/g, ' ').trim();
+    if (pageText) allText.push(pageText);
+  }
+  return allText.join('\n\n');
+}
+
+async function startTranslation() {
+  if (!currentFile) return;
+  clearErr();
+  showSection('s-progress');
+  setStep(3);
+  const strings = I18N[uiLang] || I18N.en;
+
+  try {
+    setProg(5, strings.p_extracting, strings.p_local);
+    document.getElementById('p-emoji').textContent = '📄';
+
+    if (currentFile.name.toLowerCase().endsWith('.txt')) {
+      extractedText = await currentFile.text();
+      setProg(40, strings.p_extracting, strings.p_local);
+    } else {
+      setProg(8, 'Loading PDF...', 'Reading your file locally');
+      const buf = await currentFile.arrayBuffer();
+      extractedText = await extractWithPdfJs(buf);
+      setProg(40, strings.p_extracting, strings.p_local);
+    }
+
+    if (!extractedText || extractedText.trim().length < 5) {
+      throw new Error('Could not extract text from this PDF. The file may be image-based (scanned).');
+    }
+
+    showSection('s-results');
+    const origPanel = document.getElementById('panel-original');
+    origPanel.textContent = extractedText;
+
+    const fromCode = document.getElementById('lang-from').value;
+    const toCode   = document.getElementById('lang-to').value;
+    if (!fromCode || !toCode) throw new Error('Please select both languages.');
+    if (fromCode === toCode) throw new Error('Source and target languages must be different.');
+    
+    const langPair  = fromCode + '|' + toCode;
+    const fromLabel = LANGS.find(l => l.code === fromCode)?.label || fromCode;
+    const toLabel   = LANGS.find(l => l.code === toCode)?.label   || toCode;
+    document.getElementById('panel-from-lang').textContent = fromLabel;
+    document.getElementById('panel-to-lang').textContent = toLabel;
+    document.getElementById('r-title').textContent = '✅ ' + (strings.btn_translate || 'Translation complete');
+    document.getElementById('r-sub').textContent = `${fromLabel} → ${toLabel} · ${currentFile.name}`;
+
+    const transPanel = document.getElementById('panel-translated');
+    transPanel.innerHTML = `<span class="panel-placeholder pulse">${strings.translating || 'Translating...'}</span>`;
+
+    const chunks = splitIntoChunks(extractedText, 450);
+    const translated =[];
+    
+    for (let i = 0; i < chunks.length; i++) {
+      const result = await translateChunk(chunks[i], langPair);
+      translated.push(result);
+      transPanel.textContent = translated.join('\n\n') + (i < chunks.length - 1 ? '\n\n...' : '');
+      if (i < chunks.length - 1) await sleep(600);
+    }
+    
+    translatedText = translated.join('\n\n');
+    transPanel.textContent = translatedText;
+
+    document.getElementById('result-actions').style.display = '';
+
+  } catch(e) {
+    showErr(e.message);
+    showSection('s-lang');
+    setStep(2);
+  }
+}
+
+function splitIntoChunks(text, maxLen) {
+  const sentences = text.match(/[^.!?\n]+[.!?\n]*/g) || [text];
+  const chunks =[];
+  let current = '';
+  for (const s of sentences) {
+    if ((current + s).length > maxLen && current.length > 0) {
+      chunks.push(current.trim());
+      current = s;
+    } else {
+      current += s;
+    }
+  }
+  if (current.trim()) chunks.push(current.trim());
+  return chunks.filter(c => c.length > 0);
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* ─── Robust API Translation (Fallback Logic) ───────────────────────────── */
+async function translateChunk(text, langPair) {
+  try {
+    return await translateMyMemory(text, langPair);
+  } catch(e) {
+    const isRateLimit = e.message.includes('429') || e.message.toLowerCase().includes('limit') || e.message.includes('QUERY LENGTH');
+    if (isRateLimit) {
+      console.warn("MyMemory API limit hit. Switching to fallback...");
+      await sleep(1500);
+      try {
+        return await translateLibre(text, langPair);
+      } catch(e2) {
+        console.warn("Fallback failed. Retrying MyMemory once more...");
+        await sleep(3000);
+        return await translateMyMemory(text, langPair);
+      }
+    }
+    throw e;
+  }
+}
+
+async function translateMyMemory(text, langPair) {
+  const email = 'amne420@gmail.com';
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(langPair)}&de=${encodeURIComponent(email)}`;
+  const resp = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+  if (!resp.ok) throw new Error(`API error: ${resp.status}`);
+  const data = await resp.json();
+  if (data.responseStatus === 429 || (data.responseDetails && data.responseDetails.toLowerCase().includes('limit'))) {
+    throw new Error('429 rate limit');
+  }
+  if (data.responseStatus !== 200) throw new Error('Translation failed: ' + (data.responseDetails || 'API error'));
+  return data.responseData.translatedText;
+}
+
+async function translateLibre(text, langPair) {
+  const [from, to] = langPair.split('|');
+  const resp = await fetch('https://libretranslate.com/translate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ q: text, source: from, target: to, format: 'text' })
+  });
+  if (!resp.ok) throw new Error(`LibreTranslate error: ${resp.status}`);
+  const data = await resp.json();
+  if (data.error) throw new Error('LibreTranslate: ' + data.error);
+  return data.translatedText;
+}
+
+/* ─── Copy ──────────────────────────────────────────────────────────────── */
+function copyText(which) {
+  const text = which === 'original' ? extractedText : translatedText;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(which === 'original' ? 'copy-orig-btn' : 'copy-trans-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    btn.style.color = 'var(--green)';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 2000);
+  }).catch(() => {});
+}
+
+/* ─── Downloads ─────────────────────────────────────────────────────────── */
+function downloadTxt(which) {
+  const text = which === 'original' ? extractedText : translatedText;
+  if (!text) return;
+  const base = currentFile ? currentFile.name.replace(/\.[^.]+$/, '') : 'document';
+  const fname = base + (which === 'translated' ? '-translated' : '-original') + '.txt';
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fname;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+async function downloadPdf() {
+  if (!translatedText) return;
+  const btn = document.getElementById('dl-pdf-btn');
+  const span = btn.querySelector('span');
+  const origLabel = span ? span.textContent : '';
+  if (span) span.textContent = 'Building PDF...';
+  btn.disabled = true;
+
+  const toCode   = document.getElementById('lang-to').value;
+  const fromCode = document.getElementById('lang-from').value;
+  const toLabel  = LANGS.find(l => l.code === toCode)?.label  || toCode;
+  const fromLabel = LANGS.find(l => l.code === fromCode)?.label || fromCode;
+  const base = currentFile ? currentFile.name.replace(/\.[^.]+$/, '') : 'document';
+
+  try {
+    const { jsPDF } = window.jspdf;
+    buildTextPdf(base, fromLabel, toLabel, jsPDF);
+  } catch (err) {
+    console.error('PDF generation error:', err);
+    downloadTxt('translated');
+    if (span) span.textContent = 'Saved as .txt (error)';
+  } finally {
+    btn.disabled = false;
+    if (span) span.textContent = origLabel;
+  }
+}
+
+/* ── Text PDF: Clean, formatted PDF output ────────────────────────────── */
+function buildTextPdf(base, fromLabel, toLabel, jsPDF) {
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const mL = 56, mR = 56, mT = 60, mB = 60;
+  const cW = pageW - mL - mR;
+  let y = mT;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(15);
+  doc.setTextColor(30, 30, 30);
+  const titleLines = doc.splitTextToSize(base + " (Translated)", cW);
+  doc.text(titleLines, mL, y);
+  y += titleLines.length * 20 + 4;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(120, 120, 120);
+  doc.text(`${fromLabel} to ${toLabel}  |  NoServerTools.com`, mL, y);
+  y += 14;
+
+  doc.setDrawColor(210, 210, 220);
+  doc.setLineWidth(0.5);
+  doc.line(mL, y, pageW - mR, y);
+  y += 18;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(40, 40, 40);
+
+  const paragraphs = translatedText.split(/\n\n+/);
+  for (const para of paragraphs) {
+    if (!para.trim()) continue;
+    const lines = doc.splitTextToSize(para.trim(), cW);
+    const bH = lines.length * 15;
+    if (y + bH > pageH - mB) { doc.addPage(); y = mT; }
+    doc.text(lines, mL, y);
+    y += bH + 10;
+  }
+
+  const total = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= total; i++) {
+    doc.setPage(i);
+    doc.setFontSize(8);
+    doc.setTextColor(170, 170, 170);
+    doc.text(`${base} — Translated`, mL, pageH - 28);
+    doc.text(`Page ${i} of ${total}`, pageW - mR, pageH - 28, { align: 'right' });
+    doc.setDrawColor(220, 220, 225);
+    doc.setLineWidth(0.4);
+    doc.line(mL, pageH - 38, pageW - mR, pageH - 38);
+  }
+
+  doc.save(base + '-translated.pdf');
+}
+
+/* ─── Error ─────────────────────────────────────────────────────────────── */
+function showErr(msg) {
+  const el = document.getElementById('s-error');
+  document.getElementById('err-msg').textContent = msg;
+  el.style.display = '';
+}
+function clearErr() { document.getElementById('s-error').style.display = 'none'; }
+
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+function resetAll() {
+  currentFile = null;
+  extractedText = '';
+  translatedText = '';
+  document.getElementById('file-input').value = '';
+  document.getElementById('panel-original').textContent = '';
+  document.getElementById('panel-translated').textContent = '';
+  document.getElementById('result-actions').style.display = 'none';
+  document.getElementById('pfill').style.width = '0%';
+  document.getElementById('p-pages').textContent = '';
+  clearErr();
+  showSection('s-upload');
+  setStep(1);
+}
+
+/* ─── Init ──────────────────────────────────────────────────────────────── */
+populateLangSelects();
+showSection('s-upload');
+setStep(1);
+</script>
+</body>
+</html>
