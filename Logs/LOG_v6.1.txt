@@ -1,0 +1,451 @@
+════════════════════════════════════════════════════════════════
+LOG MAESTRO v6.1 — NOSERVERTOOLS
+PEGAR EN CUALQUIER AI PARA CONTINUAR SIN PREGUNTAS
+════════════════════════════════════════════════════════════════
+
+PROYECTO: NoServerTools
+Tipo: App web estatica — un HTML por herramienta, CERO servidores propios
+Hosting: GitHub Pages — GRATIS — $0 forever
+URL RAIZ: https://fio42.github.io/noservertools/
+Repo: https://github.com/Fio42/noservertools
+Carpeta local: C:/Users/fiocc/OneDrive/Desktop/noservertools/
+Usuario GitHub: Fio42
+Ultimo deploy: v6.1 — 8 tools live, translate eliminada, protect+unlock nuevas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IDENTIDAD DE MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nombre:    NoServerTools
+Dominio:   noservertools.com (objetivo futuro, aun no comprado)
+Tagline:   "Your files never leave your computer."
+Sub:       "Tools that run inside your browser. Not on our servers."
+SIN estadisticas inventadas. SIN reviews falsos. Sin excepcion.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REGLAS PERMANENTES — NUNCA ROMPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  CERO servidores propios. Todo corre en el browser del usuario.
+2.  NUNCA usar em dash (—) en textos visibles del HTML.
+3.  SIEMPRE usar esc() antes de insertar texto del usuario en el DOM.
+4.  Cada herramienta = su propia carpeta + index.html. Nunca mezclar.
+5.  SIEMPRE actualizar sitemap.xml al agregar herramienta nueva.
+6.  SIEMPRE actualizar nav y footer de TODAS las paginas al agregar tool.
+7.  SIEMPRE entregar el LOG actualizado al final de cada sesion como .txt.
+8.  El usuario es principiante — pasos simples, uno a la vez, sin asumir nada.
+9.  NUNCA inventar estadisticas falsas ni reviews falsos.
+10. La marca es NoServerTools — no limitada a PDF, puede agregar cualquier tool.
+11. Todos los HTML deben incluir: CSP meta, X-Frame-Options, X-Content-Type-Options.
+12. SIEMPRE usar 'use strict' en todos los bloques <script>.
+13. SIEMPRE usar createElement o esc() — nunca innerHTML con datos del usuario.
+14. translate-pdf ELIMINADA en v6.0. No recrear, no referenciar.
+15. NUNCA agregar tools que envien datos a servidores externos sin aviso prominente.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMO SUBIR CAMBIOS AL REPO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+cd "C:/Users/fiocc/OneDrive/Desktop/noservertools"
+git add .
+git commit -m "descripcion del cambio"
+git push
+Esperar 1-2 minutos y recargar en el browser.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUCTURA DE ARCHIVOS — ESTADO ACTUAL v6.1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+noservertools/
+  index.html                [VIVO v6.1] HUB — 8 tools live, translate eliminada
+  sitemap.xml               [VIVO v6.1] 8 URLs indexadas
+  robots.txt                [VIVO] SEO
+  LOG.txt                   Este archivo
+
+  merge-pdf/
+    index.html              [VIVO v6.1] Merge PDF — nav/footer actualizados
+
+  compress-pdf/
+    index.html              [VIVO v6.1] Compress PDF — nav/footer actualizados
+
+  split-pdf/
+    index.html              [VIVO v6.1] Split PDF — nav/footer actualizados
+
+  pdf-to-jpg/
+    index.html              [VIVO v6.1] PDF<->JPG — nav/footer actualizados
+
+  rotate-pdf/
+    index.html              [VIVO v6.1] Rotate PDF — construida desde cero v6.0
+
+  protect-pdf/
+    index.html              [VIVO v6.1] Protect PDF — construida desde cero v6.1
+
+  unlock-pdf/
+    index.html              [VIVO v6.1] Unlock PDF — construida desde cero v6.1
+
+  translate-pdf/            [ELIMINADA v6.0] Borrar esta carpeta del repo local
+
+  -- PENDIENTES (orden prioridad SEO) --
+  watermark-pdf/            PRIORIDAD 1
+  reorder-pdf/              PRIORIDAD 2
+  delete-pages/             PRIORIDAD 3
+  pdf-to-text/              PRIORIDAD 4
+  repair-pdf/               PRIORIDAD 5
+  view-pdf-metadata/        PRIORIDAD 6 — diferenciador privacidad
+  remove-pdf-metadata/      PRIORIDAD 7 — diferenciador privacidad
+  redact-pdf/               PRIORIDAD 8 — diferenciador privacidad
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DISENO VISUAL — SISTEMA GLOBAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Background:   #0e1117
+Fuentes:      Syne (titulos, font-weight 700/800) — clase .fd
+              Outfit (cuerpo, font-weight 400/500/600)
+              DM Mono (labels tecnicos, badges) — clase .fm
+Colores:
+  brand-400:   #5a87ff
+  brand-500:   #3363f5
+  brand-600:   #1f45e0
+  green:       #4ade80 (exito, live badge, privacy badge)
+  red:         #f87171 (error)
+  yellow:      #fbbf24 (advertencias)
+  text:        #e8eaf0
+  muted:       rgba(255,255,255,.45)
+  dim:         rgba(255,255,255,.25)
+  surface:     rgba(255,255,255,.03)
+  border:      rgba(255,255,255,.08)
+
+Background efecto: body::before con grid rgba(83,99,255,.055) 52x52px
+Blobs: .blob-a arriba-izquierda, .blob-b derecha-centro
+Nav: sticky, backdrop-filter blur(14px), altura 54px, bg rgba(14,17,23,.75)
+Logo: caja 28x28 azul con SVG 4 cuadros + "NoServer" blanco + "Tools" en brand-400
+Footer: border-top, bg rgba(0,0,0,.3), links a todas las tools activas
+  Bottom strip: "NO UPLOADS · NO ACCOUNTS · NO TRACKING · NO SERVERS"
+
+PATRON NAV (herramientas v6.1 usan este orden):
+  Merge PDF | Compress | Split PDF | PDF ↔ JPG | Rotate PDF | Protect PDF | Unlock PDF | [All tools CTA]
+
+PATRON FOOTER (mismo orden):
+  Merge PDF | Compress PDF | Split PDF | PDF ↔ JPG | Rotate PDF | Protect PDF | Unlock PDF
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECETAS TECNICAS — HERRAMIENTAS ACTIVAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Stack base: Pyodide v0.25.0 + pypdf (via micropip)
+CDN Pyodide: https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js
+CDN PDF.js: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+
+MERGE PDF (Pyodide + pypdf):
+  PdfWriter().append(BytesIO(bytes)) por cada archivo
+  writer.write(output_buffer) -> descarga merged.pdf
+
+COMPRESS PDF (Pyodide + pypdf):
+  compress_identical_objects(remove_identicals=True, remove_orphans=True)
+  Por imagen: img.replace(img.image, quality=N) segun nivel elegido
+  Descarga filename-compressed.pdf
+
+SPLIT PDF (Pyodide + pypdf):
+  PdfWriter().add_page(page) por paginas del rango
+  Descarga filename-split.pdf
+
+PDF -> JPG (PDF.js, NO Pyodide):
+  page.render() -> canvas -> canvas.toDataURL('image/jpeg')
+  Descarga page-N.jpg
+
+JPG -> PDF (Pyodide + Pillow):
+  Image.open(BytesIO(bytes)) -> img.save(buf, format='PDF')
+  PdfWriter().append() -> descarga filename.pdf
+
+ROTATE PDF (Pyodide + pypdf):
+  page.rotate(angle) donde angle es 90, 180 o 270
+  Scope: all pages o rango especifico (parse_range)
+  Descarga filename-rotated.pdf
+
+PROTECT PDF (Pyodide + pypdf):
+  writer.clone_reader_document_root(reader)
+  writer.encrypt(user_password=pw, owner_password=None, use_128bit=True)
+  Descarga filename-protected.pdf
+  UI: password input + confirm + strength indicator + show/hide toggle
+
+UNLOCK PDF (Pyodide + pypdf):
+  reader.is_encrypted -> reader.decrypt(password) -> retorna 0=fallo, 1=exito
+  writer.clone_reader_document_root(reader) -> writer.write(out)
+  Maneja caso: PDF no estaba encriptado (lo descarga igual)
+  Maneja caso: password incorrecta (muestra error claro)
+  Descarga filename-unlocked.pdf
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ARQUITECTURA ESTANDAR DE CADA HERRAMIENTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Cada index.html sigue esta estructura exacta:
+
+1. <head>
+   - <base href="/noservertools/">
+   - Meta charset, viewport
+   - Meta seguridad: X-Content-Type-Options, X-Frame-Options, CSP
+   - <title>[Tool] Free Online — No Upload, 100% Private | NoServerTools</title>
+   - <meta name="description"> con keyword principal + "no upload" + "browser"
+   - <meta name="keywords"> con 5-6 keywords long-tail de privacidad
+   - <link rel="canonical">
+   - og:title, og:description, og:url, og:type
+   - <meta name="robots" content="index, follow">
+   - Google Fonts: Syne + Outfit + DM Mono
+   - Tailwind CDN + config con colores brand
+   - <style> con CSS del sistema global
+   - JSON-LD WebApplication schema
+
+2. <body>
+   - Blobs de fondo (.blob-a, .blob-b)
+   - <header> sticky con nav completo (todas las tools activas)
+   - <main>
+       - Hero: badge privacidad verde + H1 + descripcion
+       - Drop zone: drag & drop con validacion tipo/tamano
+       - File chip: nombre + peso + boton remover
+       - Tool UI: controles especificos + loading engine + boton principal
+       - Progress bar: label + porcentaje + barra
+       - Result: icono check + descripcion + boton descarga + boton reset
+       - Steps: 3 pasos (01 Drop, 02 Accion, 03 Download)
+       - Why NoServerTools: 4 items (Zero uploads, Zero storage, Zero tracking, Works offline)
+   - <footer> con logo + links tools + strip inferior
+
+3. <script>
+   - 'use strict'
+   - esc(), fmt() funciones utiles
+   - Variables globales: currentFile, pyodide, pyReady, resultURL
+   - handleFile(): validacion + mostrar chip + activar UI + initPyodide()
+   - initPyodide(): carga lazy, spinner, disable boton durante carga
+   - startX(): lee archivo, procesa con Pyodide, descarga resultado
+   - resetAll(): limpia todo el estado y vuelve al drop zone
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEGURIDAD — APLICAR A TODOS LOS HTML
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Meta tags obligatorios:
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Content-Security-Policy" content="...">
+
+CSP para tools con Pyodide:
+  script-src 'unsafe-inline' cdn.tailwindcss.com cdn.jsdelivr.net
+  worker-src blob:
+  img-src 'self' data: blob:
+  connect-src cdn.jsdelivr.net
+
+JS obligatorio:
+  'use strict' en cada bloque <script>
+  esc(s) para cualquier dato del usuario antes de insertarlo en DOM
+  Validacion tipo y tamano de archivo antes de procesar
+  URL.revokeObjectURL() despues de cada descarga
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEO — ESTRATEGIA GLOBAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Titulo pattern: [Tool Name] Free Online — No Upload, 100% Private | NoServerTools
+Description pattern: [Accion] in your browser. No file upload. No server. 100% private.
+
+Keywords por herramienta:
+  merge-pdf:     "merge pdf free", "combine pdf no upload", "join pdf browser"
+  compress-pdf:  "compress pdf free", "reduce pdf size no upload"
+  split-pdf:     "split pdf free", "separate pdf pages no upload"
+  pdf-to-jpg:    "pdf to jpg free", "convert pdf image no upload"
+  rotate-pdf:    "rotate pdf free", "rotate pdf pages no upload"
+  protect-pdf:   "password protect pdf free", "encrypt pdf no upload"
+  unlock-pdf:    "unlock pdf free", "remove pdf password no upload"
+
+Diferenciador SEO unico (long-tail de privacidad, baja competencia):
+  "pdf tools without uploading files"
+  "private pdf editor no server"
+  "pdf tools 100% browser"
+  "secure pdf no account"
+
+JSON-LD en cada tool: WebApplication con name, url, description, offers price=0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COPYWRITING — MENSAJES CLAVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Tagline principal: "Your files never leave your computer."
+Subtitulo:  "No file uploads. No servers. No accounts."
+Badge verde: "No upload · 100% local"
+Badge pill hub: "Zero uploads · Zero servers · Zero tracking"
+
+Why NoServerTools (4 puntos, usar en todas las tools):
+  Zero uploads   — We never receive your files.
+  Zero storage   — Nothing saved anywhere.
+  Zero tracking  — We don't know what you process.
+  Works offline  — Once loaded, no internet needed.
+
+CTA: "Select PDF file" / "Drop your PDF here"
+Descarga: "Download [Result]" con fondo verde (#4ade80, texto #0e1117)
+Reset: "Process another file" con estilo ghost
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HISTORIAL COMPLETO DE VERSIONES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+v1-v5.2:    Merge, Compress, Split, HUB inicial
+v5.3:       REBRAND a NoServerTools + dark mode global
+v5.4:       Todas las tools en dark mode + PDF to JPG inicial
+v5.4.1:     Fix: base href para GitHub Pages
+v5.5:       PDF<->JPG con PDF.js + JPG to PDF con Pillow
+v5.6:       HUB revamp (grid de tools, hero compacto)
+            PDF<->JPG combinado en una sola pagina con switch de modo
+            Hardening de seguridad general
+v5.7:       Translate PDF — primera version
+            Pyodide + pypdf extraccion, MyMemory API traduccion
+            UI en 5 idiomas, steps indicator, descarga TXT/HTML
+v5.8:       Fix descarga PDF en translate-pdf
+            jsPDF real con header, parrafos, paginacion
+            Fallback a .txt si jsPDF falla
+v5.9:       Translate PDF — descarga visual (CAMBIO MAYOR)
+            PDF.js renderiza paginas como JPEG (SCALE=2.0)
+            PDF.js extrae texto con coordenadas x,y normalizadas
+            buildVisualPdf(): imagen fondo + knockout blanco + texto overlay
+            Fallback LibreTranslate si MyMemory devuelve 429
+            Email key en MyMemory para subir limite a ~500 req/dia
+v6.0:       REVAMP ESTRATEGICO
+            translate-pdf ELIMINADA (enviaba texto a API externa)
+            Nuevo tagline: "Your files never leave your computer."
+            rotate-pdf construida (Pyodide + pypdf, scope all/range)
+            SEO strategy y copywriting documentados en LOG
+            I18N expandido a 9 idiomas (objetivo)
+            Arquitectura estandar de tools documentada
+            Roadmap de 11 tools con prioridad SEO
+v6.1:       3 TOOLS NUEVAS + HUB REVAMP
+            protect-pdf: encripta PDF con password (Pyodide + pypdf)
+              encrypt(user_password, use_128bit=True)
+              UI: password + confirm + strength indicator + show/hide
+            unlock-pdf: elimina password de PDF (Pyodide + pypdf)
+              decrypt(password) -> clone_reader_document_root
+              Maneja: wrong password, not encrypted, success
+            HUB index.html actualizado:
+              translate-pdf eliminada del grid y footer
+              rotate-pdf, protect-pdf, unlock-pdf activas (badge Live)
+              contador actualizado: 8 live, 5 coming
+              nav actualizado con todas las tools activas
+            Nav y footer de TODAS las tools actualizados con 7 links
+            sitemap.xml actualizado: 8 URLs (sin translate-pdf)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROXIMOS PASOS — ORDEN RECOMENDADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. watermark-pdf: agregar texto de marca de agua a todas las paginas
+   Pyodide + pypdf: page.merge_page() o canvas con texto diagonal
+2. delete-pages: eliminar paginas especificas por numero/rango
+   Pyodide + pypdf: omitir paginas del rango dado al hacer writer.add_page()
+3. reorder-pdf: arrastrar miniaturas para reordenar paginas
+   PDF.js para render miniaturas + drag & drop nativo + pypdf para reordenar
+4. pdf-to-text: extraer texto de PDF como .txt descargable
+   Pyodide + pypdf: page.extract_text() por cada pagina
+5. view-pdf-metadata: mostrar metadatos del PDF en tabla
+   Pyodide + pypdf: reader.metadata -> tabla con Author, Creator, etc.
+6. remove-pdf-metadata: limpiar metadatos del PDF
+   Pyodide + pypdf: writer.add_metadata({}) -> limpia todos los campos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA EL PROXIMO AI — LEER ESTO PRIMERO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  Proyecto: NoServerTools. App web estatica en GitHub Pages. CERO servidores.
+2.  Fondo: #0e1117. Fuentes: Syne (.fd) + Outfit + DM Mono (.fm).
+    Brand: #5a87ff (400) / #3363f5 (500) / #1f45e0 (600).
+3.  Cada tool = su propia carpeta con index.html. No compartir HTML.
+4.  Pyodide v0.25.0 + pypdf (via micropip) para todas las tools excepto pdf-to-jpg.
+5.  PDF.js v3.11.174 para pdf-to-jpg (render + extraccion de texto).
+6.  translate-pdf ELIMINADA en v6.0. No recrear. No referenciar.
+7.  Tools activas en v6.1: merge, compress, split, pdf-to-jpg, rotate, protect, unlock.
+8.  Nav pattern exacto: Merge | Compress | Split | PDF JPG | Rotate | Protect | Unlock | [All tools]
+9.  Footer pattern exacto: mismos 7 links, link de la pagina actual con clase .on o font-weight:600.
+10. Al agregar tool nueva: actualizar nav/footer de TODAS las 7 tools + HUB + sitemap.xml.
+11. CSP + X-Frame + X-Content-Type + 'use strict' + esc() en todo HTML nuevo.
+12. NUNCA estadisticas inventadas. NUNCA reviews falsos.
+13. Usuario es principiante. Dar pasos exactos: archivo -> carpeta -> comando git.
+14. LOG actualizado y completo al final de cada sesion, entregado como .txt.
+15. Cuando el usuario mande un index.html, leer COMPLETO antes de modificar.
+    Usar str_replace quirurgico. No reescribir archivos enteros.
+16. Privacy badge verde en cada tool: "No upload · 100% local"
+17. Boton de descarga: fondo #4ade80, texto #0e1117.
+18. Pyodide se carga LAZY (solo cuando el usuario sube un archivo).
+    Mostrar spinner + mensaje "Loading engine (first time: 10-20 seconds)".
+    Deshabilitar boton durante la carga.
+
+════════════════════════════════════════════════════════════════
+CHANGE LOG — v6.1
+════════════════════════════════════════════════════════════════
+
+CAMBIO 1
+  Accion:      HUB index.html — eliminar translate-pdf, activar 3 tools
+  Archivo:     index.html (raiz)
+  Descripcion: Eliminada card de translate-pdf del grid y del footer.
+               Cards de rotate-pdf, protect-pdf y unlock-pdf cambiadas
+               de <div class="tc soon"> (opacidad .38, no clickeable) a
+               <a href="..." class="tc"> con badge "Live" en verde.
+               Contador actualizado de "6 live · 7 coming" a "8 live · 5 coming".
+               Nav del hub actualizado con Rotate PDF como link activo.
+               Footer: eliminado translate-pdf, activados rotate/protect/unlock.
+  Motivo:      Las tools estaban construidas y deployadas pero el hub
+               seguia mostrando translate (eliminada) y rotate como "Soon".
+  Impacto SEO: Positivo. Google puede ahora rastrear los links internos
+               a las 3 nuevas tools desde el hub.
+  Impacto UX:  Alto positivo. Usuario ve tools reales, no "Soon".
+
+CAMBIO 2
+  Accion:      protect-pdf/index.html — herramienta nueva completa
+  Archivo:     protect-pdf/index.html (creado desde cero)
+  Descripcion: Herramienta para agregar contrasena a cualquier PDF.
+               Stack: Pyodide v0.25.0 + pypdf via micropip.
+               Python: writer.encrypt(user_password=pw, use_128bit=True)
+               UI: drop zone + file chip + password input + confirm input +
+               strength indicator (5 niveles: weak/fair/strong/very strong) +
+               show/hide toggle en ambos inputs + boton process + progress bar +
+               result con descarga verde + reset.
+               SEO: title, description, keywords, canonical, og:tags, JSON-LD.
+               Seguridad: CSP, X-Frame, X-Content-Type, 'use strict', esc().
+               Nav y footer completos con los 7 tools activos.
+  Motivo:      Tool de alto trafico SEO + refuerza posicionamiento de privacidad.
+               "password protect pdf free" = keyword de alto volumen.
+  Impacto SEO: Alto positivo.
+  Impacto UX:  Positivo. Strength indicator da feedback inmediato al usuario.
+
+CAMBIO 3
+  Accion:      unlock-pdf/index.html — herramienta nueva completa
+  Archivo:     unlock-pdf/index.html (creado desde cero)
+  Descripcion: Herramienta para eliminar la contrasena de un PDF.
+               Stack: Pyodide v0.25.0 + pypdf via micropip.
+               Python: reader.decrypt(pw) -> clone_reader_document_root -> write
+               Maneja 3 casos:
+                 1. Password correcta -> PDF sin password -> descarga
+                 2. Password incorrecta -> error claro "Wrong password"
+                 3. PDF no estaba encriptado -> descarga igual con nota
+               UI: drop zone + file chip + password input con show/hide +
+               info box amarillo explicando que se necesita la password actual +
+               boton process + progress + result con descarga + reset.
+               SEO: title, description, keywords, canonical, og:tags, JSON-LD.
+  Motivo:      Complementa protect-pdf. "unlock pdf free" = keyword alta busqueda.
+               Par natural: si tienes protect, debes tener unlock.
+  Impacto SEO: Alto positivo.
+  Impacto UX:  Positivo. Info box previene confusion sobre que hace la tool.
+
+CAMBIO 4
+  Accion:      Nav y footer de todas las tools — agregar protect y unlock
+  Archivos:    merge-pdf/index.html, compress-pdf/index.html,
+               split-pdf/index.html, pdf-to-jpg/index.html,
+               rotate-pdf/index.html (generado en v6.0)
+  Descripcion: Nav actualizado en todas las tools para incluir los 7 links:
+               Merge | Compress | Split | PDF JPG | Rotate | Protect | Unlock | All tools
+               Footer actualizado con los mismos 7 links.
+               Link de la pagina activa destacado con color brand o font-weight:600.
+  Motivo:      Consistencia. SEO interno (Google ve todos los links desde
+               todas las paginas). UX (usuario puede navegar entre tools).
+  Impacto SEO: Positivo. Mejora linking interno, distribuye page rank entre tools.
+  Impacto UX:  Positivo. Navegacion consistente en todo el sitio.
+
+CAMBIO 5
+  Accion:      sitemap.xml — agregar protect-pdf y unlock-pdf
+  Archivo:     sitemap.xml
+  Descripcion: Agregadas 2 entradas nuevas:
+               https://noservertools.com/protect-pdf/ (priority 0.8)
+               https://noservertools.com/unlock-pdf/ (priority 0.8)
+               Total: 8 URLs en el sitemap.
+               translate-pdf NO aparece (fue eliminada en v6.0).
+  Motivo:      Google necesita el sitemap actualizado para indexar
+               las nuevas tools rapidamente.
+  Impacto SEO: Directo. Acelera indexacion de las nuevas paginas.
+
+════════════════════════════════════════════════════════════════
+FIN DEL LOG MAESTRO v6.1 — NoServerTools
+════════════════════════════════════════════════════════════════
