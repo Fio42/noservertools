@@ -1,0 +1,236 @@
+════════════════════════════════════════════════════════════════
+LOG MAESTRO v6.7 — NOSERVERTOOLS
+PEGAR EN CUALQUIER AI PARA CONTINUAR SIN PREGUNTAS
+════════════════════════════════════════════════════════════════
+
+PROYECTO: NoServerTools
+Tipo: App web estatica — un HTML por herramienta, CERO servidores propios
+Hosting: GitHub Pages — GRATIS — $0 forever
+URL RAIZ: https://noservertools.com/
+Repo: https://github.com/Fio42/noservertools
+Carpeta local: C:/Users/fiocc/OneDrive/Desktop/noservertools/
+Usuario GitHub: Fio42
+Ultimo deploy: v6.7 — favicon inline SVG (sin archivo .ico), edit-pdf texto movible reescrito
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IDENTIDAD DE MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nombre:    NoServerTools
+Dominio:   noservertools.com (activo, HTTPS)
+Tagline:   "Your files never leave your computer."
+SIN estadisticas inventadas. SIN reviews falsos. Sin excepcion.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REGLAS PERMANENTES — NUNCA ROMPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  CERO servidores propios. Todo corre en el browser del usuario.
+2.  NUNCA usar em dash en textos visibles del HTML.
+3.  SIEMPRE usar esc() antes de insertar texto del usuario en el DOM.
+4.  Cada herramienta = su propia carpeta + index.html. Nunca mezclar.
+5.  SIEMPRE actualizar sitemap.xml al agregar herramienta nueva.
+6.  SIEMPRE actualizar nav y footer de TODAS las paginas al agregar tool.
+7.  SIEMPRE entregar el LOG actualizado al final de cada sesion como .txt.
+8.  El usuario es principiante — pasos simples, uno a la vez, sin asumir nada.
+9.  NUNCA inventar estadisticas falsas ni reviews falsos.
+10. La marca es NoServerTools — no limitada a PDF, puede agregar cualquier tool.
+11. Todos los HTML deben incluir: CSP meta, X-Frame-Options, X-Content-Type-Options.
+12. SIEMPRE usar 'use strict' en todos los bloques <script>.
+13. SIEMPRE usar esc() — nunca innerHTML con datos del usuario.
+14. translate-pdf ELIMINADA en v6.0. No recrear, no referenciar.
+15. NUNCA agregar tools que envien datos a servidores externos sin aviso prominente.
+16. NUNCA agregar <base href> a ningun HTML.
+17. Links en nav/footer usan rutas absolutas /merge-pdf/ etc.
+    EXCEPCION: rotate-pdf usa rutas relativas ../
+18. SIEMPRE dar LOG + git commands completos al final de cada sesion.
+19. rotate-pdf tiene .nav-inner con max-width:720px para centrar.
+20. FAVICON: usar inline SVG data URI — NO usar archivo .ico ni rutas relativas.
+    Snippet exacto para TODAS las tools (incluyendo rotate):
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231f45e0'/><rect x='4' y='4' width='10' height='10' rx='2' fill='white'/><rect x='18' y='4' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='4' y='18' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='18' y='18' width='10' height='10' rx='2' fill='white' opacity='.3'/></svg>">
+    Va justo despues de <meta charset="UTF-8">.
+    VENTAJAS: no necesita favicon.ico, funciona en todas las rutas, no hay problemas de CSP.
+21. edit-pdf texto: estructura .text-box (ver seccion EDIT-PDF). NUNCA modificar
+    buildPDFFromJpegs ni makeDraggableBox sin leer este LOG primero.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMO SUBIR CAMBIOS AL REPO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+cd "C:/Users/fiocc/OneDrive/Desktop/noservertools"
+git add .
+git commit -m "descripcion del cambio"
+git push
+
+Si git push falla con "rejected fetch first":
+  git pull --rebase
+  git push
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUCTURA DE ARCHIVOS — ESTADO ACTUAL v6.7
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+noservertools/
+  index.html               [v6.7] favicon inline SVG
+  sitemap.xml              [v6.3] 9 URLs
+  robots.txt               SEO
+  CNAME                    noservertools.com
+  LOG.txt                  Este archivo
+  favicon.ico              puede borrarse — ya no se usa (reemplazado por inline SVG)
+
+  merge-pdf/index.html     [v6.7] favicon inline SVG
+  compress-pdf/index.html  [v6.7] favicon inline SVG
+  split-pdf/index.html     [v6.7] favicon inline SVG
+  pdf-to-jpg/index.html    [v6.7] favicon inline SVG
+  rotate-pdf/index.html    [v6.7] favicon inline SVG + nav centrado
+  protect-pdf/index.html   [v6.7] favicon inline SVG
+  unlock-pdf/index.html    [v6.7] favicon inline SVG + canonical correcto
+  edit-pdf/index.html      [v6.7] favicon inline SVG + texto movible reescrito
+
+  -- PENDIENTES --
+  watermark-pdf/           PRIORIDAD 1
+  delete-pages/            PRIORIDAD 2
+  pdf-to-text/             PRIORIDAD 3
+  view-pdf-metadata/       PRIORIDAD 4
+  remove-metadata/         PRIORIDAD 5
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FAVICON — SOLUCION DEFINITIVA v6.7
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Tecnica: inline SVG data URI en el <link rel="icon">
+Ventajas sobre .ico:
+  - No necesita ningun archivo en el repo
+  - Funciona en cualquier ruta (absoluta o relativa)
+  - No hay problemas de CSP
+  - Se ve identico al logo del nav
+
+Snippet (mismo para TODAS las tools sin excepcion):
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231f45e0'/><rect x='4' y='4' width='10' height='10' rx='2' fill='white'/><rect x='18' y='4' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='4' y='18' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='18' y='18' width='10' height='10' rx='2' fill='white' opacity='.3'/></svg>">
+
+Va inmediatamente despues de <meta charset="UTF-8">.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EDIT-PDF — SISTEMA DE TEXTO v6.7 (REESCRITO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Flujo del usuario:
+  1. Seleccionar herramienta "Text"
+  2. Hacer clic en el PDF donde quiere el texto
+  3. El sistema crea el text-box Y cambia automaticamente a modo Select
+  4. El usuario puede arrastrar la barra azul para mover el texto
+  5. El boton x en la barra elimina el text-box
+  6. En modo Draw/Highlight puede seguir dibujando normalmente
+
+Estructura DOM de cada texto:
+  <div class="text-box" style="left:Xpx;top:Ypx">     <- wrapper posicionado
+    <div class="text-box-bar">                          <- barra azul draggable
+      <span class="text-box-bar-icon">☰ drag to move</span>
+      <button class="text-box-del">x</button>
+    </div>
+    <textarea class="text-input-overlay">...</textarea>
+  </div>
+
+Modo select — clave del funcionamiento:
+  annCanvas.style.pointerEvents = 'none'
+  Esto hace que los clicks pasen ATRAVES del canvas transparente y lleguen
+  a los .text-box que estan debajo en el DOM.
+  En cualquier otro modo: pointerEvents = 'auto' (canvas intercepta todo)
+
+makeDraggableBox(box, handle):
+  Drag via la barra (.text-box-bar) solamente.
+  Usa document.addEventListener para mousemove/mouseup (funciona fuera del elemento).
+
+textInputs[pageNum] = array de divs .text-box (NO textareas directamente)
+
+downloadPDF():
+  Para cada box: box.querySelector('textarea') para obtener el texto
+  Offset Y: parseFloat(box.style.top) + BAR_H (22px) para compensar la barra
+
+NUNCA cambiar BAR_H sin actualizar el offset en downloadPDF.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PATRON NAV — v6.5
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Orden: Merge | Compress | Split | PDF JPG | Rotate | Protect | Unlock | Edit PDF | [All tools]
+ESTILO A (merge/compress/split) — Tailwind classes px-3 py-1.5
+ESTILO B (hub/pdftojpg/protect/unlock/edit) — .nav-link class
+ESTILO C (rotate) — rutas ../ + .nav-inner para centrar
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DISENO VISUAL — SISTEMA GLOBAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Background: #0e1117
+Fuentes: Syne (.fd) | Outfit (cuerpo) | DM Mono (.fm)
+brand-400:#5a87ff | brand-500:#3363f5 | brand-600:#1f45e0
+green:#4ade80 | red:#f87171 | yellow:#fbbf24
+Boton descarga: bg #4ade80 texto #0e1117
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECETAS TECNICAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Stack: Pyodide v0.25.0 + pypdf via micropip
+CDN Pyodide: https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js
+CDN PDF.js: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+
+MERGE:    PdfWriter.append(BytesIO) x N -> merged.pdf
+COMPRESS: compress_identical_objects + quality N -> compressed.pdf
+SPLIT:    writer.add_page por rango -> split.pdf
+PDF->JPG: PDF.js render -> canvas -> jpeg
+JPG->PDF: Pillow Image.save(format='PDF')
+ROTATE:   page.rotate(90|180|270) scope all/range
+PROTECT:  writer.encrypt(user_password, use_128bit=True)
+UNLOCK:   reader.decrypt(pw) -> ok/wrong_password/not_encrypted
+EDIT PDF: PDF.js + canvas draw/highlight + .text-box divs + img-overlay + buildPDFFromJpegs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HISTORIAL COMPLETO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+v1-v5.2:  Merge, Compress, Split, HUB inicial
+v5.3-5.9: Rebrand, dark mode, PDF<->JPG, translate (luego eliminada)
+v6.0:     translate-pdf ELIMINADA. rotate-pdf nueva.
+v6.1:     protect-pdf + unlock-pdf. HUB 8 tools.
+v6.2:     Dominio noservertools.com. base href eliminado.
+v6.3:     edit-pdf NUEVA. 9 tools. sitemap 9 URLs.
+v6.4:     protect-pdf reconstruido (confirm password).
+v6.5:     unlock-pdf canonical + footer fix. rotate-pdf nav centrado.
+v6.6:     favicon.ico + i18n 5 idiomas + edit-pdf texto movible (primer intento).
+v6.7:     FAVICON DEFINITIVO — inline SVG data URI, sin archivo .ico, sin rutas,
+            funciona en todas las tools sin excepcion, sin problemas de CSP.
+          EDIT-PDF TEXTO REESCRITO desde el original:
+            .text-box div draggable con barra azul visible arriba.
+            Despues de crear texto, cambia automaticamente a Select.
+            En modo Select: annCanvas.pointerEvents='none' para que clicks
+            lleguen a los text-box debajo del canvas.
+            makeDraggableBox() via barra — drag limpio con document events.
+            downloadPDF() actualizado con BAR_H=22px offset.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROXIMOS PASOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. watermark-pdf (PRIORIDAD 1): Pyodide + pypdf, texto diagonal, selector opacidad/color
+2. delete-pages (PRIORIDAD 2): input rango "1,3,5-8"
+3. pdf-to-text (PRIORIDAD 3): extract_text(), descarga .txt
+4. view-pdf-metadata + remove-metadata (PRIORIDAD 4-5)
+5. Google Search Console: https://search.google.com/search-console
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA EL PROXIMO AI — LEER ESTO PRIMERO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  NoServerTools. GitHub Pages. noservertools.com. CERO servidores.
+2.  Fondo #0e1117. Syne/Outfit/DM-Mono. Brand #5a87ff/#3363f5/#1f45e0.
+3.  Cada tool = su propia carpeta. Sin base href. Sin /noservertools/ en hrefs.
+4.  9 tools: merge, compress, split, pdf-to-jpg, rotate, protect, unlock, edit
+5.  Nav orden: Merge|Compress|Split|PDF JPG|Rotate|Protect|Unlock|Edit PDF|All tools
+6.  3 estilos de nav — respetar el existente en cada archivo.
+7.  rotate-pdf: rutas ../ Y .nav-inner para centrar.
+8.  Pyodide v0.25.0 + pypdf para: merge,compress,split,rotate,protect,unlock
+    PDF.js 3.11.174 para: pdf-to-jpg, edit-pdf
+9.  translate-pdf ELIMINADA v6.0. No recrear.
+10. Nueva tool: favicon inline SVG + nav+footer TODAS + hub + sitemap.
+11. CSP + X-Frame + X-Content-Type + 'use strict' + esc() en todo HTML nuevo.
+12. NUNCA estadisticas inventadas. NUNCA reviews falsos.
+13. Usuario principiante. Pasos exactos. Git commands listos.
+14. LOG + git al final de cada sesion.
+15. Pyodide: lazy load con spinner "Loading engine (first time: 10-20 seconds)".
+16. Boton descarga: bg #4ade80 texto #0e1117.
+17. edit-pdf texto: leer seccion EDIT-PDF antes de modificar cualquier cosa.
+
+════════════════════════════════════════════════════════════════
+FIN DEL LOG MAESTRO v6.7 — NoServerTools
+════════════════════════════════════════════════════════════════

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="shortcut icon" href="/favicon.ico">
   <meta charset="UTF-8" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231f45e0'/><rect x='4' y='4' width='10' height='10' rx='2' fill='white'/><rect x='18' y='4' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='4' y='18' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='18' y='18' width='10' height='10' rx='2' fill='white' opacity='.3'/></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Merge PDF Free Online — No Upload, 100% Private | NoServerTools</title>
   <meta name="description" content="Merge PDF files online for free. No upload, no server, no account. Everything runs locally in your browser using WebAssembly. 100% private." />
@@ -319,35 +318,5 @@ result_bytes = out.getvalue()
   }
 </script>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
-
-<script>
-(function(){
-  'use strict';
-  var T={
-    en:{badge:'No upload · 100% local',why_title:'Why NoServerTools?',why_uploads:'Zero uploads',why_uploads_d:"We never receive your files.",why_storage:'Zero storage',why_storage_d:'Nothing saved anywhere.',why_tracking:'Zero tracking',why_tracking_d:"We don't know what you process.",why_offline:'Works offline',why_offline_d:'Once loaded, no internet needed.',footer_strip:'NO UPLOADS &nbsp;&middot;&nbsp; NO ACCOUNTS &nbsp;&middot;&nbsp; NO TRACKING &nbsp;&middot;&nbsp; NO SERVERS'},
-    es:{badge:'Sin subir · 100% local',why_title:'Por que NoServerTools?',why_uploads:'Cero subidas',why_uploads_d:'Nunca recibimos tus archivos.',why_storage:'Cero almacenamiento',why_storage_d:'Nada se guarda en ningun lugar.',why_tracking:'Cero rastreo',why_tracking_d:'No sabemos que procesas.',why_offline:'Funciona sin internet',why_offline_d:'Una vez cargado, no necesitas conexion.',footer_strip:'SIN SUBIDAS &nbsp;&middot;&nbsp; SIN CUENTAS &nbsp;&middot;&nbsp; SIN RASTREO &nbsp;&middot;&nbsp; SIN SERVIDORES'},
-    pt:{badge:'Sem upload · 100% local',why_title:'Por que NoServerTools?',why_uploads:'Zero uploads',why_uploads_d:'Nunca recebemos seus arquivos.',why_storage:'Zero armazenamento',why_storage_d:'Nada e salvo em lugar algum.',why_tracking:'Zero rastreamento',why_tracking_d:'Nao sabemos o que voce processa.',why_offline:'Funciona offline',why_offline_d:'Apos carregar, sem internet necessaria.',footer_strip:'SEM UPLOADS &nbsp;&middot;&nbsp; SEM CONTAS &nbsp;&middot;&nbsp; SEM RASTREIO &nbsp;&middot;&nbsp; SEM SERVIDORES'},
-    fr:{badge:'Sans envoi · 100% local',why_title:'Pourquoi NoServerTools?',why_uploads:'Zero envoi',why_uploads_d:'Nous ne recevons jamais vos fichiers.',why_storage:'Zero stockage',why_storage_d:'Rien n'est sauvegarde nulle part.',why_tracking:'Zero pistage',why_tracking_d:'Nous ne savons pas ce que vous traitez.',why_offline:'Fonctionne hors ligne',why_offline_d:'Une fois charge, pas d'internet requis.',footer_strip:'SANS ENVOI &nbsp;&middot;&nbsp; SANS COMPTE &nbsp;&middot;&nbsp; SANS SUIVI &nbsp;&middot;&nbsp; SANS SERVEURS'},
-    de:{badge:'Kein Upload · 100% lokal',why_title:'Warum NoServerTools?',why_uploads:'Null Uploads',why_uploads_d:'Wir erhalten Ihre Dateien nie.',why_storage:'Null Speicherung',why_storage_d:'Nichts wird irgendwo gespeichert.',why_tracking:'Null Tracking',why_tracking_d:'Wir wissen nicht, was Sie verarbeiten.',why_offline:'Funktioniert offline',why_offline_d:'Einmal geladen, kein Internet notig.',footer_strip:'KEIN UPLOAD &nbsp;&middot;&nbsp; KEIN KONTO &nbsp;&middot;&nbsp; KEIN TRACKING &nbsp;&middot;&nbsp; KEIN SERVER'}
-  };
-  var lang=(navigator.language||navigator.userLanguage||'en').toLowerCase().slice(0,2);
-  var t=T[lang]||T.en;
-  function set(sel,html){var els=document.querySelectorAll(sel);els.forEach(function(el){el.innerHTML=html});}
-  document.addEventListener('DOMContentLoaded',function(){
-    set('[data-i18n="badge"]',t.badge);
-    set('[data-i18n="why_title"]',t.why_title);
-    set('[data-i18n="why_uploads"]',t.why_uploads);
-    set('[data-i18n="why_uploads_d"]',t.why_uploads_d);
-    set('[data-i18n="why_storage"]',t.why_storage);
-    set('[data-i18n="why_storage_d"]',t.why_storage_d);
-    set('[data-i18n="why_tracking"]',t.why_tracking);
-    set('[data-i18n="why_tracking_d"]',t.why_tracking_d);
-    set('[data-i18n="why_offline"]',t.why_offline);
-    set('[data-i18n="why_offline_d"]',t.why_offline_d);
-    set('[data-i18n="footer_strip"]',t.footer_strip);
-  });
-})();
-</script>
-
 </body>
 </html>
