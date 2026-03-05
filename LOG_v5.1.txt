@@ -1,16 +1,16 @@
 ════════════════════════════════════════════════════════════════
-LOG MAESTRO v5.1 — SAFEMERGEPDF
+LOG MAESTRO v5.2 — SAFEMERGEPDF
 PEGAR EN CUALQUIER AI PARA CONTINUAR SIN PREGUNTAS
 ════════════════════════════════════════════════════════════════
 
 PROYECTO: SafeMergePDF
-Tipo: App web estatica — un HTML por herramienta, cero servidores
+Tipo: App web estatica — un HTML por herramienta, CERO servidores
 Hosting: GitHub Pages — GRATIS — $0 forever
 URL RAIZ / HUB: https://fio42.github.io/safemergepdf/
 Repo: https://github.com/Fio42/safemergepdf
 Carpeta local: C:/Users/fiocc/OneDrive/Desktop/safemergepdf/
 Usuario GitHub: Fio42
-Ultimo deploy: v5.1 — headers y footers unificados
+Ultimo deploy: v5.2 — Split PDF agregado
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 REGLAS PERMANENTES — NUNCA ROMPER
@@ -21,9 +21,10 @@ REGLAS PERMANENTES — NUNCA ROMPER
 3. SIEMPRE usar esc() antes de insertar texto del usuario en el DOM.
 4. Cada herramienta = su propia carpeta + index.html.
 5. SIEMPRE actualizar sitemap.xml al agregar herramienta nueva.
-6. SIEMPRE actualizar header y footer de TODAS las paginas al agregar tool.
+6. SIEMPRE actualizar header/footer de TODAS las paginas al agregar tool.
 7. SIEMPRE mandar el LOG actualizado al final de cada sesion.
-8. El usuario es principiante — explicar pasos simples, uno a la vez.
+8. El usuario es principiante — pasos simples, uno a la vez.
+   Decir exactamente QUE archivo va DONDE.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 COMO SUBIR CAMBIOS (siempre los mismos 3 comandos)
@@ -32,170 +33,168 @@ cd "C:/Users/fiocc/OneDrive/Desktop/safemergepdf"
 git add .
 git commit -m "descripcion"
 git push
-Esperar 1-2 minutos y recargar la URL.
+Esperar 1-2 minutos y recargar.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ESTRUCTURA DE CARPETAS — ESTADO ACTUAL v5.1
+ESTRUCTURA DE CARPETAS — ESTADO ACTUAL v5.2
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 safemergepdf/
-  index.html              [VIVO] HUB — grid de todas las herramientas
+  index.html              [VIVO] HUB principal — grid de herramientas
   sitemap.xml             [VIVO] SEO
   robots.txt              [VIVO] SEO
   LOG.txt                 Este archivo
 
   merge-pdf/
-    index.html            [VIVO] Merge PDF — header/footer ACTUALIZADO v5.1
+    index.html            [VIVO] Merge PDF — nav unificado v5.1
 
   compress-pdf/
-    index.html            [VIVO] Compress PDF — header/footer ACTUALIZADO v5.1
+    index.html            [VIVO] Compress PDF — nav unificado v5.1
 
-  -- PENDIENTES (en orden de prioridad SEO) --
-  split-pdf/index.html       SIGUIENTE — prioridad 1
-  pdf-to-jpg/index.html      prioridad 2
-  rotate-pdf/index.html      prioridad 3
-  protect-pdf/index.html     prioridad 4
-  unlock-pdf/index.html      prioridad 5
-  watermark-pdf/index.html   prioridad 6
-  reorder-pdf/index.html     prioridad 7
-  delete-pages/index.html    prioridad 8
-  pdf-to-png/index.html      prioridad 9
-  pdf-to-text/index.html     prioridad 10
-  jpg-to-pdf/index.html      prioridad 11
-  repair-pdf/index.html      prioridad 12
+  split-pdf/
+    index.html            [VIVO] Split PDF — nuevo v5.2
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PARA DEPLOY v5.1 — QUE COPIAR DONDE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Archivo descargado: merge-pdf-index.html
-  -> copiar a: safemergepdf/merge-pdf/index.html (REEMPLAZAR)
-
-Archivo descargado: compress-pdf-index.html
-  -> copiar a: safemergepdf/compress-pdf/index.html (REEMPLAZAR)
-
-Archivo descargado: LOG_v5.1.txt
-  -> copiar a: safemergepdf/LOG.txt (REEMPLAZAR)
-
-Luego: git add . && git commit -m "v5.1 nav unificado" && git push
+  -- PENDIENTES (orden de prioridad SEO) --
+  pdf-to-jpg/index.html      prioridad 1 (~2M busquedas/mes)
+  rotate-pdf/index.html      prioridad 2 (~400K/mes)
+  protect-pdf/index.html     prioridad 3 (~800K/mes)
+  unlock-pdf/index.html      prioridad 4 (~600K/mes)
+  watermark-pdf/index.html   prioridad 5
+  reorder-pdf/index.html     prioridad 6
+  delete-pages/index.html    prioridad 7
+  pdf-to-png/index.html      prioridad 8
+  pdf-to-text/index.html     prioridad 9
+  jpg-to-pdf/index.html      prioridad 10
+  repair-pdf/index.html      prioridad 11
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-HEADER — ESTANDAR v5.1 (igual en todas las paginas de herramienta)
+PARA DEPLOY v5.2 — QUE COPIAR DONDE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-- Logo SafeMergePDF — link siempre a /safemergepdf/
-- Nav con 7 links (la pagina activa tiene bg-brand-50 text-brand-700):
-    Merge PDF      -> /safemergepdf/merge-pdf/
-    Compress PDF   -> /safemergepdf/compress-pdf/
-    Split PDF      -> /safemergepdf/split-pdf/
-    Rotate PDF     -> /safemergepdf/rotate-pdf/
-    PDF to JPG     -> /safemergepdf/pdf-to-jpg/
-    Protect PDF    -> /safemergepdf/protect-pdf/
-    All tools      -> /safemergepdf/
-- Boton ES/EN (toggleLang)
-- CTA button -> #tool
-
-NOTA: Al crear una herramienta nueva, copiar el header y marcar
-el link de ESA herramienta como activo con: bg-brand-50 text-brand-700 font-semibold
-Las demas tienen: hover:bg-brand-50 hover:text-brand-700
+1. Crear carpeta: safemergepdf/split-pdf/
+2. split-pdf-index.html -> safemergepdf/split-pdf/index.html
+3. LOG_v5.2.txt -> safemergepdf/LOG.txt (reemplazar)
+4. git add . && git commit -m "v5.2 split pdf" && git push
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-FOOTER — ESTANDAR v5.1 (igual en todas las paginas)
+SPLIT PDF — split-pdf/index.html — v5.2
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-- Logo + copyright
-- Links a: Merge, Compress, Split, Rotate, PDF to JPG,
-           Protect, Unlock, Watermark, All tools, Privacy, Terms, GitHub
-- La herramienta activa tiene: text-brand-400 font-semibold
-- Las demas: hover:text-white transition-colors
-- Linea final: No uploads · No accounts · No tracking · Free forever
+URL: https://fio42.github.io/safemergepdf/split-pdf/
+canonical: /split-pdf/
+title: Split PDF Free Online — No Upload, 100% Private | SafeMergePDF
+Keywords: split pdf free, split pdf online, separate pdf pages,
+  extract pages from pdf, divide pdf, pdf splitter no upload
+
+Limites: 1 archivo, hasta 100 MB
+Modos:
+  "all"   — cada pagina se convierte en un PDF separado
+  "range" — extrae un rango especifico (ej: 1-3, 5, 7-9) en un solo PDF
+
+Python usado:
+  MODO ALL:
+    reader = PdfReader(BytesIO(bytes(file_bytes_js)))
+    for idx in page_indices_js:
+        writer = PdfWriter()
+        writer.add_page(reader.pages[int(idx)])
+        out = BytesIO(); writer.write(out)
+        results.append(out.getvalue())
+
+  MODO RANGE:
+    writer = PdfWriter()
+    for idx in page_indices_js:
+        writer.add_page(reader.pages[int(idx)])
+    writer.write(out)
+
+JS globals: lang, selectedFile, pyodide, pyodideReady,
+  splitMode, totalPages, objectURLs[]
+
+Funciones JS:
+  toggleLang, triggerFileInput, handleDragOver/Leave/Drop,
+  handleFiles, removeFile, formatSize,
+  setMode(mode): alterna entre 'all' y 'range', muestra/oculta range input
+  parseRange(rangeStr, total): parsea "1-3,5,7-9" -> [0,1,2,4,6,7,8] (0-indexed)
+    retorna null si el rango es invalido
+  initPyodide, startSplit, setProgress, showResult,
+  resetUI, resetFull, showError, esc
+
+Flujo:
+  1. Usuario sube PDF
+  2. Drop zone se oculta, aparece file-preview + split-options
+  3. Usuario elige modo (all o range)
+  4. Si range: muestra input de texto para rango
+  5. Click Split -> espera Pyodide -> lee bytes -> obtiene total paginas
+  6. Modo all: un PdfWriter por pagina -> array de results
+     Modo range: parsea rango -> un PdfWriter con paginas seleccionadas
+  7. Genera Blob URLs -> muestra lista de links de descarga en result-area
+  8. Cleanup Python globals
+
+Resultado:
+  Modo all: lista de links descargables "Page X — Y KB"
+  Modo range: un link "Download extracted pages — Y KB"
+  Nombre de archivos: {nombre-original}-page-{N}.pdf / {nombre}-pages-{rango}.pdf
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HEADER ESTANDAR v5.1 (igual en todas las paginas de herramienta)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Logo -> /safemergepdf/
+Nav (7 links):
+  Merge PDF, Compress PDF, Split PDF, Rotate PDF,
+  PDF to JPG, Protect PDF, All tools -> /safemergepdf/
+La pagina ACTIVA tiene: bg-brand-50 text-brand-700 font-semibold
+Las demas: hover:bg-brand-50 hover:text-brand-700
+Boton CTA -> #tool
+
+FOOTER ESTANDAR v5.1
+Logo + copyright + links a todas las tools
+La pagina activa en footer: text-brand-400 font-semibold
+Linea final: No uploads · No accounts · No tracking · Free forever
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DISENO — SISTEMA VISUAL (identico en todas las paginas)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Fuentes: Syne (700,800) titulos + Outfit (400-700) cuerpo
+Fuentes: Syne (700,800) + Outfit (400-700)
 CDN Tailwind: cdn.tailwindcss.com
 CDN Pyodide: cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js
-Google Fonts: Syne + Outfit
-
-Paleta brand:
-  50:#eef3ff  100:#e0e9ff  200:#c7d6fe  300:#a5b8fc
-  400:#8196f8  500:#6272f1  600:#4f57e6  700:#4244d0
-  800:#3638a8  900:#303485
-Body background: #eef1ff
-
-hero-mesh:
-  radial-gradient x3 + linear-gradient(160deg, #f0f3ff, #f8f9ff, #eef1ff)
-
-gradient-text:
-  linear-gradient(120deg,#4f57e6,#7c8ef7,#a5b8fc) + background-clip:text
-
-Animaciones: fadeUp, fade-up/2/3, pulse-ring (pulse-dot::before),
-  float, shimmer (progress bar), slideIn (file rows)
-
-Bilingue:
-  .es-only { display:none } por defecto
-  body.es .en-only { display:none }
-  body.es .es-only { display:revert }
-  toggleLang() -> document.body.classList.toggle('es')
-
-AdSense: 2 slots por pagina (aria-hidden, min-height:90px)
-
-Seguridad: CSP meta + X-Frame-Options:DENY + X-Content-Type-Options:nosniff
-  esc(s): sanitiza &<>"' antes de DOM insertions
+Paleta brand: 50:#eef3ff ... 600:#4f57e6 ... 900:#303485
+Body bg: #eef1ff
+hero-mesh: 3 radial-gradients + linear-gradient(160deg,#f0f3ff,#f8f9ff,#eef1ff)
+gradient-text: linear-gradient(120deg,#4f57e6,#7c8ef7,#a5b8fc) clip
+Animaciones: fadeUp, fade-up/2/3, pulse-ring, float, shimmer, slideIn
+Bilingue: .es-only hidden / toggleLang() -> body.classList.toggle('es')
+AdSense: 2 slots aria-hidden min-height:90px
+CSP + X-Frame-Options:DENY + X-Content-Type-Options:nosniff
+esc(s): sanitiza &<>"' — SIEMPRE antes de DOM insertions
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-HUB — index.html raiz
+PLANTILLA PARA NUEVA HERRAMIENTA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Secciones: header + hero (busqueda + trust bar) + tools grid + why safe + footer
-Tools grid — 5 categorias:
-  ORGANIZE: Merge, Split, Rotate, Reorder, Delete Pages
-  OPTIMIZE: Compress (HOT), Repair
-  CONVERT FROM PDF: PDF to JPG, PDF to PNG, PDF to Text
-  CONVERT TO PDF: Image to PDF
-  SECURITY: Protect, Unlock, Watermark
-Busqueda: filterTools(q) filtra por data-kw y textContent
-  Oculta categorias si todos sus cards estan hidden
-JS: toggleLang(), filterTools(q)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-MERGE PDF — merge-pdf/index.html
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-URL: https://fio42.github.io/safemergepdf/merge-pdf/
-canonical: /merge-pdf/
-title: SafeMergePDF — Merge PDF Files Free Online | No Upload, 100% Private
-Limites: 20 archivos, 50 MB cada uno
-Python: PdfWriter().append(BytesIO(bytes)) x N archivos -> write(output)
-JS globals: lang, selectedFiles[], pyodide, pyodideReady, prevObjectURL
-Funciones: toggleLang, triggerFileInput, handleDragOver/Leave/Drop,
-  handleFiles, renderList, move, removePdf, initPyodide,
-  startConversion, setProgress, showResult, resetUI, resetFull, showError, esc
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-COMPRESS PDF — compress-pdf/index.html
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-URL: https://fio42.github.io/safemergepdf/compress-pdf/
-canonical: /compress-pdf/
-title: Compress PDF Free Online — No Upload, 100% Private | SafeMergePDF
-Limites: 1 archivo, 100 MB
-Niveles: Low (quality=90), Medium (quality=60, default), High (quality=30)
-Python: PdfWriter.append + compress_identical_objects(True,True)
-  + img.replace(img.image, quality=N) para cada imagen
-JS globals: lang, selectedFile, pyodide, pyodideReady, prevObjectURL,
-  compressionLevel, originalSize
-Funciones: toggleLang, setLevel, triggerFileInput,
-  handleDragOver/Leave/Drop, handleFiles, removeFile, formatSize,
-  initPyodide, startCompression, setProgress, showResult,
-  resetUI, resetFull, showError, esc
-Muestra ahorro: "Reduced by X% — A MB -> B MB"
+Copiar: compress-pdf/index.html o split-pdf/index.html segun complejidad
+Cambiar:
+  - <title>, canonical, meta keywords, OG tags
+  - H1 + subtitulo hero
+  - 3 pasos (step 1, 2, 3)
+  - Header bar del tool card (titulo + subtitulo)
+  - Logica Python en startXxx()
+  - FAQ (5 preguntas relevantes)
+  - Texto SEO (seccion "How to...")
+  - CTA final ("Ready to X?")
+  - En nav: marcar link activo (bg-brand-50 text-brand-700 font-semibold)
+  - En footer: marcar link activo (text-brand-400 font-semibold)
+Agregar:
+  - Card en HUB index.html (quitar badge "Soon")
+  - URL en sitemap.xml
+  - Link en header/footer de TODAS las paginas existentes
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PYTHON RECETAS — todas sin servidor
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Init (todas las paginas):
-  loadPyodide() -> loadPackage('micropip') ->
-  micropip.install('pypdf') -> pyodideReady = true
+Init: loadPyodide -> micropip.install('pypdf') -> pyodideReady=true
 
-SPLIT: for i,page in enumerate(reader.pages): PdfWriter().add_page(page).write(output_i)
-ROTATE: for page in writer.pages: page.rotate(90|180|270)
-REORDER: for i in new_order: writer.add_page(reader.pages[i])
+MERGE:  PdfWriter().append(BytesIO(bytes)) x N -> write(output)
+COMPRESS: compress_identical_objects(True,True) + img.replace(quality=N)
+SPLIT ALL: por pagina: PdfWriter().add_page(page).write(out) -> array
+SPLIT RANGE: PdfWriter() con paginas seleccionadas -> write(out)
+ROTATE: page.rotate(90|180|270)
+REORDER: writer.add_page(reader.pages[i]) en nuevo orden
 DELETE: if i not in to_delete: writer.add_page(page)
 PROTECT: writer.encrypt(password, algorithm="AES-256")
 UNLOCK: reader.decrypt(password); writer.append(reader)
@@ -203,7 +202,7 @@ WATERMARK: fpdf2 para crear pagina watermark + merge con cada pagina
 PDF TO TEXT: page.extract_text() -> Blob text/plain
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SEO — KEYWORDS PRINCIPALES POR HERRAMIENTA
+SEO KEYWORDS POR HERRAMIENTA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 VENTAJA UNICA: siempre incluir "without uploading / no upload / private"
 
@@ -219,36 +218,36 @@ Unlock:   remove pdf password free, unlock pdf online
 FASES COMPLETADAS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 v1-v3:  Merge PDF funcional + diseno + GitHub Pages live
-v3.1:   SEO mejorado (Schema.org, OG, Twitter card)
+v3.1:   SEO mejorado
 v4.0:   Compress PDF + sitemap.xml + robots.txt
-v5.0:   HUB central con grid de 13 herramientas — EN PRODUCCION
+v5.0:   HUB central con grid de 13 herramientas
 v5.1:   Header/footer unificado en merge-pdf y compress-pdf
+v5.2:   Split PDF funcional (2 modos: all pages + custom range)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PROXIMOS PASOS EN ORDEN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SIGUIENTE: Crear split-pdf/index.html
-DESPUES:   Crear pdf-to-jpg/index.html
-DESPUES:   Crear rotate-pdf/index.html
+SIGUIENTE: pdf-to-jpg/index.html (~2M busquedas/mes)
+DESPUES:   rotate-pdf/index.html
+DESPUES:   protect-pdf/index.html
 FUTURO:    Google Search Console + sitemap
 FUTURO:    Google Analytics 4
-FUTURO:    Google AdSense (requiere trafico primero)
-FUTURO:    Dominio propio safemergepdf.com
+FUTURO:    Google AdSense
+FUTURO:    Dominio safemergepdf.com
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PARA EL PROXIMO AI
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-1. SafeMergePDF = toolkit PDF 100% en el navegador, CERO servidores.
-2. Raiz (/) = HUB con grid. Cada tool = su carpeta/index.html.
-3. Para nueva herramienta: copiar compress-pdf/index.html como base.
-   Cambiar: title, canonical, H1, keywords, pasos, Python, schema.
-   Marcar su link en nav como activo (bg-brand-50 text-brand-700).
-   Marcar su link en footer como activo (text-brand-400 font-semibold).
-   Agregar card en HUB index.html. Agregar URL en sitemap.xml.
-4. Usuario principiante: instrucciones simples, paso a paso.
-   Decir exactamente QUE archivo va DONDE.
-5. Mandar LOG actualizado AL FINAL de cada sesion, siempre.
+1. Todo corre en Pyodide/WASM. CERO servidores. NUNCA cambiar esto.
+2. Raiz (/) = HUB. Cada tool = su carpeta/index.html.
+3. Nueva herramienta: copiar compress o split como base.
+   Cambiar title/canonical/H1/keywords/pasos/Python/schema/FAQ.
+   Marcar nav activo: bg-brand-50 text-brand-700 font-semibold.
+   Marcar footer activo: text-brand-400 font-semibold.
+   Actualizar HUB, sitemap, y header/footer de TODAS las paginas.
+4. Usuario principiante: pasos simples, decir exactamente que va donde.
+5. LOG actualizado AL FINAL de cada sesion, siempre.
 
 ════════════════════════════════════════════════════════════════
-FIN DEL LOG MAESTRO v5.1 — SafeMergePDF
+FIN DEL LOG MAESTRO v5.2 — SafeMergePDF
 ════════════════════════════════════════════════════════════════
