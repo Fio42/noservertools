@@ -1,0 +1,210 @@
+════════════════════════════════════════════════════════════════
+LOG MAESTRO v5.7 — NOSERVERTOOLS
+PEGAR EN CUALQUIER AI PARA CONTINUAR SIN PREGUNTAS
+════════════════════════════════════════════════════════════════
+
+PROYECTO: NoServerTools
+Tipo: App web estatica — un HTML por herramienta, CERO servidores
+Hosting: GitHub Pages — GRATIS — $0 forever
+URL RAIZ: https://fio42.github.io/noservertools/
+Repo: https://github.com/Fio42/noservertools
+Carpeta local: C:/Users/fiocc/OneDrive/Desktop/noservertools/
+Usuario GitHub: Fio42
+Ultimo deploy: v5.7 — Translate PDF + HUB actualizado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IDENTIDAD DE MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nombre:    NoServerTools
+Dominio:   noservertools.com (objetivo futuro)
+Tagline:   "Tools that run inside your browser. Not on our servers."
+SIN estadisticas inventadas. SIN reviews falsos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REGLAS PERMANENTES — NUNCA ROMPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  CERO servidores propios. Todo corre en Pyodide/WASM o PDF.js.
+2.  NUNCA usar em dash en textos visibles del HTML.
+3.  SIEMPRE usar esc() antes de insertar texto del usuario en el DOM.
+4.  Cada herramienta = su propia carpeta + index.html.
+5.  SIEMPRE actualizar sitemap.xml al agregar herramienta nueva.
+6.  SIEMPRE actualizar header/footer de TODAS las paginas al agregar tool.
+7.  SIEMPRE mandar el LOG actualizado al final de cada sesion.
+8.  El usuario es principiante — pasos simples, uno a la vez.
+9.  NUNCA inventar estadisticas falsas.
+10. La marca es NoServerTools — no limitada a PDF.
+11. Todos los HTML deben incluir CSP, X-Frame-Options, X-Content-Type-Options.
+12. SIEMPRE usar 'use strict' en bloques <script>.
+13. SIEMPRE usar createElement para datos de usuario en DOM (no innerHTML).
+14. EXCEPCION a regla 1: translate-pdf usa MyMemory API externa para traduccion.
+    El ARCHIVO nunca sale del dispositivo. Solo el TEXTO extraido va a la API.
+    Siempre declarar esto claramente en la UI con aviso amarillo.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMO SUBIR CAMBIOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+cd "C:/Users/fiocc/OneDrive/Desktop/noservertools"
+git add .
+git commit -m "descripcion"
+git push
+Esperar 1-2 minutos y recargar.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUCTURA — ESTADO ACTUAL v5.7
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+noservertools/
+  index.html              [VIVO] HUB v5.6 — 6 live tools
+  sitemap.xml             [VIVO] SEO — actualizar al agregar tool
+  robots.txt              [VIVO] SEO
+  LOG.txt                 Este archivo
+
+  merge-pdf/index.html    [VIVO] Merge PDF v5.4
+  compress-pdf/index.html [VIVO] Compress PDF v5.4
+  split-pdf/index.html    [VIVO] Split PDF v5.4
+  pdf-to-jpg/index.html   [VIVO] PDF<->JPG combinado v5.6
+  translate-pdf/index.html [VIVO] Translate PDF v5.7 (NUEVO)
+
+  -- PENDIENTES (orden prioridad SEO) --
+  rotate-pdf/             prioridad 1
+  protect-pdf/            prioridad 2
+  unlock-pdf/             prioridad 3
+  watermark-pdf/          prioridad 4
+  reorder-pdf/            prioridad 5
+  delete-pages/           prioridad 6
+  pdf-to-text/            prioridad 7
+  repair-pdf/             prioridad 8
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA DEPLOY v5.7 — QUE COPIAR DONDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. index.html             -> noservertools/index.html (reemplazar)
+2. CREAR carpeta: noservertools/translate-pdf/
+3. translate-pdf/index.html -> noservertools/translate-pdf/index.html
+4. LOG_v5.7.txt           -> noservertools/LOG.txt (reemplazar)
+5. git add . && git commit -m "v5.7 translate-pdf + hub updated" && git push
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DISENO VISUAL v5.7
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mismo sistema que v5.6:
+  Bg #0e1117, Syne+Outfit+DM Mono, brand #5a87ff/#1f45e0
+  CSS variables en :root para consistencia
+  Mobile-first con media queries
+  Body::before para grid background
+  Blobs fijos con radial-gradient
+
+translate-pdf adicional:
+  Lang bar debajo del nav (switch idioma de UI)
+  Steps indicator (1-2-3) con estados: inactive/active/done
+  Step dots: .step-dot, .step-dot.active, .step-dot.done (check)
+  Side-by-side panels para original vs traducido
+  Privacy note en amarillo con icono warning
+  Deteccion automatica de idioma via navigator.language
+  Animacion .pulse en step progress emoji
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRANSLATE-PDF — ARQUITECTURA TECNICA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EXTRACCION (100% local):
+  - PDF: Pyodide + pypdf -> page.extract_text() -> string
+  - TXT: file.text() directo, sin Pyodide
+  - Limite: 20 MB por archivo
+
+TRADUCCION (API externa - solo texto):
+  - API: MyMemory (api.mymemory.translated.net/get)
+  - Sin API key, sin cuenta, gratuita
+  - Limite free: ~5000 chars/request, ~50 requests/dia
+  - Chunking: texto dividido en partes <= 450 chars por oracion
+  - Rate limiting: 300ms delay entre chunks
+  - Lang pair format: "en|es" o "|es" para autodetect
+
+IDIOMAS SOPORTADOS (28 total):
+  autodetect, en, es, fr, de, pt, it, nl, pl, ru, tr,
+  ar, zh, ja, ko, sv, da, fi, no, ro, uk, cs, hu, el, he,
+  id, th, vi
+
+UI MULTIIDIOMA (5 idiomas de interfaz):
+  English, Espanol, Francais, Deutsch, Portugues
+  Deteccion: navigator.language (sin API, 100% local)
+  Strings: objeto I18N con todas las traducciones
+  Todos los textos tienen data-i18n attribute
+
+DESCARGA:
+  - TXT original: Blob text/plain + URL.createObjectURL
+  - TXT traducido: Blob text/plain + URL.createObjectURL
+  - "PDF": genera HTML con el texto y se descarga como .html
+    (usuario puede abrir y File > Print > Save as PDF)
+  NOTA FUTURA: para PDF real usar jsPDF o reportlab via Pyodide
+
+LIMITACION CONOCIDA:
+  - PDFs basados en imagenes (escaneados) no tienen texto extraible
+  - Mostrar error claro: "This PDF appears to be image-based (scanned)"
+  - Solucion futura: OCR con tesseract.js
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEGURIDAD — TODOS LOS HTML
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Meta headers: X-Content-Type-Options, X-Frame-Options, CSP
+JS: 'use strict', esc() para datos de usuario, createElement
+Validacion: tipo de archivo + tamano antes de procesar
+Blob URLs: URL.revokeObjectURL() despues de uso
+API calls: solo a dominios declarados en CSP
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PYTHON RECETAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MERGE:      PdfWriter().append(BytesIO(bytes)) x N -> write(output)
+COMPRESS:   compress_identical_objects + img.replace(quality=N)
+SPLIT:      PdfWriter().add_page(page) por rango -> write(out)
+JPG->PDF:   Pillow Image.open -> img.save(buf, format='PDF') -> append
+PDF->JPG:   PDF.js + canvas.toDataURL (NO Pyodide)
+TRANSLATE:  pypdf page.extract_text() -> MyMemory API chunks
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASES COMPLETADAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+v1-v5.2:  Merge, Compress, Split, HUB
+v5.3:     REBRAND NoServerTools + dark mode
+v5.4:     Todos dark mode + PDF to JPG inicial
+v5.4.1:   Fix base href GitHub Pages
+v5.5:     PDF<->JPG con PDF.js (funciona real) + JPG to PDF
+v5.6:     HUB revamp (tools primero) + PDF<->JPG combinado + hardening
+v5.7:     Translate PDF (Pyodide + MyMemory) + UI en 5 idiomas
+          Deteccion automatica idioma via navigator.language
+          Steps indicator guiado, side-by-side panels, descarga TXT/HTML
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROXIMOS PASOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INMEDIATO:  rotate-pdf (simple, alto trafico SEO)
+DESPUES:    protect-pdf + unlock-pdf
+MEJORAS TRANSLATE:
+  - PDF real en descarga (jsPDF via CDN o reportlab Pyodide)
+  - OCR para PDFs escaneados (tesseract.js)
+  - Aumentar limite con API key de MyMemory (gratis con email)
+FUTURO:
+  - Comprar noservertools.com (quitar base href de todos los HTML)
+  - Google Search Console + sitemap
+  - Google Analytics 4
+  - Google AdSense
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA EL PROXIMO AI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  NoServerTools. Bg #0e1117. Syne+Outfit+DM Mono. Brand #5a87ff/#1f45e0.
+2.  CSS variables en :root. Mobile-first.
+3.  Pyodide/WASM o PDF.js para procesamiento. CERO servidores propios.
+4.  EXCEPCION: translate-pdf envia TEXTO (no archivo) a MyMemory API.
+5.  PDF<->JPG = una sola pagina en pdf-to-jpg/ con switch de modo.
+6.  Translate PDF = translate-pdf/ con UI en 5 idiomas + 28 lang pairs.
+7.  Deteccion de idioma: navigator.language (sin API).
+8.  CSP + X-Frame + 'use strict' + esc() + createElement en todo HTML nuevo.
+9.  HUB: tools grid primero, hero compacto arriba.
+10. NUNCA estadisticas inventadas. NUNCA reviews falsos.
+11. Usuario principiante: pasos exactos de que va donde.
+12. LOG actualizado AL FINAL de cada sesion.
+
+════════════════════════════════════════════════════════════════
+FIN DEL LOG MAESTRO v5.7 — NoServerTools
+════════════════════════════════════════════════════════════════
