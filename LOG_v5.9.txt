@@ -1,0 +1,433 @@
+════════════════════════════════════════════════════════════════
+LOG MAESTRO v5.9 — NOSERVERTOOLS
+PEGAR EN CUALQUIER AI PARA CONTINUAR SIN PREGUNTAS
+════════════════════════════════════════════════════════════════
+
+PROYECTO: NoServerTools
+Tipo: App web estatica — un HTML por herramienta, CERO servidores propios
+Hosting: GitHub Pages — GRATIS — $0 forever
+URL RAIZ: https://fio42.github.io/noservertools/
+Repo: https://github.com/Fio42/noservertools
+Carpeta local: C:/Users/fiocc/OneDrive/Desktop/noservertools/
+Usuario GitHub: Fio42
+Ultimo deploy: v5.9 — translate-pdf: PDF visual con overlay via PDF.js + jsPDF
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IDENTIDAD DE MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nombre:    NoServerTools
+Dominio:   noservertools.com (objetivo futuro, aun no comprado)
+Tagline:   "Tools that run inside your browser. Not on our servers."
+SIN estadisticas inventadas. SIN reviews falsos. Sin excepcion.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REGLAS PERMANENTES — NUNCA ROMPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  CERO servidores propios. Todo corre en el browser del usuario.
+2.  NUNCA usar em dash (—) en textos visibles del HTML.
+3.  SIEMPRE usar esc() antes de insertar texto del usuario en el DOM.
+4.  Cada herramienta = su propia carpeta + index.html. Nunca mezclar.
+5.  SIEMPRE actualizar sitemap.xml al agregar herramienta nueva.
+6.  SIEMPRE actualizar header/footer de TODAS las paginas al agregar tool.
+7.  SIEMPRE entregar el LOG actualizado al final de cada sesion como .txt.
+8.  El usuario es principiante — pasos simples, uno a la vez, sin asumir nada.
+9.  NUNCA inventar estadisticas falsas ni reviews falsos.
+10. La marca es NoServerTools — no limitada a PDF, puede agregar cualquier tool.
+11. Todos los HTML deben incluir: CSP meta, X-Frame-Options, X-Content-Type-Options.
+12. SIEMPRE usar 'use strict' en todos los bloques <script>.
+13. SIEMPRE usar createElement (no innerHTML) para datos que vienen del usuario.
+14. EXCEPCION regla 1: translate-pdf envia TEXTO (no archivo) a MyMemory API.
+    El archivo nunca sale del dispositivo. Solo el texto extraido va a la API.
+    Siempre declarar esto en la UI con aviso amarillo visible.
+15. EXCEPCION regla 1: translate-pdf usa PDF.js y jsPDF via CDN para procesar
+    y generar PDFs. Todo corre en el browser. CERO servidores propios.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMO SUBIR CAMBIOS AL REPO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+cd "C:/Users/fiocc/OneDrive/Desktop/noservertools"
+git add .
+git commit -m "descripcion del cambio"
+git push
+Esperar 1-2 minutos y recargar la pagina en el browser.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUCTURA DE ARCHIVOS — ESTADO ACTUAL v5.9
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+noservertools/
+  index.html                [VIVO] HUB principal — muestra todas las tools
+  sitemap.xml               [VIVO] SEO — actualizar cada vez que se agrega tool
+  robots.txt                [VIVO] SEO
+  LOG.txt                   Este archivo — reemplazar con cada version nueva
+
+  merge-pdf/
+    index.html              [VIVO] Merge PDF v5.4 — une multiples PDFs en uno
+
+  compress-pdf/
+    index.html              [VIVO] Compress PDF v5.4 — reduce peso del PDF
+
+  split-pdf/
+    index.html              [VIVO] Split PDF v5.4 — divide PDF por paginas
+
+  pdf-to-jpg/
+    index.html              [VIVO] PDF<->JPG v5.6 — convierte en ambas direcciones
+                            Una sola pagina con switch de modo (PDF->JPG / JPG->PDF)
+
+  translate-pdf/
+    index.html              [VIVO] Translate PDF v5.9 — version mas reciente
+                            PDF.js extrae texto + renderiza paginas como imagen
+                            MyMemory API traduce el texto
+                            jsPDF genera PDF con fondo visual + texto traducido overlay
+
+  -- PENDIENTES (orden prioridad SEO) --
+  rotate-pdf/               PRIORIDAD 1 — simple, alto trafico de busqueda
+  protect-pdf/              prioridad 2
+  unlock-pdf/               prioridad 3
+  watermark-pdf/            prioridad 4
+  reorder-pdf/              prioridad 5
+  delete-pages/             prioridad 6
+  pdf-to-text/              prioridad 7
+  repair-pdf/               prioridad 8
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DISENO VISUAL — SISTEMA GLOBAL (aplicar a toda tool nueva)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Background:   #0e1117
+Fuentes:      Syne (titulos, font-weight 700/800)
+              Outfit (cuerpo, font-weight 400/500/600)
+              DM Mono (labels tecnicos, badges, monospace)
+Colores:
+  --brand:       #5a87ff  (azul principal)
+  --brand-dark:  #1f45e0  (azul oscuro, botones primarios)
+  --brand-mid:   #3363f5  (hover de botones)
+  --green:       #4ade80  (exito, done)
+  --red:         #f87171  (error)
+  --text:        rgba(255,255,255,.88)
+  --muted:       rgba(255,255,255,.42)
+  --dim:         rgba(255,255,255,.25)
+  --surface:     rgba(255,255,255,.028)
+  --border:      rgba(255,255,255,.08)
+
+CSS: Variables en :root. Mobile-first. Media queries para >= 600px y >= 700px.
+Background efecto: body::before con grid de lineas rgba(83,99,255,.05) 52x52px
+Blobs: dos divs .blob fijos con radial-gradient, uno arriba-izquierda, uno abajo-derecha
+Nav: sticky, backdrop-filter blur(16px), altura 54px
+Logo: caja azul 28x28px con SVG de 4 cuadros + texto "NoServer" + "Tools" en brand color
+Footer: border-top, fondo rgba(0,0,0,.3), links a todas las tools
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRANSLATE-PDF — ARQUITECTURA TECNICA COMPLETA v5.9
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DEPENDENCIAS (en este orden en el HTML, antes del script principal):
+  1. PDF.js v3.11.174
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+     Worker: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js
+     Configurar: pdfjsLib.GlobalWorkerOptions.workerSrc = '...'
+     Acceso: window.pdfjsLib
+
+  2. jsPDF v2.5.1
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+     Acceso: const { jsPDF } = window.jspdf
+
+  3. Pyodide v0.25.0 (mantenido para posible uso futuro, ya no se usa para extraccion)
+     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+     NOTA: En v5.9 Pyodide YA NO se usa para extraccion de PDF.
+     Puede eliminarse en version futura para reducir peso de carga.
+
+ESTADO JAVASCRIPT (variables globales):
+  let currentFile    — File object del archivo subido
+  let extractedText  — string con todo el texto extraido del PDF
+  let translatedText — string con el texto traducido
+  let pdfPageData    — array de objetos, uno por pagina del PDF:
+    {
+      imageDataUrl: string,  // JPEG base64 del render completo de la pagina
+      textItems: [           // array de bloques de texto con posicion
+        {
+          str:      string,  // texto del bloque
+          x:        number,  // posicion X normalizada (0-1, origen izquierda)
+          y:        number,  // posicion Y normalizada (0-1, origen arriba)
+          fontSize: number,  // tamano de fuente normalizado (relativo a altura de pagina)
+          width:    number   // ancho del bloque normalizado (0-1)
+        }
+      ],
+      pageWidth:   number,   // ancho de pagina en puntos PDF (sin escala)
+      pageHeight:  number,   // alto de pagina en puntos PDF (sin escala)
+      canvasWidth: number,   // ancho del canvas renderizado (con SCALE=2.0)
+      canvasHeight: number   // alto del canvas renderizado (con SCALE=2.0)
+    }
+  let isPdfFile      — boolean: true si el archivo es PDF, false si es TXT
+  let uiLang         — string: idioma de la interfaz ('en','es','fr','de','pt')
+  let pyodide        — instancia de Pyodide (cargada lazy, no se usa en v5.9)
+  let pyReady        — boolean: indica si Pyodide cargo correctamente
+
+FLUJO COMPLETO DE LA HERRAMIENTA:
+
+  PASO 1 — UPLOAD
+    - Usuario arrastra o selecciona archivo PDF o TXT
+    - Validacion: tipo de archivo + maximo 20 MB
+    - Se guarda en currentFile
+    - Se muestra chip con nombre y peso del archivo
+    - Se avanza a pantalla de seleccion de idiomas
+
+  PASO 2 — SELECCION DE IDIOMAS
+    - Dos selectores: FROM (idioma origen) y TO (idioma destino)
+    - 27 idiomas disponibles (ver lista abajo)
+    - Auto-detect ELIMINADO — MyMemory no lo soporta, causaba error INVALID LANGUAGE PAIR
+    - Defaults inteligentes segun idioma de la interfaz:
+        UI en espanol -> FROM: Espanol, TO: Ingles
+        UI en ingles  -> FROM: Espanol, TO: Ingles
+    - Boton swap para invertir el par
+    - Validacion: no permitir mismo idioma en FROM y TO
+    - Aviso amarillo: "Solo el texto (no el archivo) se envia a la API de traduccion"
+
+  PASO 3 — EXTRACCION (100% local, nada sale del dispositivo)
+    Si archivo es TXT:
+      - file.text() directo
+      - isPdfFile = false
+
+    Si archivo es PDF (funcion extractWithPdfJs):
+      - Configura PDF.js worker
+      - Carga el PDF con pdfjsLib.getDocument({ data: arrayBuffer })
+      - Por cada pagina (escala SCALE = 2.0 para alta calidad):
+          a. page.getViewport({ scale: 2.0 })
+          b. Crea canvas, renderiza pagina completa con page.render()
+          c. canvas.toDataURL('image/jpeg', 0.92) -> imageDataUrl
+          d. page.getTextContent() -> extrae items de texto con posiciones
+          e. Normaliza coordenadas: x = tx/vpWidth, y = 1-(ty/vpHeight)
+             (PDF tiene origen abajo-izquierda, se flipea el eje Y)
+          f. Normaliza fontSize = |scaleY| / vpHeight
+          g. Guarda en pdfPageData[]
+      - Concatena todo el texto para traduccion
+      - isPdfFile = true
+
+  PASO 4 — TRADUCCION (API externa — solo texto, no archivo)
+    - API: MyMemory (https://api.mymemory.translated.net/get)
+    - Sin API key, sin cuenta, completamente gratuita
+    - Limite free: ~5000 chars/request, ~50 requests/dia por IP
+    - El texto se divide en chunks de <= 450 caracteres (por oracion)
+    - Entre cada chunk: 300ms de delay para no exceder rate limit
+    - Formato del par de idiomas: "es|en", "fr|de", etc. (NUNCA con autodetect)
+    - Los chunks traducidos se van mostrando en tiempo real en el panel
+
+  PASO 5 — DESCARGA PDF
+
+    MODO VISUAL (isPdfFile = true, pdfPageData disponible):
+      Funcion buildVisualPdf():
+      - Crea jsPDF con las dimensiones exactas de cada pagina del PDF original
+      - Por cada pagina:
+          1. doc.addImage() — pone la imagen JPEG de la pagina como fondo completo
+             Esto preserva: fondos de color, logos, imagenes, iconos, layout
+          2. Mapeo proporcional de texto traducido:
+             - Cuenta total de text items en todas las paginas
+             - Para cada text item de la pagina original, calcula que porcion
+               del texto traducido le corresponde (por proporcion de indice)
+             - transWords distribuidos proporcionalemente sobre origWords
+          3. Por cada text item:
+             - Convierte coordenadas normalizadas de vuelta a puntos PDF
+             - Calcula fontSize en puntos (clampeado entre 6 y 72)
+             - Dibuja rectangulo blanco semitransparente (opacity 0.75) detras
+               del texto para que sea legible sobre cualquier fondo
+             - Dibuja el texto traducido en esa posicion (opacity 1.0)
+      - doc.save(base + '-translated.pdf')
+
+    MODO TEXTO (isPdfFile = false, archivo TXT):
+      Funcion buildTextPdf():
+      - PDF A4 clasico con margenes
+      - Header: titulo del archivo + par de idiomas
+      - Cuerpo: parrafos con espaciado correcto
+      - Footer en cada pagina: nombre archivo + numeracion N/Total
+      - doc.save(base + '-translated.pdf')
+
+    FALLBACK:
+      Si jsPDF falla por cualquier razon -> downloadTxt('translated')
+      El boton muestra "Saved as .txt (error)"
+
+  DESCARGA TXT (siempre disponible):
+    - Original: Blob text/plain + a.click() + URL.revokeObjectURL()
+    - Traducido: Blob text/plain + a.click() + URL.revokeObjectURL()
+
+LIMITACIONES CONOCIDAS (sin solucion posible sin servidor):
+  - El texto traducido puede ser mas largo que el original y superponerse
+  - Las fuentes del PDF original no se pueden replicar exactamente
+  - Imagenes dentro del PDF que NO son de fondo (inline) se ven en el fondo
+    pero el texto encima puede taparlas parcialmente
+  - PDFs escaneados (imagen pura, sin texto) no tienen texto extraible
+    -> Se muestra error claro: "This PDF appears to be image-based (scanned)"
+  - Idiomas con caracteres especiales (chino, japones, arabe) pueden no
+    renderizar correctamente en jsPDF sin embeber fuentes especiales
+  - Rate limit de MyMemory: documentos muy largos pueden fallar (~50 req/dia)
+
+IDIOMAS SOPORTADOS (27, sin autodetect):
+  en (English), es (Espanol), fr (Francais), de (Deutsch), pt (Portugues),
+  it (Italiano), nl (Nederlands), pl (Polski), ru (Русский), tr (Turkce),
+  ar (العربية), zh (中文), ja (日本語), ko (한국어), sv (Svenska),
+  da (Dansk), fi (Suomi), no (Norsk), ro (Romana), uk (Украинська),
+  cs (Cestina), hu (Magyar), el (Ελληνικά), he (עברית),
+  id (Bahasa Indonesia), th (ภาษาไทย), vi (Tieng Viet)
+
+UI MULTIIDIOMA (5 idiomas de interfaz):
+  English, Espanol, Francais, Deutsch, Portugues
+  Deteccion automatica: navigator.language (100% local, sin API)
+  Objeto I18N con todas las traducciones
+  Todos los textos del HTML tienen atributo data-i18n
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEGURIDAD — APLICAR A TODOS LOS HTML
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Meta tags obligatorios en <head>:
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Content-Security-Policy" content="...">
+
+CSP de translate-pdf incluye:
+  script-src: cdnjs.cloudflare.com, cdn.jsdelivr.net, unpkg.com
+  connect-src: api.mymemory.translated.net, cdnjs.cloudflare.com
+  worker-src: blob: (necesario para PDF.js worker)
+  img-src: self, data:, blob: (necesario para canvas/imagenes)
+
+JS obligatorio:
+  'use strict' en cada bloque <script>
+  esc(s) para sanitizar cualquier dato del usuario antes de insertarlo
+  createElement (nunca innerHTML) para datos del usuario
+  Validacion de tipo y tamano de archivo antes de procesar
+  URL.revokeObjectURL() despues de cada descarga
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OTRAS HERRAMIENTAS — RECETAS TECNICAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Todas usan Pyodide v0.25.0 + pypdf, excepto pdf-to-jpg y translate-pdf.
+
+MERGE PDF:
+  Pyodide + pypdf
+  PdfWriter().append(BytesIO(bytes)) por cada archivo
+  writer.write(output_buffer)
+  Descarga como .pdf
+
+COMPRESS PDF:
+  Pyodide + pypdf
+  compress_identical_objects=True
+  Por cada imagen: img.replace(quality=N) con N segun nivel elegido
+  Descarga como .pdf comprimido
+
+SPLIT PDF:
+  Pyodide + pypdf
+  PdfWriter().add_page(page) por cada pagina del rango elegido
+  writer.write(output) -> descarga como .pdf
+
+PDF -> JPG:
+  PDF.js (NO Pyodide)
+  page.render() -> canvas -> canvas.toDataURL('image/jpeg')
+  Descarga cada pagina como .jpg
+
+JPG -> PDF:
+  Pyodide + Pillow
+  Image.open(BytesIO(bytes)) -> img.save(buf, format='PDF')
+  PdfWriter().append(BytesIO(pdf_bytes))
+  Descarga como .pdf
+
+TRANSLATE PDF:
+  PDF.js: render paginas como JPEG + extraccion texto con posiciones
+  MyMemory API: traduccion del texto en chunks de 450 chars
+  jsPDF: genera PDF con imagen de pagina + texto traducido superpuesto
+  Ver seccion completa arriba.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HISTORIAL DE VERSIONES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+v1-v5.2:  Merge, Compress, Split, HUB inicial
+v5.3:     REBRAND a NoServerTools + dark mode global
+v5.4:     Todas las tools en dark mode + PDF to JPG inicial
+v5.4.1:   Fix: base href para GitHub Pages
+v5.5:     PDF<->JPG con PDF.js (funciona real) + JPG to PDF con Pillow
+v5.6:     HUB revamp (grid de tools primero, hero compacto)
+          PDF<->JPG combinado en una sola pagina con switch de modo
+          Hardening de seguridad general
+v5.7:     Translate PDF — primera version
+          Extraccion con Pyodide + pypdf
+          Traduccion con MyMemory API (chunks 450 chars, 300ms delay)
+          UI en 5 idiomas con deteccion automatica via navigator.language
+          Steps indicator (1-2-3), side-by-side panels, descarga TXT/HTML
+          Fix: eliminado Auto-detect del selector (causaba INVALID LANGUAGE PAIR)
+          Defaults inteligentes segun idioma de UI
+          Validacion: mismo idioma en ambos lados muestra error antes de traducir
+v5.8:     Fix descarga PDF en translate-pdf
+          Reemplazado HTML fake por PDF real con jsPDF
+          Header con titulo + par de idiomas, parrafos con espaciado,
+          saltos de pagina automaticos, footer con paginacion N/Total
+          Fallback a .txt si jsPDF falla
+v5.9:     Translate PDF — descarga visual (CAMBIO MAYOR)
+          Reemplazada extraccion Pyodide por PDF.js completo:
+            - PDF.js renderiza cada pagina como imagen JPEG (SCALE=2.0)
+            - PDF.js extrae texto CON coordenadas x,y por bloque
+            - Coordenadas normalizadas a 0-1 relativo a dimensiones de pagina
+          Nueva funcion buildVisualPdf():
+            - jsPDF con dimensiones exactas de cada pagina del original
+            - Imagen completa como fondo (preserva colores, logos, imagenes)
+            - Knockout blanco semitransparente (opacity 0.75) detras del texto
+            - Texto traducido superpuesto en coordenadas aproximadas del original
+            - Mapeo proporcional de palabras traducidas a posiciones originales
+          Nueva funcion buildTextPdf() para archivos TXT (igual que v5.8)
+          downloadPdf() ahora es async
+          resetAll() limpia pdfPageData e isPdfFile
+          Pyodide mantenido en el HTML pero ya no se usa para extraccion PDF
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA DEPLOY v5.9
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. translate-pdf/index.html -> noservertools/translate-pdf/index.html (reemplazar)
+2. LOG_v5.9.txt             -> noservertools/LOG.txt (reemplazar)
+3. git add . && git commit -m "v5.9 translate-pdf: PDF visual overlay PDF.js+jsPDF" && git push
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROXIMOS PASOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INMEDIATO:
+  rotate-pdf — la mas simple, alto trafico SEO
+  Una pagina, Pyodide + pypdf, page.rotate(N) donde N es 90/180/270
+  Agregar al nav y footer de TODAS las paginas existentes
+  Agregar a sitemap.xml
+
+MEJORAS TRANSLATE-PDF:
+  - Eliminar Pyodide del HTML (ya no se usa, reduce carga inicial ~10MB)
+  - OCR para PDFs escaneados: tesseract.js via CDN
+  - Aumentar limite MyMemory con API key gratuita (registrar email en mymemory)
+  - Fuentes no-latinas en jsPDF: embeber fuentes para chino/japones/arabe
+  - Ajuste de tamano de texto: si traduccion es mas larga, reducir fontSize
+    automaticamente para que quepa en el espacio del bloque original
+
+FUTURO:
+  - Comprar noservertools.com (quitar <base href> de todos los HTML)
+  - Google Search Console + sitemap submission
+  - Google Analytics 4 (script en todas las paginas)
+  - Google AdSense (cuando haya trafico suficiente)
+  - protect-pdf, unlock-pdf, watermark-pdf, reorder-pdf
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA EL PROXIMO AI — LEER ESTO PRIMERO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1.  Proyecto: NoServerTools. App web estatica en GitHub Pages. CERO servidores.
+2.  Fondo: #0e1117. Fuentes: Syne + Outfit + DM Mono. Brand: #5a87ff / #1f45e0.
+3.  Cada tool es una carpeta con su propio index.html. No compartir HTML entre tools.
+4.  Pyodide v0.25.0 + pypdf para merge/compress/split/jpg-to-pdf.
+5.  PDF.js v3.11.174 para pdf-to-jpg y translate-pdf (render + extraccion de texto).
+6.  jsPDF v2.5.1 para generar PDFs en translate-pdf.
+7.  translate-pdf: extraccion 100% local via PDF.js, traduccion via MyMemory API.
+    Solo el TEXTO va a la API. El ARCHIVO nunca sale del dispositivo.
+8.  translate-pdf descarga PDF visual: imagen de pagina como fondo + texto overlay.
+    Ver funcion buildVisualPdf() para entender el flujo completo.
+9.  Auto-detect ELIMINADO del selector de idiomas. Siempre usar par explicito "es|en".
+10. UI de translate-pdf en 5 idiomas. Deteccion via navigator.language. Objeto I18N.
+11. PDF<->JPG = una sola pagina en pdf-to-jpg/ con switch de modo.
+12. CSP + X-Frame-Options + 'use strict' + esc() + createElement en todo HTML nuevo.
+13. Al agregar tool nueva: actualizar nav y footer de TODAS las paginas + sitemap.xml.
+14. NUNCA estadisticas inventadas. NUNCA reviews falsos.
+15. Usuario es principiante. Dar pasos exactos: que archivo va donde, que comando correr.
+16. LOG actualizado y completo al final de cada sesion, entregado como archivo .txt.
+17. Cuando el usuario mande un index.html, leerlo completo antes de modificar.
+    Usar str_replace quirurgico, no reescribir el archivo entero.
+
+════════════════════════════════════════════════════════════════
+FIN DEL LOG MAESTRO v5.9 — NoServerTools
+════════════════════════════════════════════════════════════════

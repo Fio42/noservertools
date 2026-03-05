@@ -911,7 +911,7 @@ async function startTranslation() {
     document.getElementById('r-title').textContent = '✅ ' + (strings.btn_translate || 'Translation complete');
     document.getElementById('r-sub').textContent = `${fromLabel} → ${toLabel} · ${currentFile.name}`;
 
-    // Translate via MyMemory API in chunks
+    // Translate via MyMemory API (with email key) + LibreTranslate fallback
     const transPanel = document.getElementById('panel-translated');
     transPanel.innerHTML = `<span class="panel-placeholder pulse">${strings.translating || 'Translating...'}</span>`;
 
@@ -921,7 +921,8 @@ async function startTranslation() {
       const result = await translateChunk(chunks[i], langPair);
       translated.push(result);
       transPanel.textContent = translated.join('\n\n') + (i < chunks.length - 1 ? '\n\n...' : '');
-      if (i < chunks.length - 1) await sleep(300);
+      // 600ms delay between chunks — reduces 429 errors significantly
+      if (i < chunks.length - 1) await sleep(600);
     }
     translatedText = translated.join('\n\n');
     transPanel.textContent = translatedText;
@@ -952,16 +953,57 @@ function splitIntoChunks(text, maxLen) {
   return chunks.filter(c => c.length > 0);
 }
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// MyMemory with email key (10x more daily quota) + auto fallback to LibreTranslate
 async function translateChunk(text, langPair) {
-  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(langPair)}`;
+  // Try MyMemory first (with email key for higher quota)
+  try {
+    return await translateMyMemory(text, langPair);
+  } catch(e) {
+    const is429 = e.message.includes('429') || e.message.includes('QUERY LENGTH') || e.message.includes('rate') || e.message.includes('limit');
+    if (is429) {
+      // Wait 1.5s then try LibreTranslate fallback
+      await sleep(1500);
+      try {
+        return await translateLibre(text, langPair);
+      } catch(e2) {
+        // Both failed — wait and retry MyMemory once more
+        await sleep(3000);
+        return await translateMyMemory(text, langPair);
+      }
+    }
+    throw e;
+  }
+}
+
+async function translateMyMemory(text, langPair) {
+  const email = 'amne420@gmail.com';
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(langPair)}&de=${encodeURIComponent(email)}`;
   const resp = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
   if (!resp.ok) throw new Error(`Translation API error: ${resp.status}`);
   const data = await resp.json();
+  // 429 or quota errors come back as responseStatus 429 or in responseDetails
+  if (data.responseStatus === 429 || (data.responseDetails && data.responseDetails.toLowerCase().includes('limit'))) {
+    throw new Error(`429 rate limit`);
+  }
   if (data.responseStatus !== 200) throw new Error('Translation failed: ' + (data.responseDetails || 'API error'));
   return data.responseData.translatedText;
 }
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function translateLibre(text, langPair) {
+  // LibreTranslate public instance — free, no key needed for basic use
+  const [from, to] = langPair.split('|');
+  const resp = await fetch('https://libretranslate.com/translate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ q: text, source: from, target: to, format: 'text' })
+  });
+  if (!resp.ok) throw new Error(`LibreTranslate error: ${resp.status}`);
+  const data = await resp.json();
+  if (data.error) throw new Error('LibreTranslate: ' + data.error);
+  return data.translatedText;
+}
 
 /* ─── Copy ──────────────────────────────────────────────────────────────── */
 function copyText(which) {
