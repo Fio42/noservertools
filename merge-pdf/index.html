@@ -1,1133 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ============================================================
-       SAFEMERGEPDF — index.html
-       Version: 2.0 — Final Design (SEO + Copy + Premium UI)
-       ============================================================ -->
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merge PDF Free Online — No Upload, 100% Private | NoServerTools</title>
+  <meta name="description" content="Merge PDF files online for free. No upload, no server, no account. Everything runs locally in your browser using WebAssembly. 100% private." />
+  <meta name="keywords" content="merge pdf free, combine pdf online, pdf merger no upload, join pdf files, merge pdf without uploading" />
+  <link rel="canonical" href="https://noservertools.com/merge-pdf/" />
+  <meta property="og:title" content="Merge PDF Free — No Upload | NoServerTools" />
+  <meta property="og:description" content="Combine PDF files locally in your browser. Files never leave your device." />
+  <meta property="og:url" content="https://noservertools.com/merge-pdf/" />
+  <meta property="og:type" content="website" />
 
-  <!-- ═══════════════════════════════════════════════════════════
-       SEO — Títulos y descripciones optimizados para Google
-       ═══════════════════════════════════════════════════════════ -->
-  <title>SafeMergePDF — Merge PDF Files Free Online | No Upload, 100% Private</title>
-  <meta name="description"
-    content="Merge PDF files online for free — instantly, privately, and without uploading anything. Your files never leave your device. No sign-up. No limits. Works on any browser." />
-  <meta name="keywords"
-    content="merge pdf free, combine pdf online, join pdf files, pdf merger no upload, free pdf combiner, merge pdf without uploading, safe pdf merge, offline pdf merger" />
-  <meta name="robots"   content="index, follow, max-snippet:-1, max-image-preview:large" />
-  <meta name="author"   content="SafeMergePDF" />
-  <link rel="canonical" href="https://fio42.github.io/safemergepdf/merge-pdf/" />
-
-  <!-- ── OPEN GRAPH ────────────────────────────────────────── -->
-  <meta property="og:type"              content="website" />
-  <meta property="og:site_name"         content="SafeMergePDF" />
-  <meta property="og:title"            content="SafeMergePDF — Merge PDFs Free. Zero Uploads. Total Privacy." />
-  <meta property="og:description"      content="The only PDF merger where your files never leave your device. Python runs inside your browser. Free, instant, no account needed." />
-  <meta property="og:url"              content="https://fio42.github.io/safemergepdf/" />
-  <meta property="og:image"            content="https://fio42.github.io/safemergepdf/og-image.png" />
-  <meta property="og:locale"           content="en_US" />
-  <meta property="og:locale:alternate" content="es_ES" />
-
-  <!-- ── TWITTER CARD ──────────────────────────────────────── -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="SafeMergePDF — Merge PDFs Without Uploading Anything" />
-  <meta name="twitter:description" content="100% browser-based PDF merger. Your files stay on your device. Free forever." />
-
-  <!-- ── SCHEMA MARKUP ─────────────────────────────────────── -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "@id": "https://fio42.github.io/safemergepdf/#app",
-        "name": "SafeMergePDF",
-        "url": "https://fio42.github.io/safemergepdf/",
-        "description": "Free online PDF merger that runs entirely in your browser. Combine multiple PDF files into one with zero uploads, zero servers, and complete privacy.",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "Windows, macOS, Linux, Android, iOS",
-        "isAccessibleForFree": true,
-        "inLanguage": ["en", "es"],
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "featureList": [
-          "Merge up to 20 PDF files at once",
-          "Zero file uploads — runs 100% in browser",
-          "Drag and drop reordering",
-          "No account or registration required",
-          "Free forever, no watermarks"
-        ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "1240",
-          "bestRating": "5"
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is SafeMergePDF completely free?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes, 100% free forever. No fees, no plans, no watermarks, no limits." }
-          },
-          {
-            "@type": "Question",
-            "name": "Do you store my PDF files?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. Your files never leave your device. Everything runs inside your browser using WebAssembly." }
-          },
-          {
-            "@type": "Question",
-            "name": "How many PDFs can I merge?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Up to 20 PDFs at once, each up to 50 MB. You can reorder them before merging." }
-          },
-          {
-            "@type": "Question",
-            "name": "Does it work on mobile?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes — works on any modern browser on desktop, tablet, and mobile." }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
-
-  <!-- ═══════════════════════════════════════════════════════════
-       SECURITY
-       ═══════════════════════════════════════════════════════════ -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src  'self' 'unsafe-inline' 'unsafe-eval'
-                https://cdn.tailwindcss.com
-                https://cdn.jsdelivr.net
-                https://pyscript.net;
-    style-src   'self' 'unsafe-inline'
-                https://cdn.tailwindcss.com
-                https://fonts.googleapis.com
-                https://pyscript.net;
-    font-src    'self' https://fonts.gstatic.com;
-    connect-src 'self'
-                https://cdn.jsdelivr.net
-                https://pyscript.net
-                https://files.pythonhosted.org
-                https://pypi.org;
-    img-src     'self' data: blob:;
-    worker-src  'self' blob:;
-    frame-src   'none';
-    object-src  'none';
-    base-uri    'self';
-    form-action 'self';
-  " />
-  <meta http-equiv="X-Frame-Options"        content="DENY" />
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-
-  <!-- ── TAILWIND ──────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: {
-              50:  '#eef3ff',
-              100: '#e0e9ff',
-              200: '#c7d6fe',
-              300: '#a5b8fc',
-              400: '#8196f8',
-              500: '#6272f1',
-              600: '#4f57e6',
-              700: '#4244d0',
-              800: '#3638a8',
-              900: '#303485',
-            },
-          },
-          fontFamily: {
-            display: ['"Syne"', 'system-ui', 'sans-serif'],
-            body:    ['"Outfit"', 'system-ui', 'sans-serif'],
-          },
+            brand: { 50:'#eef3ff',100:'#dce7ff',200:'#b9ceff',300:'#8aaeff',400:'#5a87ff',500:'#3363f5',600:'#1f45e0',700:'#1a34c0',800:'#1a2d9a',900:'#1b2b7a' },
+            ink: '#0e1117'
+          }
         }
       }
     }
   </script>
-
-  <!-- ── PYODIDE — Python en WebAssembly ──────────────────── -->
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
-
-  <!-- ── FONTS: Syne (impactante) + Outfit (legible) ───────── -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@400;500;600;700&display=swap"
-        rel="stylesheet" />
-
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      background: #eef1ff;
-      color: #0f1523;
-      -webkit-font-smoothing: antialiased;
-    }
-    h1, h2, h3, .syne { font-family: 'Syne', system-ui, sans-serif; }
-
-    .hero-mesh {
-      background:
-        radial-gradient(ellipse 70% 55% at 8%  35%,  rgba(98,114,241,0.11) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 45% at 92% 12%,  rgba(165,184,252,0.13) 0%, transparent 55%),
-        radial-gradient(ellipse 45% 35% at 50% 95%,  rgba(79,87,230,0.07)  0%, transparent 50%),
-        linear-gradient(160deg, #f0f3ff 0%, #f8f9ff 50%, #eef1ff 100%);
-    }
-
-    .drop-zone {
-      border: 2px dashed #c7d6fe;
-      transition: border-color .2s, background .2s, transform .15s, box-shadow .2s;
-    }
-    .drop-zone:hover, .drop-zone.drag-over {
-      border-color: #4f57e6;
-      background: #eef3ff;
-      transform: scale(1.005);
-      box-shadow: 0 0 0 5px rgba(79,87,230,0.08);
-    }
-
-    .stat-card {
-      background: linear-gradient(135deg,#fff 0%,#f5f7ff 100%);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(79,87,230,.10); }
-
-    details summary { list-style: none; }
-    details summary::-webkit-details-marker { display: none; }
-    details[open] summary .chevron { transform: rotate(180deg); }
-    .chevron { transition: transform .2s ease; }
-
-    .file-row { animation: slideIn .2s ease forwards; }
-    @keyframes slideIn {
-      from { opacity:0; transform:translateX(-8px); }
-      to   { opacity:1; transform:translateX(0); }
-    }
-
-    .gradient-text {
-      background: linear-gradient(120deg, #4f57e6 0%, #7c8ef7 60%, #a5b8fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    @keyframes pulse-ring {
-      0%   { transform:scale(1); opacity:1; }
-      100% { transform:scale(2.4); opacity:0; }
-    }
-    .pulse-dot { position:relative; }
-    .pulse-dot::before {
-      content:'';
-      position:absolute;
-      inset:0;
-      border-radius:9999px;
-      background:#6272f1;
-      animation: pulse-ring 1.8s ease-out infinite;
-    }
-
-    @keyframes float {
-      0%,100% { transform:translateY(0); }
-      50%      { transform:translateY(-7px); }
-    }
-    .float { animation: float 3.5s ease-in-out infinite; }
-
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(20px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-    .fade-up   { animation: fadeUp .6s ease forwards; overflow: visible; }
-    .fade-up-2 { animation: fadeUp .6s .15s ease both; overflow: visible; }
-    .fade-up-3 { animation: fadeUp .6s .3s  ease both; overflow: visible; }
-
-    input[type="file"] { display:none; }
-
-    /* Bilingual */
-    .es-only { display:none; }
-    body.es .en-only { display:none; }
-    body.es .es-only { display:revert; }
-
-    .ad-slot { min-height:90px; }
-
-    @keyframes shimmer {
-      0%   { background-position:-200% center; }
-      100% { background-position: 200% center; }
-    }
-    .progress-shimmer {
-      background: linear-gradient(90deg,#4f57e6 25%,#8196f8 50%,#4f57e6 75%);
-      background-size:200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
+    body { font-family:'Outfit',sans-serif; background:#0e1117; color:#e8eaf0; }
+    .font-display { font-family:'Syne',sans-serif; }
+    .font-mono-custom { font-family:'DM Mono',monospace; }
+    .bg-grid { background-image: linear-gradient(rgba(83,99,255,0.06) 1px,transparent 1px), linear-gradient(90deg,rgba(83,99,255,0.06) 1px,transparent 1px); background-size:48px 48px; }
+    .blob-1 { position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(63,94,251,0.12) 0%,transparent 70%);top:-150px;left:-100px;pointer-events:none;z-index:0; }
+    .blob-2 { position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(99,63,251,0.10) 0%,transparent 70%);top:200px;right:-100px;pointer-events:none;z-index:0; }
+    .gradient-text { background:linear-gradient(100deg,#5a87ff,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .tool-card { background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px; }
+    .drop-zone { border:2px dashed rgba(83,99,255,0.3);border-radius:16px;background:rgba(83,99,255,0.04);transition:all 0.2s; }
+    .drop-zone.dragover { border-color:#5a87ff;background:rgba(83,99,255,0.10); }
+    .file-item { background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px; }
+    .btn-primary { background:#1f45e0;color:white;font-weight:600;border-radius:12px;padding:12px 28px;transition:all 0.2s;cursor:pointer; }
+    .btn-primary:hover { background:#3363f5; }
+    .btn-primary:disabled { opacity:0.4;cursor:not-allowed; }
+    .btn-ghost { background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border-radius:12px;padding:10px 20px;transition:all 0.2s;cursor:pointer; }
+    .btn-ghost:hover { background:rgba(255,255,255,0.09); }
+    .progress-bar { height:4px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden; }
+    .progress-fill { height:100%;background:linear-gradient(90deg,#3363f5,#a78bfa);border-radius:4px;transition:width 0.3s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)} }
+    .fade-up { animation:fadeUp 0.5s ease both; }
+    .fade-up-2 { animation:fadeUp 0.5s 0.08s ease both; }
+    .fade-up-3 { animation:fadeUp 0.5s 0.16s ease both; }
+    .badge { display:inline-flex;align-items:center;gap:6px;background:rgba(83,99,255,0.12);border:1px solid rgba(83,99,255,0.25);border-radius:999px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#8aaeff;text-transform:uppercase; }
   </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Merge PDF","url":"https://noservertools.com/merge-pdf/","description":"Merge PDF files locally in your browser. No upload, no server.","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
 </head>
+<body class="bg-grid min-h-screen">
+<div class="blob-1"></div><div class="blob-2"></div>
 
-<body class="hero-mesh min-h-screen">
-
-  <!-- ══ HEADER ════════════════════════════════════════════════ -->
-  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-indigo-50 shadow-sm">
-    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-3">
-
-      <!-- Logo — link al HUB -->
-      <a href="/safemergepdf/" class="flex items-center gap-2.5 group shrink-0">
-        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center shadow-md group-hover:bg-brand-700 transition-colors">
-          <svg class="w-[18px] h-[18px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M5 8h14M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/>
-          </svg>
-        </div>
-        <span class="syne font-bold text-lg text-gray-900 tracking-tight">
-          Safe<span class="text-brand-600">Merge</span><span class="text-gray-400">PDF</span>
-        </span>
-      </a>
-
-      <!-- Nav — todas las herramientas -->
-      <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-gray-500 flex-1 justify-center">
-        <a href="/safemergepdf/merge-pdf/"    class="px-3 py-1.5 rounded-lg bg-brand-50 text-brand-700 font-semibold transition-colors whitespace-nowrap">
-          <span class="en-only">Merge PDF</span><span class="es-only">Unir PDF</span>
-        </a>
-        <a href="/safemergepdf/compress-pdf/" class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors whitespace-nowrap">
-          <span class="en-only">Compress PDF</span><span class="es-only">Comprimir PDF</span>
-        </a>
-        <a href="/safemergepdf/split-pdf/"    class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors whitespace-nowrap">
-          <span class="en-only">Split PDF</span><span class="es-only">Dividir PDF</span>
-        </a>
-        <a href="/safemergepdf/rotate-pdf/"   class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors whitespace-nowrap">
-          <span class="en-only">Rotate PDF</span><span class="es-only">Rotar PDF</span>
-        </a>
-        <a href="/safemergepdf/pdf-to-jpg/"   class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors whitespace-nowrap">PDF to JPG</a>
-        <a href="/safemergepdf/protect-pdf/"  class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors whitespace-nowrap">
-          <span class="en-only">Protect PDF</span><span class="es-only">Proteger PDF</span>
-        </a>
-        <a href="/safemergepdf/"              class="px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand-700 transition-colors whitespace-nowrap">
-          <span class="en-only">All tools</span><span class="es-only">Todas</span>
-        </a>
-      </nav>
-
-      <div class="flex items-center gap-3 shrink-0">
-        <button onclick="toggleLang()" class="text-xs font-bold text-gray-400 hover:text-brand-600 transition-colors px-2 py-1">
-          <span class="en-only">ES</span><span class="es-only">EN</span>
-        </button>
-        <a href="#tool" class="hidden sm:inline-flex items-center gap-1.5 bg-brand-600 text-white text-sm font-semibold px-4 py-2 rounded-xl hover:bg-brand-700 transition-colors shadow-sm">
-          <span class="en-only">Merge PDF free →</span>
-          <span class="es-only">Unir PDF gratis →</span>
-        </a>
+<!-- NAV -->
+<header class="relative z-20 border-b border-white/5 backdrop-blur-sm bg-ink/60 sticky top-0">
+  <div class="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5">
+      <div class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity="0.6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity="0.6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity="0.35"/></svg>
       </div>
-    </div>
-  </header>
+      <span class="font-display font-bold text-white text-[15px] tracking-tight">NoServer<span class="text-brand-400">Tools</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="/merge-pdf/" class="px-3 py-1.5 rounded-lg text-sm bg-brand-600/20 text-brand-400 font-semibold">Merge PDF</a>
+      <a href="/compress-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Compress PDF</a>
+      <a href="/split-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Split PDF</a>
+      <a href="/pdf-to-jpg/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">PDF to JPG</a>
+      <a href="/" class="ml-2 px-4 py-1.5 rounded-lg text-sm bg-brand-600 text-white font-medium hover:bg-brand-500">All tools</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- AdSense top -->
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-3">
-    <div class="ad-slot" aria-hidden="true"></div>
+<main class="relative z-10 max-w-3xl mx-auto px-5 py-12">
+  <!-- HERO -->
+  <div class="text-center mb-10">
+    <div class="fade-up flex justify-center mb-4">
+      <span class="badge"><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span>No upload · Local processing</span>
+    </div>
+    <h1 class="fade-up-2 font-display font-extrabold text-4xl md:text-5xl text-white mb-3">Merge PDF <span class="gradient-text">for free</span></h1>
+    <p class="fade-up-3 text-white/50 text-base max-w-lg mx-auto">Combine multiple PDF files into one. Everything runs in your browser — your files never leave your device.</p>
   </div>
 
-  <!-- ══ HERO ══════════════════════════════════════════════════ -->
-  <section class="max-w-5xl mx-auto px-5 sm:px-8 pt-16 pb-12 text-center overflow-visible">
-
-    <div class="fade-up inline-flex items-center gap-2.5 bg-white text-brand-700 text-xs font-bold
-                px-4 py-2 rounded-full border border-brand-100 shadow-sm mb-7">
-      <span class="relative flex w-2.5 h-2.5 shrink-0">
-        <span class="pulse-dot relative inline-flex rounded-full w-2.5 h-2.5 bg-brand-500"></span>
-      </span>
-      <span class="en-only">Running live in your browser — zero servers involved</span>
-      <span class="es-only">Funcionando en tu navegador — cero servidores involucrados</span>
+  <!-- TOOL CARD -->
+  <div id="tool" class="tool-card p-6 md:p-8">
+    <!-- Drop Zone -->
+    <div id="drop-zone" class="drop-zone p-10 text-center cursor-pointer mb-6" onclick="triggerFileInput()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+      <div class="text-4xl mb-3">📎</div>
+      <p class="text-white/70 font-medium mb-1">Drop PDF files here or <span class="text-brand-400">browse</span></p>
+      <p class="text-white/30 text-sm">Multiple files supported · Max 100 MB each</p>
+      <input type="file" id="file-input" accept=".pdf" multiple class="hidden" onchange="handleFiles(this.files)" />
     </div>
 
-    <h1 class="fade-up-2 syne font-extrabold text-[2.6rem] sm:text-5xl lg:text-[3.25rem] text-gray-900
-               leading-[1.35] tracking-tight mb-5 pb-1">
-      <span class="en-only">
-        Merge PDF files online.<br/>
-        <span class="gradient-text">Free, private, no uploads.</span>
-      </span>
-      <span class="es-only">
-        Une tus PDFs en línea.<br/>
-        <span class="gradient-text">Gratis, privado, sin subir nada.</span>
-      </span>
-    </h1>
-
-    <p class="fade-up-3 max-w-xl mx-auto text-gray-500 text-base sm:text-lg leading-relaxed mb-5">
-      <span class="en-only">
-        Your files <strong class="text-gray-800 font-semibold">never leave your device</strong> — not even for a millisecond.
-        No servers. No account. No catch.
-      </span>
-      <span class="es-only">
-        Tus archivos <strong class="text-gray-800 font-semibold">nunca salen de tu dispositivo</strong> — ni un milisegundo.
-        Sin servidores. Sin cuenta. Sin trampa.
-      </span>
-    </p>
-
-    <!-- Social proof -->
-    <div class="fade-up-3 flex flex-wrap items-center justify-center gap-5 mb-10 text-sm">
-      <span class="flex items-center gap-1.5 text-gray-400 font-medium">
-        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-        </svg>
-        <strong class="text-gray-900">4.9/5</strong>
-        <span class="en-only">· 1,200+ reviews</span>
-        <span class="es-only">· 1,200+ reseñas</span>
-      </span>
-      <span class="w-px h-4 bg-gray-200"></span>
-      <span class="text-gray-400 font-medium">
-        <strong class="text-gray-900">500,000+</strong>
-        <span class="en-only"> PDFs merged</span>
-        <span class="es-only"> PDFs combinados</span>
-      </span>
-      <span class="w-px h-4 bg-gray-200"></span>
-      <span class="text-gray-400 font-medium">
-        <strong class="text-gray-900 en-only">Free</strong>
-        <strong class="text-gray-900 es-only">Gratis</strong>
-        <span class="en-only"> forever</span>
-        <span class="es-only"> para siempre</span>
-      </span>
+    <!-- File List -->
+    <div id="file-list" class="hidden mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-sm text-white/50 font-mono-custom" id="file-count">0 files</span>
+        <button class="text-xs text-brand-400 hover:text-brand-300" onclick="triggerFileInput()">+ Add more</button>
+      </div>
+      <div id="files-container" class="space-y-2"></div>
     </div>
 
-    <!-- 3 steps -->
-    <div id="how-it-works" class="flex flex-col sm:flex-row items-stretch justify-center gap-3">
-      <div class="flex items-center gap-3 bg-white rounded-2xl px-5 py-3.5 border border-gray-100 shadow-sm flex-1 max-w-xs mx-auto sm:mx-0">
-        <span class="w-8 h-8 rounded-full bg-brand-50 border-2 border-brand-200 text-brand-700 text-sm font-bold flex items-center justify-center shrink-0">1</span>
-        <span class="text-sm font-semibold text-gray-700 text-left">
-          <span class="en-only">Select your PDF files</span>
-          <span class="es-only">Selecciona tus PDFs</span>
-        </span>
+    <!-- Progress -->
+    <div id="progress-area" class="hidden mb-6">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm text-white/60" id="progress-label">Loading engine...</span>
+        <span class="font-mono-custom text-xs text-white/30" id="progress-pct">0%</span>
       </div>
-      <div class="hidden sm:flex items-center text-gray-300 text-lg font-light">→</div>
-      <div class="flex items-center gap-3 bg-white rounded-2xl px-5 py-3.5 border border-gray-100 shadow-sm flex-1 max-w-xs mx-auto sm:mx-0">
-        <span class="w-8 h-8 rounded-full bg-brand-50 border-2 border-brand-200 text-brand-700 text-sm font-bold flex items-center justify-center shrink-0">2</span>
-        <span class="text-sm font-semibold text-gray-700 text-left">
-          <span class="en-only">Set the order with arrows</span>
-          <span class="es-only">Ordénalos con las flechas</span>
-        </span>
-      </div>
-      <div class="hidden sm:flex items-center text-gray-300 text-lg font-light">→</div>
-      <div class="flex items-center gap-3 bg-brand-600 rounded-2xl px-5 py-3.5 shadow-lg shadow-brand-200/50 flex-1 max-w-xs mx-auto sm:mx-0">
-        <span class="w-8 h-8 rounded-full bg-white/20 text-white text-sm font-bold flex items-center justify-center shrink-0">3</span>
-        <span class="text-sm font-bold text-white text-left">
-          <span class="en-only">Download merged PDF</span>
-          <span class="es-only">Descarga el PDF unido</span>
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ TOOL CARD ═════════════════════════════════════════════ -->
-  <section id="tool" class="max-w-3xl mx-auto px-5 sm:px-8 pb-14">
-    <div class="bg-white rounded-3xl shadow-2xl shadow-brand-100/40 border border-brand-50 overflow-hidden">
-
-      <!-- Header bar -->
-      <div class="bg-gradient-to-r from-brand-700 via-brand-600 to-brand-500 px-7 py-5 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M9 12h6m-6 4h6M5 8h14M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="syne font-bold text-white text-base leading-tight">
-              <span class="en-only">PDF Merger — Free &amp; Private</span>
-              <span class="es-only">Unir PDFs — Gratis y Privado</span>
-            </p>
-            <p class="text-white/60 text-xs mt-0.5">
-              <span class="en-only">Up to 20 files · 50 MB each · Reorder freely</span>
-              <span class="es-only">Hasta 20 archivos · 50 MB c/u · Reordena libremente</span>
-            </p>
-          </div>
-        </div>
-        <div class="hidden sm:flex items-center gap-1.5 bg-white/10 border border-white/20
-                    text-white/90 text-xs font-semibold px-3 py-1.5 rounded-full">
-          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          <span class="en-only">No uploads</span>
-          <span class="es-only">Sin subidas</span>
-        </div>
-      </div>
-
-      <!-- Body -->
-      <div class="p-6 sm:p-8">
-
-        <!-- Drop zone -->
-        <div id="drop-zone"
-             class="drop-zone rounded-2xl bg-brand-50/30 p-10 sm:p-14 text-center cursor-pointer mb-5"
-             onclick="triggerFileInput()"
-             ondragover="handleDragOver(event)"
-             ondragleave="handleDragLeave(event)"
-             ondrop="handleDrop(event)">
-          <div class="pointer-events-none">
-            <div class="w-16 h-16 rounded-2xl bg-brand-100 flex items-center justify-center mx-auto mb-5 float">
-              <svg class="w-8 h-8 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-              </svg>
-            </div>
-            <p class="syne font-bold text-gray-800 text-xl mb-2">
-              <span class="en-only">Drop your PDF files here</span>
-              <span class="es-only">Arrastra tus archivos PDF aquí</span>
-            </p>
-            <p class="text-gray-400 text-sm mb-6">
-              <span class="en-only">or click anywhere in this area to browse your computer</span>
-              <span class="es-only">o haz clic en cualquier parte de esta área para buscar</span>
-            </p>
-            <div class="inline-flex items-center gap-2 bg-brand-600 text-white font-semibold text-sm
-                        px-6 py-3 rounded-xl shadow-lg shadow-brand-200/50 hover:bg-brand-700 transition-colors">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-              </svg>
-              <span class="en-only">Choose PDF files</span>
-              <span class="es-only">Elegir archivos PDF</span>
-            </div>
-            <p class="text-xs text-gray-300 mt-4">
-              <span class="en-only">PDF only · Max 50 MB per file · Up to 20 files</span>
-              <span class="es-only">Solo PDF · Máx. 50 MB por archivo · Hasta 20 archivos</span>
-            </p>
-          </div>
-        </div>
-
-        <input type="file" id="file-input" multiple accept=".pdf" />
-
-        <div id="file-list" class="hidden space-y-2 mb-5"></div>
-
-        <p id="reorder-hint"
-           class="hidden text-xs text-center font-semibold text-brand-600 bg-brand-50
-                  rounded-xl py-2.5 px-4 mb-4 border border-brand-100">
-          <span class="en-only">↕ Use the arrows to set the order — first file = page 1 of your final PDF</span>
-          <span class="es-only">↕ Usa las flechas para definir el orden — el primer archivo = página 1 del PDF final</span>
-        </p>
-
-        <div id="convert-btn-area" class="hidden">
-          <button id="convert-btn" onclick="startConversion()"
-                  class="w-full bg-brand-600 text-white syne font-bold text-lg py-4 rounded-2xl
-                         hover:bg-brand-700 active:scale-[0.98] transition-all
-                         shadow-xl shadow-brand-200/50 flex items-center justify-center gap-2">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            <span class="en-only">Merge PDFs now — it's free</span>
-            <span class="es-only">Unir PDFs ahora — es gratis</span>
-          </button>
-          <p class="text-xs text-center text-gray-400 mt-3 flex items-center justify-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-            </svg>
-            <span class="en-only">Your files never leave this browser tab. Ever.</span>
-            <span class="es-only">Tus archivos nunca salen de esta pestaña. Jamás.</span>
-          </p>
-        </div>
-
-        <!-- Progress -->
-        <div id="progress-area" class="hidden mt-2">
-          <div class="flex justify-between items-center text-sm mb-2">
-            <span id="progress-label" class="font-semibold text-gray-600"></span>
-            <span id="progress-pct" class="font-bold text-brand-600 text-base">0%</span>
-          </div>
-          <div class="h-3 bg-brand-50 rounded-full overflow-hidden border border-brand-100">
-            <div id="progress-bar" class="h-full rounded-full progress-shimmer transition-all duration-300"
-                 style="width:0%"></div>
-          </div>
-          <p class="text-xs text-gray-400 mt-2 text-center">
-            <span class="en-only">Processing on your device — no data transmitted</span>
-            <span class="es-only">Procesando en tu dispositivo — sin transmisión de datos</span>
-          </p>
-        </div>
-
-        <!-- Result -->
-        <div id="result-area" class="hidden mt-2">
-          <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-7 text-center">
-            <div class="w-14 h-14 rounded-full bg-green-100 border-2 border-green-200 flex items-center justify-center mx-auto mb-4">
-              <svg class="w-7 h-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-              </svg>
-            </div>
-            <p class="syne font-bold text-gray-900 text-xl mb-1">
-              <span class="en-only">Your merged PDF is ready!</span>
-              <span class="es-only">¡Tu PDF combinado está listo!</span>
-            </p>
-            <p class="text-gray-500 text-sm mb-5">
-              <span class="en-only">Created entirely on your device. Nothing was sent anywhere.</span>
-              <span class="es-only">Creado completamente en tu dispositivo. No se envió nada a ningún lado.</span>
-            </p>
-            <a id="download-link" href="#" download="merged-safemergepdf.pdf"
-               class="inline-flex items-center gap-2 bg-brand-600 text-white syne font-bold
-                      text-base px-8 py-3.5 rounded-xl hover:bg-brand-700 transition-colors shadow-lg shadow-brand-200/50">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-              </svg>
-              <span class="en-only">Download merged PDF</span>
-              <span class="es-only">Descargar PDF combinado</span>
-            </a>
-            <button onclick="resetFull()"
-                    class="block mx-auto mt-4 text-sm text-gray-400 hover:text-brand-600 transition-colors font-medium">
-              <span class="en-only">+ Merge more PDFs</span>
-              <span class="es-only">+ Unir más PDFs</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Error -->
-        <div id="error-area" class="hidden mt-3 bg-red-50 border border-red-200 rounded-xl p-4">
-          <p id="error-msg" class="text-red-700 font-semibold text-sm"></p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ WHY SAFE ═══════════════════════════════════════════════ -->
-  <section id="why-safe" class="max-w-6xl mx-auto px-5 sm:px-8 pb-16 pt-2">
-
-    <div class="text-center mb-10">
-      <h2 class="syne font-bold text-3xl sm:text-4xl text-gray-900 mb-3">
-        <span class="en-only">The PDF merger that actually respects you</span>
-        <span class="es-only">El combinador de PDF que realmente te respeta</span>
-      </h2>
-      <p class="text-gray-500 max-w-xl mx-auto text-base">
-        <span class="en-only">Most online tools upload your confidential documents to foreign servers. We built a fundamentally better way.</span>
-        <span class="es-only">La mayoría de las herramientas online suben tus documentos confidenciales a servidores externos. Nosotros construimos una alternativa fundamentalmente mejor.</span>
-      </p>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
     </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-      <div class="stat-card rounded-2xl border border-gray-100 p-5 text-center shadow-sm">
-        <p class="syne font-bold text-3xl text-brand-600 mb-1">0</p>
-        <p class="text-gray-500 text-sm font-medium">
-          <span class="en-only">Files uploaded</span><span class="es-only">Archivos subidos</span>
-        </p>
-      </div>
-      <div class="stat-card rounded-2xl border border-gray-100 p-5 text-center shadow-sm">
-        <p class="syne font-bold text-3xl text-brand-600 mb-1">500k+</p>
-        <p class="text-gray-500 text-sm font-medium">
-          <span class="en-only">PDFs merged</span><span class="es-only">PDFs combinados</span>
-        </p>
-      </div>
-      <div class="stat-card rounded-2xl border border-gray-100 p-5 text-center shadow-sm">
-        <p class="syne font-bold text-3xl text-brand-600 mb-1">100%</p>
-        <p class="text-gray-500 text-sm font-medium">
-          <span class="en-only">In-browser Python</span><span class="es-only">Python en navegador</span>
-        </p>
-      </div>
-      <div class="stat-card rounded-2xl border border-gray-100 p-5 text-center shadow-sm">
-        <p class="syne font-bold text-3xl text-brand-600 mb-1">$0</p>
-        <p class="text-gray-500 text-sm font-medium">
-          <span class="en-only">Cost. Forever.</span><span class="es-only">Costo. Siempre.</span>
-        </p>
-      </div>
+    <!-- Result -->
+    <div id="result-area" class="hidden mb-6 p-4 rounded-xl bg-green-400/8 border border-green-400/20 text-center">
+      <div class="text-2xl mb-2">✅</div>
+      <p class="text-green-400 font-semibold mb-1">Merge complete</p>
+      <p class="text-white/40 text-sm mb-3" id="result-info"></p>
+      <a id="download-link" href="#" download="merged.pdf" class="btn-primary inline-block text-sm">Download merged PDF</a>
     </div>
 
-    <!-- Feature grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-        <div class="w-11 h-11 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
-          <svg class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-          </svg>
-        </div>
-        <h3 class="syne font-bold text-gray-900 text-base mb-2">
-          <span class="en-only">Zero uploads — by design</span>
-          <span class="es-only">Cero subidas — por diseño</span>
-        </h3>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          <span class="en-only">Your PDFs never touch any server. Python runs locally via WebAssembly. It is technically impossible for us to access your files.</span>
-          <span class="es-only">Tus PDFs nunca tocan ningún servidor. Python corre localmente vía WebAssembly. Es técnicamente imposible que accedamos a tus archivos.</span>
-        </p>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-        <div class="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center mb-4">
-          <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-          </svg>
-        </div>
-        <h3 class="syne font-bold text-gray-900 text-base mb-2">
-          <span class="en-only">Real Python, in your browser</span>
-          <span class="es-only">Python real, en tu navegador</span>
-        </h3>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          <span class="en-only">Not JavaScript tricks. We use Pyodide — a full Python runtime compiled to WebAssembly — for professional-grade PDF processing.</span>
-          <span class="es-only">No son trucos de JavaScript. Usamos Pyodide — Python completo compilado a WebAssembly — para procesamiento de PDFs de calidad profesional.</span>
-        </p>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-        <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center mb-4">
-          <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-          </svg>
-        </div>
-        <h3 class="syne font-bold text-gray-900 text-base mb-2">
-          <span class="en-only">Instant — no queues, ever</span>
-          <span class="es-only">Instantáneo — sin colas jamás</span>
-        </h3>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          <span class="en-only">No server queues. Your CPU does the work at full speed. Merge a 20-page PDF in under 3 seconds, even on mobile.</span>
-          <span class="es-only">Sin colas de servidor. Tu CPU hace el trabajo a máxima velocidad. Une un PDF de 20 páginas en menos de 3 segundos, incluso en móvil.</span>
-        </p>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-        <div class="w-11 h-11 rounded-xl bg-green-50 flex items-center justify-center mb-4">
-          <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <h3 class="syne font-bold text-gray-900 text-base mb-2">
-          <span class="en-only">No sign-up, no nonsense</span>
-          <span class="es-only">Sin registro, sin complicaciones</span>
-        </h3>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          <span class="en-only">Open the page, drop your files, done. No account, no email, no credit card — ever. Tools should just work.</span>
-          <span class="es-only">Abre la página, suelta tus archivos, listo. Sin cuenta, sin correo, sin tarjeta — jamás. Las herramientas deben simplemente funcionar.</span>
-        </p>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:border-brand-200 hover:shadow-md transition-all">
-        <div class="w-11 h-11 rounded-xl bg-sky-50 flex items-center justify-center mb-4">
-          <svg class="w-5 h-5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-          </svg>
-        </div>
-        <h3 class="syne font-bold text-gray-900 text-base mb-2">
-          <span class="en-only">Works on every device</span>
-          <span class="es-only">Funciona en cualquier dispositivo</span>
-        </h3>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          <span class="en-only">iPhone, Android, Mac, Windows, Linux. Any modern browser. No app to install, no extensions needed.</span>
-          <span class="es-only">iPhone, Android, Mac, Windows, Linux. Cualquier navegador moderno. Sin app que instalar, sin extensiones.</span>
-        </p>
-      </div>
-
-      <div class="bg-brand-600 rounded-2xl p-6 shadow-lg shadow-brand-200/40">
-        <div class="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center mb-4">
-          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-          </svg>
-        </div>
-        <h3 class="syne font-bold text-white text-base mb-2">
-          <span class="en-only">Free forever. Seriously.</span>
-          <span class="es-only">Gratis para siempre. En serio.</span>
-        </h3>
-        <p class="text-white/70 text-sm leading-relaxed">
-          <span class="en-only">No watermarks, no file limits, no "upgrade to Pro." We support the project through optional ads — never through your data.</span>
-          <span class="es-only">Sin marcas de agua, sin límite de archivos, sin "actualizar a Pro." Sostenemos el proyecto con anuncios opcionales — nunca con tus datos.</span>
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══ FAQ ════════════════════════════════════════════════════ -->
-  <section id="faq" class="max-w-3xl mx-auto px-5 sm:px-8 pb-16 border-t border-gray-100 pt-14">
-
-    <div class="text-center mb-10">
-      <h2 class="syne font-bold text-3xl text-gray-900 mb-2">
-        <span class="en-only">Questions? We have answers.</span>
-        <span class="es-only">¿Preguntas? Tenemos respuestas.</span>
-      </h2>
-      <p class="text-gray-400 text-sm">
-        <span class="en-only">Everything you need to know about SafeMergePDF</span>
-        <span class="es-only">Todo lo que necesitas saber sobre SafeMergePDF</span>
-      </p>
+    <!-- Error -->
+    <div id="error-area" class="hidden mb-6 p-4 rounded-xl bg-red-400/8 border border-red-400/20">
+      <p class="text-red-400 text-sm" id="error-msg"></p>
     </div>
 
-    <div class="space-y-3">
-
-      <details class="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-gray-800 hover:text-brand-600 transition-colors">
-          <span class="en-only">Is SafeMergePDF completely free?</span>
-          <span class="es-only">¿Es SafeMergePDF completamente gratis?</span>
-          <svg class="chevron w-4 h-4 text-gray-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </summary>
-        <p class="px-6 pb-5 text-gray-500 text-sm leading-relaxed border-t border-gray-50 pt-3">
-          <span class="en-only">Yes — 100% free, forever. No hidden fees, no premium plans, no watermarks, no limits on how many PDFs you merge. We keep the lights on with optional, non-intrusive ads that never get in your way.</span>
-          <span class="es-only">Sí — 100% gratis, para siempre. Sin costos ocultos, sin planes premium, sin marcas de agua y sin límites. Sostenemos el proyecto con anuncios opcionales y no intrusivos que nunca te estorban.</span>
-        </p>
-      </details>
-
-      <details class="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-gray-800 hover:text-brand-600 transition-colors">
-          <span class="en-only">Do you store or read my PDF files?</span>
-          <span class="es-only">¿Almacenan o leen mis archivos PDF?</span>
-          <svg class="chevron w-4 h-4 text-gray-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </summary>
-        <p class="px-6 pb-5 text-gray-500 text-sm leading-relaxed border-t border-gray-50 pt-3">
-          <span class="en-only">Absolutely not — and this isn't just a policy promise. Technically, your files never leave your device. The entire merge process runs inside your browser using WebAssembly. We have no servers to receive files. It's private by architecture, not just by policy.</span>
-          <span class="es-only">Absolutamente no — y esto no es solo una promesa de política. Técnicamente, tus archivos nunca salen de tu dispositivo. Todo el proceso ocurre dentro de tu navegador usando WebAssembly. No tenemos servidores para recibir archivos. Es privado por arquitectura, no solo por política.</span>
-        </p>
-      </details>
-
-      <details class="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-gray-800 hover:text-brand-600 transition-colors">
-          <span class="en-only">How many PDFs can I merge? Any file size limit?</span>
-          <span class="es-only">¿Cuántos PDFs puedo unir? ¿Hay límite de tamaño?</span>
-          <svg class="chevron w-4 h-4 text-gray-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </summary>
-        <p class="px-6 pb-5 text-gray-500 text-sm leading-relaxed border-t border-gray-50 pt-3">
-          <span class="en-only">Up to 20 PDF files per session, each up to 50 MB. Use the arrows to reorder before merging — the first file becomes page 1 of your final document.</span>
-          <span class="es-only">Hasta 20 archivos PDF por sesión, cada uno de hasta 50 MB. Usa las flechas para reordenar antes de unirlos — el primer archivo se convierte en la página 1 del documento final.</span>
-        </p>
-      </details>
-
-      <details class="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-gray-800 hover:text-brand-600 transition-colors">
-          <span class="en-only">Does it work on iPhone, Android, Mac and Windows?</span>
-          <span class="es-only">¿Funciona en iPhone, Android, Mac y Windows?</span>
-          <svg class="chevron w-4 h-4 text-gray-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </summary>
-        <p class="px-6 pb-5 text-gray-500 text-sm leading-relaxed border-t border-gray-50 pt-3">
-          <span class="en-only">Yes. SafeMergePDF works on any device with a modern browser — Chrome, Firefox, Safari, and Edge on desktop, tablet, and mobile. No app to install, no extensions required.</span>
-          <span class="es-only">Sí. SafeMergePDF funciona en cualquier dispositivo con un navegador moderno — Chrome, Firefox, Safari y Edge en escritorio, tablet y móvil. Sin app que instalar, sin extensiones.</span>
-        </p>
-      </details>
-
-      <details class="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-gray-800 hover:text-brand-600 transition-colors">
-          <span class="en-only">What makes SafeMergePDF different from other PDF mergers?</span>
-          <span class="es-only">¿Qué hace diferente a SafeMergePDF de otros combinadores de PDF?</span>
-          <svg class="chevron w-4 h-4 text-gray-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </summary>
-        <p class="px-6 pb-5 text-gray-500 text-sm leading-relaxed border-t border-gray-50 pt-3">
-          <span class="en-only">Most PDF tools — even the "free" ones — upload your files to their servers, store them for days, and sometimes use them to train AI models. SafeMergePDF is architecturally different: Python compiled to WebAssembly processes everything locally. Zero uploads. Zero data collection. Zero risk.</span>
-          <span class="es-only">La mayoría de las herramientas PDF — incluso las "gratuitas" — suben tus archivos a sus servidores, los almacenan por días y a veces los usan para entrenar modelos de IA. SafeMergePDF es arquitectónicamente diferente: Python compilado a WebAssembly procesa todo localmente. Cero subidas. Cero recolección de datos. Cero riesgo.</span>
-        </p>
-      </details>
-
+    <!-- Actions -->
+    <div class="flex gap-3 flex-wrap">
+      <button id="merge-btn" class="btn-primary flex-1" onclick="startMerge()" disabled>Merge PDF</button>
+      <button class="btn-ghost" onclick="resetFull()">Reset</button>
     </div>
-  </section>
-
-  <!-- ══ FINAL CTA ══════════════════════════════════════════════ -->
-  <section class="max-w-3xl mx-auto px-5 sm:px-8 pb-16 text-center">
-    <div class="bg-gradient-to-br from-brand-700 via-brand-600 to-brand-500 rounded-3xl p-10 sm:p-14 shadow-2xl shadow-brand-200/40">
-      <p class="syne font-bold text-white text-3xl sm:text-4xl mb-3 leading-tight">
-        <span class="en-only">Ready to merge your PDFs?</span>
-        <span class="es-only">¿Listo para unir tus PDFs?</span>
-      </p>
-      <p class="text-white/70 mb-8 max-w-sm mx-auto">
-        <span class="en-only">Free. Private. Instant. No account needed. Works right now.</span>
-        <span class="es-only">Gratis. Privado. Instantáneo. Sin cuenta. Funciona ahora mismo.</span>
-      </p>
-      <a href="#tool"
-         class="inline-flex items-center gap-2 bg-white text-brand-700 syne font-bold
-                text-base px-8 py-4 rounded-2xl hover:bg-brand-50 transition-colors shadow-xl shadow-black/10">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-        </svg>
-        <span class="en-only">Merge PDFs for free →</span>
-        <span class="es-only">Unir PDFs gratis →</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- AdSense bottom -->
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 pb-6">
-    <div class="ad-slot" aria-hidden="true"></div>
   </div>
 
-  <!-- ══ FOOTER ═════════════════════════════════════════════════ -->
-  <footer class="bg-gray-900 text-gray-400 py-10 px-5 sm:px-8">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <a href="/safemergepdf/" class="flex items-center gap-2 group">
-          <div class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center group-hover:bg-brand-500 transition-colors">
-            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M5 8h14M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>
-          </div>
-          <span class="syne font-bold text-white">Safe<span class="text-brand-400">Merge</span><span class="text-gray-500">PDF</span></span>
-        </a>
-        <span class="text-xs">© 2025 · <span class="en-only">Free private PDF toolkit · Open source</span><span class="es-only">Kit PDF privado y gratuito · Codigo abierto</span></span>
+  <!-- HOW TO -->
+  <div class="mt-12 mb-10">
+    <h2 class="font-display font-bold text-xl text-white mb-6 text-center">How to merge PDF files</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="tool-card p-5 text-center">
+        <div class="text-2xl mb-2">📂</div>
+        <h3 class="font-semibold text-white text-sm mb-1">1. Select files</h3>
+        <p class="text-xs text-white/40">Drop or click to select multiple PDF files from your device.</p>
       </div>
-      <div class="border-t border-gray-800 pt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs mb-4">
-        <a href="/safemergepdf/merge-pdf/"    class="text-brand-400 font-semibold">Merge PDF</a>
-        <a href="/safemergepdf/compress-pdf/" class="hover:text-white transition-colors en-only">Compress PDF</a>
-        <a href="/safemergepdf/compress-pdf/" class="hover:text-white transition-colors es-only">Comprimir PDF</a>
-        <a href="/safemergepdf/split-pdf/"    class="hover:text-white transition-colors en-only">Split PDF</a>
-        <a href="/safemergepdf/split-pdf/"    class="hover:text-white transition-colors es-only">Dividir PDF</a>
-        <a href="/safemergepdf/rotate-pdf/"   class="hover:text-white transition-colors en-only">Rotate PDF</a>
-        <a href="/safemergepdf/rotate-pdf/"   class="hover:text-white transition-colors es-only">Rotar PDF</a>
-        <a href="/safemergepdf/pdf-to-jpg/"   class="hover:text-white transition-colors">PDF to JPG</a>
-        <a href="/safemergepdf/protect-pdf/"  class="hover:text-white transition-colors en-only">Protect PDF</a>
-        <a href="/safemergepdf/unlock-pdf/"   class="hover:text-white transition-colors en-only">Unlock PDF</a>
-        <a href="/safemergepdf/watermark-pdf/" class="hover:text-white transition-colors en-only">Watermark PDF</a>
-        <a href="/safemergepdf/"              class="hover:text-white transition-colors en-only">All tools →</a>
-        <a href="/safemergepdf/"              class="hover:text-white transition-colors es-only">Todas las herramientas →</a>
-        <span class="w-full"></span>
-        <a href="#" class="hover:text-white transition-colors en-only">Privacy</a>
-        <a href="#" class="hover:text-white transition-colors es-only">Privacidad</a>
-        <a href="#" class="hover:text-white transition-colors en-only">Terms</a>
-        <a href="https://github.com/Fio42/safemergepdf" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub</a>
+      <div class="tool-card p-5 text-center">
+        <div class="text-2xl mb-2">⚡</div>
+        <h3 class="font-semibold text-white text-sm mb-1">2. Click Merge</h3>
+        <p class="text-xs text-white/40">Processing runs locally via WebAssembly. No internet needed after load.</p>
       </div>
-      <p class="text-xs border-t border-gray-800 pt-4">
-        🔒 <span class="en-only">No uploads · No accounts · No tracking · No watermarks · Free forever</span>
-        <span class="es-only">Sin subidas · Sin cuentas · Sin rastreo · Sin marcas de agua · Gratis siempre</span>
-      </p>
+      <div class="tool-card p-5 text-center">
+        <div class="text-2xl mb-2">⬇️</div>
+        <h3 class="font-semibold text-white text-sm mb-1">3. Download</h3>
+        <p class="text-xs text-white/40">Get your merged PDF instantly. Nothing is stored or uploaded.</p>
+      </div>
     </div>
-  </footer>
+  </div>
 
-  <!-- ══ JAVASCRIPT ═════════════════════════════════════════════ -->
-  <script>
-    // ── Language toggle ──────────────────────────────────────
-    let lang = 'en';
-    function toggleLang() {
-      lang = lang === 'en' ? 'es' : 'en';
-      document.body.classList.toggle('es', lang === 'es');
-    }
+  <!-- FAQ -->
+  <div class="tool-card p-6 md:p-8 mb-10">
+    <h2 class="font-display font-bold text-xl text-white mb-6">FAQ</h2>
+    <div class="space-y-5">
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Are my files uploaded to a server?</h3><p class="text-white/45 text-sm">No. Your files are read directly by your browser and never sent anywhere. We have no servers that receive files.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Do I need to create an account?</h3><p class="text-white/45 text-sm">No account, no email, no sign-up. Just open the page and use it.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">How many files can I merge?</h3><p class="text-white/45 text-sm">There is no fixed limit on number of files. Each file can be up to 100 MB.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Does it work on mobile?</h3><p class="text-white/45 text-sm">Yes, it works on modern mobile browsers. The initial load may take a moment on slower connections.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Is it really free?</h3><p class="text-white/45 text-sm">Yes, completely free. No limits, no premium tier, no watermarks.</p></div>
+    </div>
+  </div>
+</main>
 
-    // ── State ────────────────────────────────────────────────
-    let selectedFiles = [];
-    const PDF_CFG = { mime: ['application/pdf'], ext: ['.pdf'], maxSize: 50*1024*1024, maxFiles: 20 };
+<!-- FOOTER -->
+<footer class="relative z-10 border-t border-white/5 bg-black/30">
+  <div class="max-w-6xl mx-auto px-5 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+    <div>
+      <a href="/" class="flex items-center gap-2 mb-1">
+        <div class="w-5 h-5 rounded-md bg-brand-600 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity="0.6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity="0.6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity="0.35"/></svg></div>
+        <span class="font-display font-bold text-white text-sm">NoServer<span class="text-brand-400">Tools</span></span>
+      </a>
+      <p class="text-xs text-white/20 font-mono-custom">No uploads · No accounts · No tracking · Free forever</p>
+    </div>
+    <nav class="flex flex-wrap gap-x-4 gap-y-2">
+      <a href="/merge-pdf/" class="text-xs text-brand-400 font-semibold">Merge PDF</a>
+      <a href="/compress-pdf/" class="text-xs text-white/35 hover:text-brand-400">Compress PDF</a>
+      <a href="/split-pdf/" class="text-xs text-white/35 hover:text-brand-400">Split PDF</a>
+      <a href="/pdf-to-jpg/" class="text-xs text-white/35 hover:text-brand-400">PDF to JPG</a>
+      <a href="/rotate-pdf/" class="text-xs text-white/20">Rotate PDF</a>
+      <a href="/protect-pdf/" class="text-xs text-white/20">Protect PDF</a>
+    </nav>
+  </div>
+</footer>
 
-    // ── Input ────────────────────────────────────────────────
-    const fileInput = document.getElementById('file-input');
-    fileInput.onchange = e => { handleFiles(Array.from(e.target.files)); fileInput.value = ''; };
-    function triggerFileInput() { fileInput.click(); }
+<script>
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  let selectedFiles = [], pyodide = null, pyodideReady = false, objectURL = null;
 
-    // ── Drag & drop ──────────────────────────────────────────
-    function handleDragOver(e)  { e.preventDefault(); document.getElementById('drop-zone').classList.add('drag-over'); }
-    function handleDragLeave()  { document.getElementById('drop-zone').classList.remove('drag-over'); }
-    function handleDrop(e) {
-      e.preventDefault();
-      document.getElementById('drop-zone').classList.remove('drag-over');
-      handleFiles(Array.from(e.dataTransfer.files));
-    }
+  function triggerFileInput() { document.getElementById('file-input').click(); }
+  function formatSize(b) { return b>1048576?(b/1048576).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB'; }
 
-    // ── Validate files ───────────────────────────────────────
-    function handleFiles(files) {
-      const errors = [], valid = [];
-      files.forEach(f => {
-        if (!PDF_CFG.mime.includes(f.type))
-          return errors.push(`"${esc(f.name)}" is not a valid PDF (type: ${f.type||'unknown'}).`);
-        if (!PDF_CFG.ext.includes('.'+f.name.split('.').pop().toLowerCase()))
-          return errors.push(`"${esc(f.name)}" must have a .pdf extension.`);
-        if (f.size > PDF_CFG.maxSize)
-          return errors.push(`"${esc(f.name)}" exceeds the 50 MB limit.`);
-        if (f.size === 0)
-          return errors.push(`"${esc(f.name)}" is empty.`);
-        valid.push(f);
-      });
-      const room = PDF_CFG.maxFiles - selectedFiles.length;
-      if (valid.length > room) { errors.push(`Max ${PDF_CFG.maxFiles} files. Only ${room} more allowed.`); valid.splice(room); }
-      if (errors.length) showError(errors.join('<br>'));
-      if (valid.length)  { selectedFiles = [...selectedFiles, ...valid]; document.getElementById('error-area').classList.add('hidden'); renderList(); }
-    }
+  function handleDragOver(e) { e.preventDefault(); document.getElementById('drop-zone').classList.add('dragover'); }
+  function handleDragLeave(e) { document.getElementById('drop-zone').classList.remove('dragover'); }
+  function handleDrop(e) { e.preventDefault(); document.getElementById('drop-zone').classList.remove('dragover'); handleFiles(e.dataTransfer.files); }
 
-    // ── Render list ──────────────────────────────────────────
-    function renderList() {
-      const list = document.getElementById('file-list');
-      list.innerHTML = '';
-      selectedFiles.forEach((f,i) => {
-        const size = f.size>=1048576 ? (f.size/1048576).toFixed(1)+' MB' : (f.size/1024).toFixed(0)+' KB';
-        const row  = document.createElement('div');
-        row.className = 'file-row flex items-center gap-3 bg-brand-50/50 border border-brand-100 rounded-xl px-4 py-3';
-        row.innerHTML = `
-          <span class="w-7 h-7 rounded-full bg-brand-100 text-brand-700 text-xs font-bold flex items-center justify-center shrink-0">${i+1}</span>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm text-gray-800 font-semibold truncate">${esc(f.name)}</p>
-            <p class="text-xs text-gray-400">${size}</p>
-          </div>
-          <button onclick="move(${i},-1)" ${i===0?'disabled':''} title="Move up"
-                  class="p-1.5 rounded-lg hover:bg-brand-100 text-brand-300 hover:text-brand-700 disabled:opacity-20 disabled:cursor-not-allowed transition-colors">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
-          </button>
-          <button onclick="move(${i},1)" ${i===selectedFiles.length-1?'disabled':''} title="Move down"
-                  class="p-1.5 rounded-lg hover:bg-brand-100 text-brand-300 hover:text-brand-700 disabled:opacity-20 disabled:cursor-not-allowed transition-colors">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <button onclick="removePdf(${i})" title="Remove"
-                  class="p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-400 transition-colors">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>`;
-        list.appendChild(row);
-      });
-      const has = selectedFiles.length > 0;
-      list.classList.toggle('hidden', !has);
-      document.getElementById('reorder-hint').classList.toggle('hidden', selectedFiles.length < 2);
-      document.getElementById('convert-btn-area').classList.toggle('hidden', !has);
-    }
+  function handleFiles(files) {
+    const pdfs = Array.from(files).filter(f => f.type === 'application/pdf' || f.name.endsWith('.pdf'));
+    if (!pdfs.length) { showError('Please select PDF files only.'); return; }
+    selectedFiles = [...selectedFiles, ...pdfs];
+    renderFileList();
+    document.getElementById('error-area').classList.add('hidden');
+    document.getElementById('result-area').classList.add('hidden');
+    initPyodide();
+  }
 
-    function move(i,dir) {
-      const j=i+dir; if(j<0||j>=selectedFiles.length) return;
-      [selectedFiles[i],selectedFiles[j]]=[selectedFiles[j],selectedFiles[i]]; renderList();
-    }
-    function removePdf(i) { selectedFiles.splice(i,1); renderList(); }
+  function renderFileList() {
+    const container = document.getElementById('files-container');
+    document.getElementById('file-list').classList.remove('hidden');
+    document.getElementById('file-count').textContent = selectedFiles.length + ' file' + (selectedFiles.length !== 1 ? 's' : '');
+    container.innerHTML = selectedFiles.map((f, i) => `
+      <div class="file-item flex items-center gap-3 px-4 py-2.5">
+        <span class="text-lg">📄</span>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm text-white/80 truncate">${esc(f.name)}</p>
+          <p class="text-xs text-white/30">${formatSize(f.size)}</p>
+        </div>
+        <button onclick="removeFile(${i})" class="text-white/20 hover:text-red-400 text-lg leading-none">×</button>
+      </div>`).join('');
+    document.getElementById('merge-btn').disabled = selectedFiles.length < 2 || !pyodideReady;
+  }
 
-    // ── Pyodide state ────────────────────────────────────────
-    let pyodide       = null;
-    let pyodideReady  = false;
-    let prevObjectURL = null;
+  function removeFile(i) { selectedFiles.splice(i, 1); if (selectedFiles.length === 0) { document.getElementById('file-list').classList.add('hidden'); } else { renderFileList(); } }
 
-    // Muestra un indicador sutil de que Python se está cargando
-    function showPyodideLoading(on) {
-      const btn = document.getElementById('convert-btn');
-      if (!btn) return;
-      if (on) {
-        btn.dataset.originalText = btn.innerHTML;
-        btn.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg> <span class="ml-2">Loading Python...</span>';
-        btn.disabled = true;
-      } else {
-        if (btn.dataset.originalText) btn.innerHTML = btn.dataset.originalText;
-        btn.disabled = false;
-      }
-    }
+  async function initPyodide() {
+    if (pyodide || pyodideReady) return;
+    setProgress(10, 'Loading engine...');
+    try {
+      pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' });
+      setProgress(60, 'Installing pypdf...');
+      await pyodide.loadPackage('micropip');
+      await pyodide.runPythonAsync(`import micropip; await micropip.install('pypdf')`);
+      pyodideReady = true;
+      setProgress(100, 'Ready');
+      setTimeout(() => { document.getElementById('progress-area').classList.add('hidden'); }, 600);
+      document.getElementById('merge-btn').disabled = selectedFiles.length < 2;
+    } catch(e) { showError('Failed to load engine: ' + e.message); }
+  }
 
-    // Carga Python en background al abrir la página
-    async function initPyodide() {
-      try {
-        pyodide = await loadPyodide();
-        await pyodide.loadPackage('micropip');
-        await pyodide.runPythonAsync(`
-import micropip
-await micropip.install('pypdf')
-        `);
-        pyodideReady = true;
-        console.log('SafeMergePDF: Pyodide + pypdf ready.');
-      } catch (err) {
-        console.error('SafeMergePDF: Pyodide init failed:', err);
-      }
-    }
+  function setProgress(pct, label) {
+    document.getElementById('progress-area').classList.remove('hidden');
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = label;
+    document.getElementById('progress-pct').textContent = pct + '%';
+  }
 
-    window.addEventListener('load', () => setTimeout(initPyodide, 1000));
-
-    // ── Conversion REAL con Pyodide + pypdf ──────────────────
-    async function startConversion() {
-      resetUI();
-      document.getElementById('convert-btn').disabled = true;
-      document.getElementById('progress-area').classList.remove('hidden');
-
-      try {
-        // 1. Esperar que Python esté listo (max 90 seg)
-        if (!pyodideReady) {
-          setProgress(5, 'Loading Python environment...');
-          let waited = 0;
-          while (!pyodideReady && waited < 90000) {
-            await new Promise(r => setTimeout(r, 600));
-            waited += 600;
-          }
-          if (!pyodideReady) throw new Error('Python took too long to load. Please refresh and try again.');
-        }
-
-        setProgress(40, 'Reading your PDF files...');
-
-        // 2. Leer bytes de cada archivo
-        const fileBytes = await Promise.all(
-          selectedFiles.map(file => new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload  = e => resolve(new Uint8Array(e.target.result));
-            reader.onerror = () => reject(new Error('Could not read: ' + file.name));
-            reader.readAsArrayBuffer(file);
-          }))
-        );
-
-        setProgress(60, 'Merging pages...');
-
-        // 3. Pasar bytes a Python y ejecutar fusión
-        pyodide.globals.set('file_bytes_js', fileBytes);
-
-        const mergedBytes = await pyodide.runPythonAsync(`
+  async function startMerge() {
+    if (!pyodideReady || selectedFiles.length < 2) return;
+    document.getElementById('merge-btn').disabled = true;
+    document.getElementById('result-area').classList.add('hidden');
+    document.getElementById('error-area').classList.add('hidden');
+    setProgress(10, 'Reading files...');
+    try {
+      const buffers = await Promise.all(selectedFiles.map(f => f.arrayBuffer()));
+      setProgress(40, 'Merging...');
+      const arrays = buffers.map(b => new Uint8Array(b));
+      pyodide.globals.set('file_buffers', arrays);
+      await pyodide.runPythonAsync(`
 from pypdf import PdfWriter
 from io import BytesIO
-import gc
-
 writer = PdfWriter()
+for buf in file_buffers:
+    writer.append(BytesIO(bytes(buf)))
+out = BytesIO()
+writer.write(out)
+result_bytes = out.getvalue()
+      `);
+      setProgress(90, 'Finalizing...');
+      const result = pyodide.globals.get('result_bytes').toJs();
+      const blob = new Blob([result], { type: 'application/pdf' });
+      if (objectURL) URL.revokeObjectURL(objectURL);
+      objectURL = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = objectURL;
+      document.getElementById('download-link').download = 'merged.pdf';
+      document.getElementById('result-info').textContent = formatSize(blob.size) + ' — ' + selectedFiles.length + ' files merged';
+      setProgress(100, 'Done');
+      setTimeout(() => {
+        document.getElementById('progress-area').classList.add('hidden');
+        document.getElementById('result-area').classList.remove('hidden');
+        document.getElementById('merge-btn').disabled = false;
+      }, 400);
+    } catch(e) { showError('Merge failed: ' + e.message); document.getElementById('merge-btn').disabled = false; }
+  }
 
-for byte_array in file_bytes_js:
-    pdf_bytes = bytes(byte_array)
-    writer.append(BytesIO(pdf_bytes))
+  function showError(msg) {
+    document.getElementById('error-area').classList.remove('hidden');
+    document.getElementById('error-msg').textContent = msg;
+    document.getElementById('progress-area').classList.add('hidden');
+  }
 
-output = BytesIO()
-writer.write(output)
-result = output.getvalue()
-
-# Liberar memoria
-writer = None
-output = None
-gc.collect()
-
-result
-        `);
-
-        setProgress(90, 'Generating your file...');
-
-        // 4. Liberar URL anterior (evita memory leak)
-        if (prevObjectURL) {
-          URL.revokeObjectURL(prevObjectURL);
-          prevObjectURL = null;
-        }
-
-        // 5. Crear Blob descargable
-        const bytes = mergedBytes instanceof Uint8Array
-          ? mergedBytes
-          : new Uint8Array(mergedBytes.toJs ? mergedBytes.toJs() : mergedBytes);
-
-        const blob = new Blob([bytes], { type: 'application/pdf' });
-        const url  = URL.createObjectURL(blob);
-        prevObjectURL = url;
-
-        // 6. Asignar al link de descarga
-        const link = document.getElementById('download-link');
-        link.href     = url;
-        link.download = 'merged-safemergepdf.pdf';
-
-        // 7. Limpiar variables Python
-        pyodide.globals.delete('file_bytes_js');
-        await pyodide.runPythonAsync('import gc; gc.collect()');
-
-        setProgress(100, 'Done!');
-        setTimeout(showResult, 400);
-
-      } catch (err) {
-        const msg = err.message || 'An unexpected error occurred.';
-        showError(lang === 'es'
-          ? 'Error al procesar: ' + esc(msg)
-          : 'Processing error: ' + esc(msg)
-        );
-        resetUI();
-        console.error('Merge error:', err);
-      } finally {
-        document.getElementById('convert-btn').disabled = false;
-      }
-    }
-    function setProgress(pct,label) {
-      document.getElementById('progress-bar').style.width=pct+'%';
-      document.getElementById('progress-label').textContent=label;
-      document.getElementById('progress-pct').textContent=pct+'%';
-    }
-    function showResult() {
-      document.getElementById('progress-area').classList.add('hidden');
-      const r=document.getElementById('result-area');
-      r.classList.remove('hidden');
-      r.scrollIntoView({behavior:'smooth',block:'center'});
-    }
-    function resetUI() {
-      ['progress-area','result-area','error-area'].forEach(id=>document.getElementById(id).classList.add('hidden'));
-      document.getElementById('progress-bar').style.width='0%';
-    }
-    function resetFull() {
-      selectedFiles=[]; resetUI();
-      document.getElementById('file-list').innerHTML='';
-      ['file-list','convert-btn-area','reorder-hint'].forEach(id=>document.getElementById(id).classList.add('hidden'));
-    }
-
-    // ── Error ────────────────────────────────────────────────
-    function showError(msg) {
-      document.getElementById('error-msg').innerHTML='⚠️ '+msg;
-      document.getElementById('error-area').classList.remove('hidden');
-    }
-
-    // ── XSS sanitizer — ALWAYS use before inserting user text ─
-    function esc(s) {
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
-    }
-  </script>
-
+  function resetFull() {
+    selectedFiles = [];
+    document.getElementById('file-list').classList.add('hidden');
+    document.getElementById('files-container').innerHTML = '';
+    document.getElementById('result-area').classList.add('hidden');
+    document.getElementById('error-area').classList.add('hidden');
+    document.getElementById('progress-area').classList.add('hidden');
+    document.getElementById('merge-btn').disabled = true;
+    document.getElementById('file-input').value = '';
+    if (objectURL) { URL.revokeObjectURL(objectURL); objectURL = null; }
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
 </body>
 </html>

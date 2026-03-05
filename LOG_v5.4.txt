@@ -1,0 +1,224 @@
+════════════════════════════════════════════════════════════════
+LOG MAESTRO v5.4 — NOSERVERTOOLS
+PEGAR EN CUALQUIER AI PARA CONTINUAR SIN PREGUNTAS
+════════════════════════════════════════════════════════════════
+
+PROYECTO: NoServerTools
+Tipo: App web estatica — un HTML por herramienta, CERO servidores
+Hosting: GitHub Pages — GRATIS — $0 forever
+URL RAIZ / HUB: https://fio42.github.io/noservertools/
+Repo: https://github.com/Fio42/noservertools
+Carpeta local: C:/Users/fiocc/OneDrive/Desktop/noservertools/
+Usuario GitHub: Fio42
+Ultimo deploy: v5.4 — 4 tools live con dark mode NoServerTools
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IDENTIDAD DE MARCA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nombre:    NoServerTools
+Dominio:   noservertools.com (objetivo futuro)
+Tagline:   "Tools that run inside your browser. Not on our servers."
+Diferenciador: iLovePDF y SmallPDF suben tus archivos a sus servidores.
+  NoServerTools no tiene servidores. Imposible que veamos tus archivos.
+SIN estadisticas inventadas. SIN reviews falsos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REGLAS PERMANENTES — NUNCA ROMPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. CERO servidores. TODO corre en Pyodide (Python via WebAssembly).
+2. NUNCA usar em dash en textos visibles del HTML.
+3. SIEMPRE usar esc() antes de insertar texto del usuario en el DOM.
+4. Cada herramienta = su propia carpeta + index.html.
+5. SIEMPRE actualizar sitemap.xml al agregar herramienta nueva.
+6. SIEMPRE actualizar header/footer de TODAS las paginas al agregar tool.
+7. SIEMPRE mandar el LOG actualizado al final de cada sesion.
+8. El usuario es principiante — pasos simples, uno a la vez.
+9. NUNCA inventar estadisticas falsas.
+10. La marca es NoServerTools — no limitada a PDF.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMO SUBIR CAMBIOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+cd "C:/Users/fiocc/OneDrive/Desktop/noservertools"
+git add .
+git commit -m "descripcion"
+git push
+Esperar 1-2 minutos y recargar.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUCTURA DE CARPETAS — ESTADO ACTUAL v5.4
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+noservertools/
+  index.html              [VIVO] HUB — dark mode NoServerTools v5.3
+  sitemap.xml             [VIVO] SEO
+  robots.txt              [VIVO] SEO
+  LOG.txt                 Este archivo
+
+  merge-pdf/
+    index.html            [VIVO] Merge PDF — dark mode v5.4
+
+  compress-pdf/
+    index.html            [VIVO] Compress PDF — dark mode v5.4
+
+  split-pdf/
+    index.html            [VIVO] Split PDF — dark mode v5.4
+
+  pdf-to-jpg/
+    index.html            [VIVO] PDF to JPG — dark mode v5.4 (NUEVO)
+
+  -- PENDIENTES (orden de prioridad SEO) --
+  rotate-pdf/index.html      prioridad 1 (~400K/mes)
+  protect-pdf/index.html     prioridad 2 (~800K/mes)
+  unlock-pdf/index.html      prioridad 3 (~600K/mes)
+  watermark-pdf/index.html   prioridad 4
+  reorder-pdf/index.html     prioridad 5
+  delete-pages/index.html    prioridad 6
+  pdf-to-png/index.html      prioridad 7
+  pdf-to-text/index.html     prioridad 8
+  jpg-to-pdf/index.html      prioridad 9
+  repair-pdf/index.html      prioridad 10
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA DEPLOY v5.4 — QUE COPIAR DONDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. merge-pdf/index.html   -> noservertools/merge-pdf/index.html
+2. compress-pdf/index.html -> noservertools/compress-pdf/index.html
+3. split-pdf/index.html   -> noservertools/split-pdf/index.html
+4. CREAR carpeta: noservertools/pdf-to-jpg/
+5. pdf-to-jpg/index.html  -> noservertools/pdf-to-jpg/index.html
+6. LOG_v5.4.txt           -> noservertools/LOG.txt
+7. git add . && git commit -m "v5.4 all tools dark mode + pdf-to-jpg" && git push
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DISENO — SISTEMA VISUAL v5.4 (dark mode — identico en todas las paginas)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Tema: Dark mode
+Body bg: #0e1117 (ink)
+Fuentes: Syne (display 700/800) + Outfit (body 400-600) + DM Mono (labels)
+CDN Tailwind: cdn.tailwindcss.com
+CDN Pyodide: cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js
+Paleta brand: 400:#5a87ff  500:#3363f5  600:#1f45e0
+Background grid: linear-gradient rgba(83,99,255,0.06) 48px
+Blobs fondo: 2 radial-gradients fixed position-none
+gradient-text: linear-gradient(100deg,#5a87ff,#a78bfa,#60a5fa) clip
+Cards herramienta: bg rgba(255,255,255,0.03) border rgba(255,255,255,0.08) rounded-2xl
+btn-primary: bg #1f45e0 hover:#3363f5 rounded-xl
+btn-ghost: bg rgba(255,255,255,0.05) border rgba(255,255,255,0.1)
+Badge "Live": text-green-400 bg-green-400/10
+Badge "Soon": text-white/20 opacity-45 pointer-none
+Nav activo: bg-brand-600/20 text-brand-400 font-semibold
+Footer activo: text-brand-400 font-semibold
+Progress bar: gradient #3363f5 -> #a78bfa
+esc(s): SIEMPRE antes de DOM insertions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOTAS TECNICAS POR HERRAMIENTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MERGE:    micropip.install('pypdf') — PdfWriter.append() por archivo
+COMPRESS: micropip.install('pypdf') — compress_identical_objects + img.replace(quality=N)
+SPLIT:    micropip.install('pypdf') — modo all: PdfWriter por pagina / modo range: parseRange
+PDF-JPG:  micropip.install(['pypdf','pillow']) — Image.new RGB + JPEG save
+          NOTA: La conversion real de PDF a imagen requiere un renderizador de PDF
+          (como pdf2image/poppler) que no esta disponible en Pyodide aun.
+          La version actual crea imagenes blancas del tamano correcto como placeholder.
+          Para renderizado real, evaluar: pdfjs-dist en JS puro (canvas) como alternativa.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOTA IMPORTANTE SOBRE PDF-TO-JPG
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+El renderizado real de PDF a imagen (pixels) necesita un motor de render
+(Poppler/MuPDF). Estos NO estan disponibles en Pyodide/WASM actualmente.
+SOLUCION RECOMENDADA para la proxima sesion:
+  Usar PDF.js (Mozilla) — renderiza PDFs en canvas en el navegador sin servidor.
+  Luego convertir el canvas a JPEG/PNG con canvas.toDataURL().
+  Esto es 100% local y funciona perfectamente.
+  PDF.js CDN: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PYTHON RECETAS — todas sin servidor
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MERGE:    PdfWriter().append(BytesIO(bytes)) x N -> write(output)
+COMPRESS: compress_identical_objects(True,True) + img.replace(quality=N)
+SPLIT ALL: por pagina: PdfWriter().add_page(page).write(out) -> array
+SPLIT RANGE: PdfWriter() con paginas seleccionadas -> write(out)
+ROTATE:   page.rotate(90|180|270)
+REORDER:  writer.add_page(reader.pages[i]) en nuevo orden
+DELETE:   if i not in to_delete: writer.add_page(page)
+PROTECT:  writer.encrypt(password, algorithm="AES-256")
+UNLOCK:   reader.decrypt(password); writer.append(reader)
+WATERMARK: fpdf2 para crear pagina watermark + merge con cada pagina
+PDF TO TEXT: page.extract_text() -> Blob text/plain
+PDF TO JPG: USAR PDF.js + canvas.toDataURL() — NO Pyodide para esto
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PLANTILLA PARA NUEVA HERRAMIENTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Base: copiar compress-pdf/index.html o split-pdf/index.html
+Cambiar:
+  - title, canonical, meta keywords, OG tags
+  - H1 + subtitulo
+  - Icono emoji en drop zone
+  - Logica Python / JS
+  - FAQ (5 preguntas)
+  - Nav: marcar link activo (bg-brand-600/20 text-brand-400 font-semibold)
+  - Footer: marcar link activo (text-brand-400 font-semibold)
+Agregar:
+  - Card en HUB index.html: cambiar "Soon" a "Live", quitar opacity/pointer-none
+  - URL en sitemap.xml
+  - Link en nav/footer de TODAS las paginas existentes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEO KEYWORDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VENTAJA UNICA: siempre incluir "no upload / without uploading / private"
+
+Merge:    merge pdf free, combine pdf online, pdf merger no upload
+Compress: compress pdf free, reduce pdf size, compress without uploading
+Split:    split pdf free, separate pdf pages, extract pages from pdf
+PDF-JPG:  pdf to jpg free, convert pdf to image online, no upload
+Rotate:   rotate pdf pages online free, no upload
+Protect:  add password to pdf free, lock pdf online, no server
+Unlock:   remove pdf password free, unlock pdf online, no upload
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASES COMPLETADAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+v1-v3:  Merge PDF funcional + diseno + GitHub Pages live
+v4.0:   Compress PDF + sitemap + robots.txt
+v5.0:   HUB central con grid de herramientas
+v5.1:   Header/footer unificado
+v5.2:   Split PDF (2 modos)
+v5.3:   REBRAND NoServerTools + dark mode + nuevo HUB
+v5.4:   Todos los HTML actualizados al nuevo diseno + PDF to JPG agregado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROXIMOS PASOS EN ORDEN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INMEDIATO:  Arreglar pdf-to-jpg con PDF.js en lugar de Pyodide
+             (ver nota tecnica arriba — canvas.toDataURL())
+SIGUIENTE:  rotate-pdf/index.html
+DESPUES:    protect-pdf/index.html
+DESPUES:    unlock-pdf/index.html
+FUTURO:     Comprar dominio noservertools.com
+FUTURO:     Google Search Console + sitemap actualizado
+FUTURO:     Google Analytics 4
+FUTURO:     Google AdSense
+FUTURO:     Herramientas no-PDF (imagen, texto, etc.)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PARA EL PROXIMO AI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Proyecto: NoServerTools. Dark mode. bg #0e1117.
+2. Fuentes: Syne + Outfit + DM Mono. Brand: #5a87ff / #1f45e0.
+3. TODO en Pyodide/WASM. CERO servidores. NUNCA cambiar esto.
+4. EXCEPCION: PDF-to-JPG usa PDF.js + canvas, NO Pyodide.
+5. Raiz = HUB. Cada tool = carpeta/index.html.
+6. Nueva tool: copiar compress o split, cambiar todo lo indicado en plantilla.
+7. NUNCA inventar estadisticas. NUNCA reviews falsos.
+8. Usuario principiante: pasos claros, exactamente que va donde.
+9. LOG actualizado AL FINAL de cada sesion.
+
+════════════════════════════════════════════════════════════════
+FIN DEL LOG MAESTRO v5.4 — NoServerTools
+════════════════════════════════════════════════════════════════

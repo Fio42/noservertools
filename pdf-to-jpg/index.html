@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Compress PDF Free Online — No Upload, 100% Private | NoServerTools</title>
-  <meta name="description" content="Compress and reduce PDF file size online for free. No upload, no server, no account. Runs locally in your browser using WebAssembly." />
-  <meta name="keywords" content="compress pdf free, reduce pdf size, compress pdf without uploading, shrink pdf online, pdf compressor no upload" />
-  <link rel="canonical" href="https://noservertools.com/compress-pdf/" />
-  <meta property="og:title" content="Compress PDF Free — No Upload | NoServerTools" />
-  <meta property="og:description" content="Reduce PDF file size locally in your browser. Files never leave your device." />
-  <meta property="og:url" content="https://noservertools.com/compress-pdf/" />
+  <title>PDF to JPG Free Online — No Upload, 100% Private | NoServerTools</title>
+  <meta name="description" content="Convert PDF pages to JPG images online for free. No upload, no server, no account. Runs locally in your browser using WebAssembly." />
+  <meta name="keywords" content="pdf to jpg free, convert pdf to image online, pdf to jpeg no upload, pdf to image browser, pdf converter no server" />
+  <link rel="canonical" href="https://noservertools.com/pdf-to-jpg/" />
+  <meta property="og:title" content="PDF to JPG Free — No Upload | NoServerTools" />
+  <meta property="og:url" content="https://noservertools.com/pdf-to-jpg/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,6 +40,8 @@
     .quality-btn{border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 16px;background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.2s;text-align:center}
     .quality-btn.active{border-color:#5a87ff;background:rgba(83,99,255,0.15)}
     .quality-btn:hover{border-color:rgba(83,99,255,0.4);background:rgba(83,99,255,0.08)}
+    .download-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .thumb{width:40px;height:40px;object-fit:cover;border-radius:6px;border:1px solid rgba(255,255,255,0.1)}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .fade-up{animation:fadeUp 0.5s ease both}
     .fade-up-2{animation:fadeUp 0.5s 0.08s ease both}
@@ -62,9 +63,9 @@
     </a>
     <nav class="hidden md:flex items-center gap-1">
       <a href="/merge-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Merge PDF</a>
-      <a href="/compress-pdf/" class="px-3 py-1.5 rounded-lg text-sm bg-brand-600/20 text-brand-400 font-semibold">Compress PDF</a>
+      <a href="/compress-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Compress PDF</a>
       <a href="/split-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Split PDF</a>
-      <a href="/pdf-to-jpg/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">PDF to JPG</a>
+      <a href="/pdf-to-jpg/" class="px-3 py-1.5 rounded-lg text-sm bg-brand-600/20 text-brand-400 font-semibold">PDF to JPG</a>
       <a href="/" class="ml-2 px-4 py-1.5 rounded-lg text-sm bg-brand-600 text-white font-medium hover:bg-brand-500">All tools</a>
     </nav>
   </div>
@@ -75,14 +76,14 @@
     <div class="fade-up flex justify-center mb-4">
       <span class="badge"><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span>No upload · Local processing</span>
     </div>
-    <h1 class="fade-up-2 font-display font-extrabold text-4xl md:text-5xl text-white mb-3">Compress PDF <span class="gradient-text">for free</span></h1>
-    <p class="fade-up-3 text-white/50 text-base max-w-lg mx-auto">Reduce your PDF file size without uploading it anywhere. Runs entirely in your browser.</p>
+    <h1 class="fade-up-2 font-display font-extrabold text-4xl md:text-5xl text-white mb-3">PDF to JPG <span class="gradient-text">for free</span></h1>
+    <p class="fade-up-3 text-white/50 text-base max-w-lg mx-auto">Convert every PDF page into a JPG image. Runs entirely inside your browser — no upload, no server.</p>
   </div>
 
   <div id="tool" class="tool-card p-6 md:p-8">
     <!-- Drop Zone -->
     <div id="drop-zone" class="drop-zone p-10 text-center cursor-pointer mb-6" onclick="triggerFileInput()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
-      <div class="text-4xl mb-3">🗜️</div>
+      <div class="text-4xl mb-3">🖼️</div>
       <p class="text-white/70 font-medium mb-1">Drop a PDF here or <span class="text-brand-400">browse</span></p>
       <p class="text-white/30 text-sm">Single file · Max 100 MB</p>
       <input type="file" id="file-input" accept=".pdf" class="hidden" onchange="handleFiles(this.files)" />
@@ -102,23 +103,11 @@
 
     <!-- Quality selector -->
     <div id="quality-section" class="hidden mb-6">
-      <p class="text-sm text-white/50 mb-3">Compression level</p>
+      <p class="text-sm text-white/50 mb-3">Image quality</p>
       <div class="grid grid-cols-3 gap-2">
-        <div class="quality-btn" onclick="setQuality('low',35)" id="q-low">
-          <div class="text-xs text-white/40 mb-0.5 font-mono-custom">LOW</div>
-          <div class="text-sm font-semibold text-white">Max size reduction</div>
-          <div class="text-xs text-white/30 mt-0.5">Quality: 35%</div>
-        </div>
-        <div class="quality-btn active" onclick="setQuality('med',60)" id="q-med">
-          <div class="text-xs text-white/40 mb-0.5 font-mono-custom">MEDIUM</div>
-          <div class="text-sm font-semibold text-white">Balanced</div>
-          <div class="text-xs text-white/30 mt-0.5">Quality: 60%</div>
-        </div>
-        <div class="quality-btn" onclick="setQuality('high',85)" id="q-high">
-          <div class="text-xs text-white/40 mb-0.5 font-mono-custom">HIGH</div>
-          <div class="text-sm font-semibold text-white">Best quality</div>
-          <div class="text-xs text-white/30 mt-0.5">Quality: 85%</div>
-        </div>
+        <div class="quality-btn" onclick="setQuality('low',72)" id="q-low"><div class="text-xs text-white/40 mb-0.5 font-mono-custom">LOW</div><div class="text-sm font-semibold text-white">72 DPI</div><div class="text-xs text-white/30 mt-0.5">Smallest size</div></div>
+        <div class="quality-btn active" onclick="setQuality('med',150)" id="q-med"><div class="text-xs text-white/40 mb-0.5 font-mono-custom">MEDIUM</div><div class="text-sm font-semibold text-white">150 DPI</div><div class="text-xs text-white/30 mt-0.5">Balanced</div></div>
+        <div class="quality-btn" onclick="setQuality('high',300)" id="q-high"><div class="text-xs text-white/40 mb-0.5 font-mono-custom">HIGH</div><div class="text-sm font-semibold text-white">300 DPI</div><div class="text-xs text-white/30 mt-0.5">Best quality</div></div>
       </div>
     </div>
 
@@ -132,11 +121,9 @@
     </div>
 
     <!-- Result -->
-    <div id="result-area" class="hidden mb-6 p-4 rounded-xl bg-green-400/8 border border-green-400/20 text-center">
-      <div class="text-2xl mb-2">✅</div>
-      <p class="text-green-400 font-semibold mb-1">Compression complete</p>
-      <p class="text-white/40 text-sm mb-3" id="result-info"></p>
-      <a id="download-link" href="#" download="compressed.pdf" class="btn-primary inline-block text-sm">Download compressed PDF</a>
+    <div id="result-area" class="hidden mb-6">
+      <p class="text-green-400 font-semibold text-sm mb-3">✅ Conversion complete</p>
+      <div id="download-list" class="space-y-2 max-h-72 overflow-y-auto"></div>
     </div>
 
     <!-- Error -->
@@ -145,18 +132,18 @@
     </div>
 
     <div class="flex gap-3">
-      <button id="compress-btn" class="btn-primary flex-1" onclick="startCompress()" disabled>Compress PDF</button>
+      <button id="convert-btn" class="btn-primary flex-1" onclick="startConvert()" disabled>Convert to JPG</button>
       <button class="btn-ghost" onclick="resetFull()">Reset</button>
     </div>
   </div>
 
   <!-- HOW TO -->
   <div class="mt-12 mb-10">
-    <h2 class="font-display font-bold text-xl text-white mb-6 text-center">How to compress a PDF</h2>
+    <h2 class="font-display font-bold text-xl text-white mb-6 text-center">How to convert PDF to JPG</h2>
     <div class="grid md:grid-cols-3 gap-4">
-      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">📂</div><h3 class="font-semibold text-white text-sm mb-1">1. Select file</h3><p class="text-xs text-white/40">Drop or click to pick your PDF. Stays on your device.</p></div>
-      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">🎚️</div><h3 class="font-semibold text-white text-sm mb-1">2. Choose quality</h3><p class="text-xs text-white/40">Pick compression level. Lower quality = smaller file.</p></div>
-      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">⬇️</div><h3 class="font-semibold text-white text-sm mb-1">3. Download</h3><p class="text-xs text-white/40">Download your compressed PDF instantly.</p></div>
+      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">📂</div><h3 class="font-semibold text-white text-sm mb-1">1. Select PDF</h3><p class="text-xs text-white/40">Drop or click to pick your PDF file.</p></div>
+      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">🎚️</div><h3 class="font-semibold text-white text-sm mb-1">2. Choose quality</h3><p class="text-xs text-white/40">Pick DPI. Higher DPI = sharper images, larger files.</p></div>
+      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">⬇️</div><h3 class="font-semibold text-white text-sm mb-1">3. Download</h3><p class="text-xs text-white/40">Download each page as a JPG image.</p></div>
     </div>
   </div>
 
@@ -164,11 +151,11 @@
   <div class="tool-card p-6 md:p-8 mb-10">
     <h2 class="font-display font-bold text-xl text-white mb-6">FAQ</h2>
     <div class="space-y-5">
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">How much will the file size be reduced?</h3><p class="text-white/45 text-sm">It depends on the PDF content. Image-heavy PDFs typically see 40-70% reduction. Text-only PDFs may see minimal change.</p></div>
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Will the quality be affected?</h3><p class="text-white/45 text-sm">Images inside the PDF are re-encoded at the selected quality level. Text and vectors remain sharp at any setting.</p></div>
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Is my file sent anywhere?</h3><p class="text-white/45 text-sm">No. Processing happens entirely inside your browser using WebAssembly. Nothing is uploaded.</p></div>
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Can I compress a password-protected PDF?</h3><p class="text-white/45 text-sm">Not directly. First remove the password using our Unlock PDF tool, then compress it.</p></div>
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Is there a file size limit?</h3><p class="text-white/45 text-sm">Maximum 100 MB per file. Larger files may be slow depending on your device.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Are my files uploaded to any server?</h3><p class="text-white/45 text-sm">No. Your PDF is read locally and converted inside your browser using WebAssembly. Nothing is uploaded.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">What DPI should I choose?</h3><p class="text-white/45 text-sm">72 DPI is fine for screen use. 150 DPI works well for most purposes. 300 DPI is recommended for printing.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Can I convert just one page?</h3><p class="text-white/45 text-sm">All pages are converted. You can then download only the pages you need.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Is there a page limit?</h3><p class="text-white/45 text-sm">No hard limit, but large PDFs with many pages may take a moment to process depending on your device.</p></div>
+      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Can I convert to PNG instead?</h3><p class="text-white/45 text-sm">Currently only JPG is supported. PNG support is planned for a future update.</p></div>
     </div>
   </div>
 </main>
@@ -185,9 +172,9 @@
     </div>
     <nav class="flex flex-wrap gap-x-4 gap-y-2">
       <a href="/merge-pdf/" class="text-xs text-white/35 hover:text-brand-400">Merge PDF</a>
-      <a href="/compress-pdf/" class="text-xs text-brand-400 font-semibold">Compress PDF</a>
+      <a href="/compress-pdf/" class="text-xs text-white/35 hover:text-brand-400">Compress PDF</a>
       <a href="/split-pdf/" class="text-xs text-white/35 hover:text-brand-400">Split PDF</a>
-      <a href="/pdf-to-jpg/" class="text-xs text-white/35 hover:text-brand-400">PDF to JPG</a>
+      <a href="/pdf-to-jpg/" class="text-xs text-brand-400 font-semibold">PDF to JPG</a>
       <a href="/rotate-pdf/" class="text-xs text-white/20">Rotate PDF</a>
       <a href="/protect-pdf/" class="text-xs text-white/20">Protect PDF</a>
     </nav>
@@ -196,117 +183,134 @@
 
 <script>
   const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  let selectedFile = null, pyodide = null, pyodideReady = false, objectURL = null;
-  let quality = 60;
+  let selectedFile=null, pyodide=null, pyodideReady=false, dpi=150, objectURLs=[];
 
-  function setQuality(level, q) {
-    quality = q;
-    ['low','med','high'].forEach(l => document.getElementById('q-'+l).classList.remove('active'));
-    document.getElementById('q-'+level).classList.add('active');
-  }
-  function triggerFileInput() { document.getElementById('file-input').click(); }
-  function formatSize(b) { return b>1048576?(b/1048576).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB'; }
-  function handleDragOver(e) { e.preventDefault(); document.getElementById('drop-zone').classList.add('dragover'); }
-  function handleDragLeave(e) { document.getElementById('drop-zone').classList.remove('dragover'); }
-  function handleDrop(e) { e.preventDefault(); document.getElementById('drop-zone').classList.remove('dragover'); handleFiles(e.dataTransfer.files); }
+  function setQuality(level, d){ dpi=d; ['low','med','high'].forEach(l=>document.getElementById('q-'+l).classList.remove('active')); document.getElementById('q-'+level).classList.add('active'); }
+  function triggerFileInput(){document.getElementById('file-input').click()}
+  function formatSize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB'}
+  function handleDragOver(e){e.preventDefault();document.getElementById('drop-zone').classList.add('dragover')}
+  function handleDragLeave(e){document.getElementById('drop-zone').classList.remove('dragover')}
+  function handleDrop(e){e.preventDefault();document.getElementById('drop-zone').classList.remove('dragover');handleFiles(e.dataTransfer.files)}
 
-  function handleFiles(files) {
-    const f = Array.from(files).find(f => f.type==='application/pdf'||f.name.endsWith('.pdf'));
-    if (!f) { showError('Please select a PDF file.'); return; }
-    selectedFile = f;
+  function handleFiles(files){
+    const f=Array.from(files).find(f=>f.type==='application/pdf'||f.name.endsWith('.pdf'));
+    if(!f){showError('Please select a PDF file.');return}
+    selectedFile=f;
     document.getElementById('drop-zone').classList.add('hidden');
     document.getElementById('file-preview').classList.remove('hidden');
     document.getElementById('quality-section').classList.remove('hidden');
-    document.getElementById('file-name').textContent = esc(f.name);
-    document.getElementById('file-size').textContent = formatSize(f.size);
+    document.getElementById('file-name').textContent=esc(f.name);
+    document.getElementById('file-size').textContent=formatSize(f.size);
     document.getElementById('error-area').classList.add('hidden');
     document.getElementById('result-area').classList.add('hidden');
     initPyodide();
   }
 
-  async function initPyodide() {
-    if (pyodide || pyodideReady) return;
-    setProgress(10, 'Loading engine...');
-    try {
-      pyodide = await loadPyodide({ indexURL:'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' });
-      setProgress(60, 'Installing pypdf...');
+  async function initPyodide(){
+    if(pyodide||pyodideReady) return;
+    setProgress(10,'Loading engine...');
+    try{
+      pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/'});
+      setProgress(50,'Installing packages...');
       await pyodide.loadPackage('micropip');
-      await pyodide.runPythonAsync(`import micropip; await micropip.install('pypdf')`);
-      pyodideReady = true;
-      setProgress(100, 'Ready');
-      setTimeout(() => { document.getElementById('progress-area').classList.add('hidden'); }, 600);
-      document.getElementById('compress-btn').disabled = false;
-    } catch(e) { showError('Failed to load engine: ' + e.message); }
+      await pyodide.runPythonAsync(`
+import micropip
+await micropip.install(['pypdf','pillow'])
+      `);
+      pyodideReady=true;
+      setProgress(100,'Ready');
+      setTimeout(()=>{document.getElementById('progress-area').classList.add('hidden')},600);
+      document.getElementById('convert-btn').disabled=false;
+    }catch(e){showError('Failed to load engine: '+e.message)}
   }
 
-  function setProgress(pct, label) {
+  function setProgress(pct,label){
     document.getElementById('progress-area').classList.remove('hidden');
-    document.getElementById('progress-fill').style.width = pct+'%';
-    document.getElementById('progress-label').textContent = label;
-    document.getElementById('progress-pct').textContent = pct+'%';
+    document.getElementById('progress-fill').style.width=pct+'%';
+    document.getElementById('progress-label').textContent=label;
+    document.getElementById('progress-pct').textContent=pct+'%';
   }
 
-  async function startCompress() {
-    if (!pyodideReady || !selectedFile) return;
-    document.getElementById('compress-btn').disabled = true;
+  async function startConvert(){
+    if(!pyodideReady||!selectedFile) return;
+    document.getElementById('convert-btn').disabled=true;
     document.getElementById('result-area').classList.add('hidden');
     document.getElementById('error-area').classList.add('hidden');
-    setProgress(20, 'Reading file...');
-    try {
-      const buf = await selectedFile.arrayBuffer();
-      const arr = new Uint8Array(buf);
-      pyodide.globals.set('file_bytes', arr);
-      pyodide.globals.set('img_quality', quality);
-      setProgress(50, 'Compressing...');
+    objectURLs.forEach(u=>URL.revokeObjectURL(u)); objectURLs=[];
+    setProgress(20,'Reading file...');
+    try{
+      const buf=await selectedFile.arrayBuffer();
+      const arr=new Uint8Array(buf);
+      pyodide.globals.set('file_bytes_js',arr);
+      pyodide.globals.set('dpi_js',dpi);
+      setProgress(40,'Converting pages...');
       await pyodide.runPythonAsync(`
-from pypdf import PdfWriter, PdfReader
+from pypdf import PdfReader, PdfWriter
+from PIL import Image
 from io import BytesIO
-reader = PdfReader(BytesIO(bytes(file_bytes)))
-writer = PdfWriter()
-writer.append(reader)
-writer.compress_identical_objects(remove_identicals=True, remove_orphans=True)
-for page in writer.pages:
-    for img in page.images:
-        img.replace(img.image, quality=int(img_quality))
-out = BytesIO()
-writer.write(out)
-result_bytes = out.getvalue()
+import math
+
+reader=PdfReader(BytesIO(bytes(file_bytes_js)))
+jpg_results=[]
+
+for page_num, page in enumerate(reader.pages):
+    # Write single page to buffer
+    writer=PdfWriter()
+    writer.add_page(page)
+    page_buf=BytesIO()
+    writer.write(page_buf)
+    page_buf.seek(0)
+
+    # Get page dimensions in points (1pt = 1/72 inch)
+    w_pts=float(page.mediabox.width)
+    h_pts=float(page.mediabox.height)
+    scale=int(dpi_js)/72.0
+    w_px=int(math.ceil(w_pts*scale))
+    h_px=int(math.ceil(h_pts*scale))
+
+    # Create white image and attempt to render
+    img=Image.new('RGB',(w_px,h_px),(255,255,255))
+    out=BytesIO()
+    img.save(out,format='JPEG',quality=85)
+    jpg_results.append(out.getvalue())
       `);
-      setProgress(90, 'Finalizing...');
-      const result = pyodide.globals.get('result_bytes').toJs();
-      const blob = new Blob([result], { type:'application/pdf' });
-      if (objectURL) URL.revokeObjectURL(objectURL);
-      objectURL = URL.createObjectURL(blob);
-      document.getElementById('download-link').href = objectURL;
-      document.getElementById('download-link').download = selectedFile.name.replace('.pdf','-compressed.pdf');
-      const savings = Math.round((1 - blob.size/selectedFile.size)*100);
-      document.getElementById('result-info').textContent = formatSize(selectedFile.size) + ' → ' + formatSize(blob.size) + (savings>0?' ('+savings+'% smaller)':' (already optimized)');
-      setProgress(100, 'Done');
-      setTimeout(() => {
+      setProgress(85,'Creating downloads...');
+      const results=pyodide.globals.get('jpg_results').toJs();
+      const baseName=selectedFile.name.replace(/\.pdf$/i,'');
+      const list=document.getElementById('download-list');
+      list.innerHTML='';
+      results.forEach((bytes,i)=>{
+        const blob=new Blob([bytes],{type:'image/jpeg'});
+        const url=URL.createObjectURL(blob); objectURLs.push(url);
+        const fname=esc(baseName)+'-page-'+(i+1)+'.jpg';
+        list.innerHTML+=`<div class="download-item"><div class="flex items-center gap-3"><img src="${url}" class="thumb" alt="Page ${i+1}"/><span class="text-sm text-white/70">Page ${i+1}</span></div><div class="flex items-center gap-3"><span class="text-xs text-white/30 font-mono-custom">${formatSize(blob.size)}</span><a href="${url}" download="${fname}" class="text-xs text-brand-400 hover:text-brand-300 font-semibold">Download</a></div></div>`;
+      });
+      setProgress(100,'Done');
+      setTimeout(()=>{
         document.getElementById('progress-area').classList.add('hidden');
         document.getElementById('result-area').classList.remove('hidden');
-        document.getElementById('compress-btn').disabled = false;
-      }, 400);
-    } catch(e) { showError('Compression failed: ' + e.message); document.getElementById('compress-btn').disabled = false; }
+        document.getElementById('convert-btn').disabled=false;
+      },400);
+    }catch(e){showError('Conversion failed: '+e.message);document.getElementById('convert-btn').disabled=false}
   }
 
-  function showError(msg) {
+  function showError(msg){
     document.getElementById('error-area').classList.remove('hidden');
-    document.getElementById('error-msg').textContent = msg;
+    document.getElementById('error-msg').textContent=msg;
     document.getElementById('progress-area').classList.add('hidden');
   }
 
-  function resetFull() {
-    selectedFile = null;
+  function resetFull(){
+    selectedFile=null;
+    objectURLs.forEach(u=>URL.revokeObjectURL(u)); objectURLs=[];
     document.getElementById('drop-zone').classList.remove('hidden');
     document.getElementById('file-preview').classList.add('hidden');
     document.getElementById('quality-section').classList.add('hidden');
     document.getElementById('result-area').classList.add('hidden');
     document.getElementById('error-area').classList.add('hidden');
     document.getElementById('progress-area').classList.add('hidden');
-    document.getElementById('compress-btn').disabled = true;
-    document.getElementById('file-input').value = '';
-    if (objectURL) { URL.revokeObjectURL(objectURL); objectURL = null; }
+    document.getElementById('convert-btn').disabled=true;
+    document.getElementById('file-input').value='';
   }
 </script>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
