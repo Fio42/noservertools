@@ -343,7 +343,7 @@ function updateActionBar(){
   const n=selectedPages.size;
   const remaining=totalPages-n;
   const info=document.getElementById('actionInfo');
-  info.innerHTML='<strong>'+n+'</strong> page'+(n===1?'':\'s')+' selected for deletion — '+remaining+' will remain';
+  info.innerHTML='<strong>'+n+'</strong> page'+(n===1?'':'s')+' selected for deletion — '+remaining+' will remain';
   document.getElementById('btnProcess').disabled=n===0||!pyReady||remaining===0;
   if(remaining===0&&n>0){
     info.innerHTML+=' <span style="color:var(--red)">(cannot delete all pages)</span>';
@@ -416,7 +416,7 @@ base64.b64encode(out.getvalue()).decode('ascii')
 
     document.getElementById('btnDownload').href=resultObjectUrl;
     document.getElementById('btnDownload').download=currentFile.name.replace(/\.pdf$/i,'')+'-pages-deleted.pdf';
-    document.getElementById('resultDesc').textContent='Deleted '+selectedPages.size+' page'+(selectedPages.size===1?'':\'s')+'. Remaining: '+remaining+' pages.';
+    document.getElementById('resultDesc').textContent='Deleted '+selectedPages.size+' page'+(selectedPages.size===1?'':'s')+'. Remaining: '+remaining+' pages.';
     document.getElementById('editorWrap').classList.remove('visible');
     document.getElementById('resultWrap').style.display='block';
   }catch(e){showError('Error: '+e.message)}
