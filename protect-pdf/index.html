@@ -332,6 +332,7 @@ async function initPyodide(){
   }
 }
 async function _loadEngineProtect(){
+  // micropip is a built-in Pyodide package; pypdf is PyPI-only → must use micropip.install
   pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
   await pyodide.loadPackage(['micropip']);
   await pyodide.runPythonAsync(`
