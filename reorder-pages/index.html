@@ -53,7 +53,8 @@
     .privacy-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);color:var(--green);font-family:'DM Mono',monospace;font-size:11px;padding:5px 14px;border-radius:100px}
 
     /* DROP ZONE */
-    .drop-zone{border:2px dashed var(--border);border-radius:16px;padding:44px 24px;text-align:center;transition:border-color .2s,background .2s;background:var(--surface);margin-bottom:24px}
+    .drop-zone{border:2px dashed var(--border);border-radius:16px;padding:44px 24px;text-align:center;transition:border-color .2s,background .2s;background:var(--surface);margin-bottom:24px;cursor:pointer}
+    .drop-zone:hover{border-color:var(--brand-mid);background:rgba(90,135,255,.04)}
     .drop-zone.drag-over{border-color:var(--brand);background:rgba(90,135,255,.06)}
     .drop-zone h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
     .drop-zone p{color:var(--muted);font-size:14px}
@@ -173,17 +174,45 @@
     .thumb-item:hover .thumb-handle{opacity:1}
     .thumb-handle svg{color:var(--muted)}
 
-    /* drop indicator line between items */
-    .drop-indicator{
-      position:absolute;
-      top:0;bottom:0;
+    /* DRAG GHOST */
+    #dragGhost{
+      position:fixed;
+      pointer-events:none;
+      z-index:9998;
+      opacity:.88;
+      border-radius:10px;
+      box-shadow:0 8px 32px rgba(0,0,0,.55),0 0 0 2px var(--brand);
+      transform:rotate(2deg) scale(1.04);
+      display:none;
+      background:var(--bg);
+      overflow:hidden;
+    }
+
+    /* DROP LINE INDICATOR */
+    #dropLine{
+      position:fixed;
       width:3px;
       background:var(--brand);
-      border-radius:2px;
+      border-radius:3px;
+      box-shadow:0 0 10px var(--brand),0 0 20px rgba(90,135,255,.4);
       pointer-events:none;
+      z-index:9997;
       display:none;
-      box-shadow:0 0 8px var(--brand);
     }
+    #dropLine::before,#dropLine::after{
+      content:'';
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      width:9px;height:9px;
+      background:var(--brand);
+      border-radius:50%;
+    }
+    #dropLine::before{top:-4px}
+    #dropLine::after{bottom:-4px}
+
+    .thumb-item.is-dragging{opacity:.25;cursor:grabbing}
+    .thumb-item{touch-action:none}
 
     /* RESULT */
     #resultWrap{display:none;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.15);border-radius:12px;padding:24px;text-align:center;margin-bottom:24px}
@@ -274,15 +303,21 @@
 
   <div id="errorBox" class="error-box"></div>
 
+  <!-- DRAG GHOST -->
+  <div id="dragGhost"></div>
+  <!-- DROP LINE -->
+  <div id="dropLine"></div>
+
   <!-- DROP ZONE -->
   <div class="drop-zone" id="dropZone"
+    onclick="document.getElementById('fileInput').click()"
     ondragover="event.preventDefault();this.classList.add('drag-over')"
     ondragleave="this.classList.remove('drag-over')"
     ondrop="event.preventDefault();this.classList.remove('drag-over');handleFile(event.dataTransfer.files[0])">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40" style="color:var(--brand);margin-bottom:12px;opacity:.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="12" x2="12" y2="18"/><polyline points="9,15 12,18 15,15"/></svg>
     <h2 id="dz-title">Drop your PDF here</h2>
     <p id="dz-sub">or click to browse your files</p>
-    <button class="btn-select" id="btn-browse" onclick="document.getElementById('fileInput').click()">Select PDF file</button>
+    <button class="btn-select" id="btn-browse" onclick="event.stopPropagation();document.getElementById('fileInput').click()">Select PDF file</button>
     <input type="file" id="fileInput" accept=".pdf,application/pdf" onchange="handleFile(this.files[0])">
   </div>
 
@@ -396,8 +431,156 @@ let resultObjectUrl = null;
 // pageOrder[i] = original 1-based page index now at position i
 let pageOrder = [];
 
-/* ── Drag state ── */
-let dragSrcIndex = null;  // index in pageOrder being dragged
+/* ── Drag & Drop — pointer-events based (stable, no scroll jumps) ── */
+let dragSrcIndex = null;
+let dragGhostEl = null;
+let dropLineEl   = null;
+let ghostOffX = 0, ghostOffY = 0;
+let currentDropTarget = null; // index where we'd insert
+
+function initDragElements(){
+  dragGhostEl = document.getElementById('dragGhost');
+  dropLineEl  = document.getElementById('dropLine');
+}
+
+/* Build thumb item — pointer events instead of HTML5 drag */
+function attachDrag(item){
+  item.addEventListener('pointerdown', onPointerDown);
+}
+
+function onPointerDown(e){
+  // Only left button; ignore on buttons/inputs
+  if(e.button !== 0) return;
+  if(e.target.closest('button')) return;
+  e.preventDefault();
+
+  const item = e.currentTarget;
+  dragSrcIndex = parseInt(item.dataset.index);
+
+  // Build ghost from a clone of the item
+  dragGhostEl.innerHTML = '';
+  const clone = item.cloneNode(true);
+  clone.style.cssText = 'width:'+item.offsetWidth+'px;pointer-events:none;';
+  dragGhostEl.appendChild(clone);
+
+  const rect = item.getBoundingClientRect();
+  ghostOffX = e.clientX - rect.left;
+  ghostOffY = e.clientY - rect.top;
+
+  dragGhostEl.style.width  = item.offsetWidth + 'px';
+  dragGhostEl.style.display = 'block';
+  positionGhost(e.clientX, e.clientY);
+
+  item.classList.add('is-dragging');
+
+  document.addEventListener('pointermove', onPointerMove, {passive:false});
+  document.addEventListener('pointerup',   onPointerUp);
+  document.addEventListener('pointercancel', onPointerUp);
+}
+
+function positionGhost(cx, cy){
+  dragGhostEl.style.left = (cx - ghostOffX) + 'px';
+  dragGhostEl.style.top  = (cy - ghostOffY) + 'px';
+}
+
+function onPointerMove(e){
+  e.preventDefault();
+  positionGhost(e.clientX, e.clientY);
+
+  // Find which gap the cursor is over
+  const items = Array.from(document.querySelectorAll('.thumb-item:not(.is-dragging)'));
+  const grid  = document.getElementById('thumbGrid');
+  const gridRect = grid.getBoundingClientRect();
+
+  let bestIdx = items.length; // default: end
+  let bestDist = Infinity;
+
+  items.forEach((el, i)=>{
+    const r = el.getBoundingClientRect();
+    // Distance to left edge of this element
+    const dist = Math.abs(e.clientX - r.left);
+    if(dist < bestDist){
+      bestDist = dist;
+      bestIdx = parseInt(el.dataset.index);
+      if(parseInt(el.dataset.index) > dragSrcIndex) bestIdx = parseInt(el.dataset.index); else bestIdx = parseInt(el.dataset.index);
+    }
+  });
+
+  // Find drop position: before which visible item?
+  let insertBefore = null; // DOM element to insert line before
+  let lineX, lineTop, lineHeight;
+
+  // Determine grid layout from items
+  const allItems = Array.from(document.querySelectorAll('.thumb-item'));
+  let closestEl = null;
+  let closestDist = Infinity;
+  let insertAfterEl = null;
+
+  allItems.forEach(el=>{
+    if(el.classList.contains('is-dragging')) return;
+    const r = el.getBoundingClientRect();
+    const cx2 = r.left + r.width/2;
+    const cy2 = r.top  + r.height/2;
+    const d = Math.hypot(e.clientX - cx2, e.clientY - cy2);
+    if(d < closestDist){
+      closestDist = d;
+      closestEl = el;
+    }
+  });
+
+  if(closestEl){
+    const r = closestEl.getBoundingClientRect();
+    const midX = r.left + r.width/2;
+    // Determine if we're left or right of the center
+    if(e.clientX < midX){
+      // Insert before closestEl
+      insertBefore = closestEl;
+      lineX = r.left - 4;
+      lineTop = r.top;
+      lineHeight = r.height;
+    } else {
+      // Insert after closestEl
+      insertAfterEl = closestEl;
+      lineX = r.right + 1;
+      lineTop = r.top;
+      lineHeight = r.height;
+    }
+    currentDropTarget = insertBefore
+      ? parseInt(insertBefore.dataset.index)
+      : parseInt(insertAfterEl.dataset.index) + 1;
+  }
+
+  if(insertBefore || insertAfterEl){
+    dropLineEl.style.display  = 'block';
+    dropLineEl.style.position = 'fixed';
+    dropLineEl.style.left     = lineX + 'px';
+    dropLineEl.style.top      = lineTop + 'px';
+    dropLineEl.style.height   = lineHeight + 'px';
+  }
+}
+
+function onPointerUp(e){
+  document.removeEventListener('pointermove', onPointerMove);
+  document.removeEventListener('pointerup',   onPointerUp);
+  document.removeEventListener('pointercancel', onPointerUp);
+
+  dragGhostEl.style.display = 'none';
+  dropLineEl.style.display  = 'none';
+
+  document.querySelectorAll('.thumb-item').forEach(el=>el.classList.remove('is-dragging'));
+
+  if(dragSrcIndex !== null && currentDropTarget !== null && currentDropTarget !== dragSrcIndex && currentDropTarget !== dragSrcIndex+1){
+    const moved = pageOrder.splice(dragSrcIndex, 1)[0];
+    let insertAt = currentDropTarget;
+    if(currentDropTarget > dragSrcIndex) insertAt--;
+    pageOrder.splice(insertAt, 0, moved);
+    renderAllThumbs();
+  }
+
+  dragSrcIndex = null;
+  currentDropTarget = null;
+}
+
 
 /* ── Utils ── */
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
@@ -476,66 +659,22 @@ async function buildThumbItem(posIndex){
   const item = document.createElement('div');
   item.className = 'thumb-item';
   item.dataset.index = posIndex;
-  item.draggable = true;
   item.appendChild(handle);
   item.appendChild(wrap);
   item.appendChild(footer);
 
-  /* Drag events */
-  item.addEventListener('dragstart', onDragStart);
-  item.addEventListener('dragover',  onDragOver);
-  item.addEventListener('dragleave', onDragLeave);
-  item.addEventListener('drop',      onDrop);
-  item.addEventListener('dragend',   onDragEnd);
+  /* Attach pointer-based drag */
+  attachDrag(item);
 
   return item;
 }
 
-/* ── Drag & Drop handlers ── */
-function onDragStart(e){
-  dragSrcIndex = parseInt(this.dataset.index);
-  this.classList.add('dragging');
-  e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('text/plain', dragSrcIndex);
-}
-
-function onDragOver(e){
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  // remove all highlights first
-  document.querySelectorAll('.thumb-item').forEach(el=>el.classList.remove('drag-over-top'));
-  const targetIndex = parseInt(this.dataset.index);
-  if(targetIndex !== dragSrcIndex){
-    this.classList.add('drag-over-top');
-  }
-}
-
-function onDragLeave(e){
-  this.classList.remove('drag-over-top');
-}
-
-function onDrop(e){
-  e.preventDefault();
-  e.stopPropagation();
-  const targetIndex = parseInt(this.dataset.index);
-  if(dragSrcIndex === null || dragSrcIndex === targetIndex) return;
-
-  // Reorder pageOrder array
-  const moved = pageOrder.splice(dragSrcIndex, 1)[0];
-  // If we dragged from before target, target index shifted by 1
-  const insertAt = dragSrcIndex < targetIndex ? targetIndex : targetIndex;
-  pageOrder.splice(insertAt, 0, moved);
-
-  dragSrcIndex = null;
-  renderAllThumbs();
-}
-
-function onDragEnd(e){
-  dragSrcIndex = null;
-  document.querySelectorAll('.thumb-item').forEach(el=>{
-    el.classList.remove('dragging','drag-over-top');
-  });
-}
+/* ── Drag & Drop handlers (now pointer-based — see above) ── */
+function onDragStart(){}
+function onDragOver(e){e.preventDefault()}
+function onDragLeave(){}
+function onDrop(e){e.preventDefault()}
+function onDragEnd(){}
 
 /* ── Toolbar actions ── */
 function reverseAll(){
@@ -897,9 +1036,12 @@ document.addEventListener('click', e=>{
 });
 
 applyLang();
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', initDragElements);
+} else {
+  initDragElements();
+}
 </script>
-<script>
-(function(){
   var FLAGS={'en':'🇺🇸','es':'🇪🇸','pt':'🇧🇷','fr':'🇫🇷','de':'🇩🇪'};
   var LABELS={'en':'EN','es':'ES','pt':'PT','fr':'FR','de':'DE'};
   var SAVED='nst_lang';
