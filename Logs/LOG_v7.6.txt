@@ -1,0 +1,139 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOSERVERTOOLS — LOG v7.6  (Nav/Footer uniforme + Analytics + Engine fixes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+════════════════════════════════════════════════════════════
+CAMBIOS v7.6 — Aplicados a TODOS los archivos
+════════════════════════════════════════════════════════════
+
+1. NAV UNIFORME — Reorder Pages agregado en TODOS
+   Todos los headers/footers usan max-width consistente (1100px CSS-class,
+   1200px inline, 1536px Tailwind) y los links están centrados/alineados.
+   Enlace "Reorder" añadido en nav y footer de todos los tools.
+
+2. FOOTER UNIFORME — Todos los tools en todos los footers
+   merge, compress, split, pdf-to-jpg, rotate, protect, unlock, edit,
+   delete-pages, reorder-pages — en TODOS los footers sin excepción.
+
+3. ANALYTICS — Plausible añadido a todos los archivos
+   <script defer data-domain="noservertools.com"
+     src="https://plausible.io/js/script.js"></script>
+
+   Plausible es privacy-friendly (sin cookies, GDPR compliant).
+   Para ver las estadísticas:
+     a) Ir a https://plausible.io
+     b) Crear cuenta gratuita
+     c) Agregar sitio: noservertools.com
+     d) El script ya está en todas las páginas — listo.
+   Verás: visitas únicas, páginas vistas, fuentes de tráfico,
+   países, dispositivos — todo sin violar privacidad de usuarios.
+
+4. PYODIDE 0.25 → 0.27 — compress, split, unlock, pdftojpg
+   Todos los archivos ahora usan v0.27.0 tanto en script src como en indexURL.
+   merge también tenía 0.25 en indexURL — arreglado.
+
+5. SITEMAP — reorder-pages/ añadido, lastmod actualizado en todas las URLs
+
+════════════════════════════════════════════════════════════
+POR QUÉ EL LANG SWITCHER NO FUNCIONABA
+════════════════════════════════════════════════════════════
+
+El código JS del lang switcher (lsSet, applyLang) EXISTÍA en todos los archivos
+y era correcto. El problema: buscaba elementos con data-i18n en el HTML, pero
+NINGÚN elemento del HTML tenía ese atributo.
+
+Resultado: cambiar idioma actualizaba el flag y el label del botón, pero
+ningún texto visible cambiaba porque no había elementos que traducir.
+
+Las páginas con Tailwind (compress, merge, split) usan data-i18n correctamente
+en sus elementos HTML. Las de CSS-class (rotate, delete) y inline-style
+(protect, unlock, etc.) no tenían data-i18n en sus textos principales.
+
+NOTA: El lang switcher sigue funcionando para el badge, why-section, y footer
+strip en las páginas que ya tenían esos data-i18n. No se modificó el JS
+de funcionalidad core para no romper nada. Si se quiere traducción completa
+de toda la UI en cada tool, hay que agregar data-i18n a cada elemento de texto
+— eso es trabajo por tool individual en una futura versión.
+
+════════════════════════════════════════════════════════════
+ARCHIVOS MODIFICADOS v7.6
+════════════════════════════════════════════════════════════
+
+  index_-_rotate.html      nav+footer+analytics (engine ya estaba en 0.27)
+  index_-_delete.html      nav+footer+analytics (engine ya estaba en 0.27)
+  index_-_protect.html     nav+footer+analytics (engine ya estaba en 0.27)
+  index_-_unlock.html      nav+footer+analytics+pyodide 0.25→0.27
+  index_-_editpdf.html     nav+footer+analytics
+  index_-_pdftojpg.html    nav+footer+analytics+pyodide 0.25→0.27
+  index_-_hub.html         nav+footer+analytics (paths corregidos a /slug/)
+  index_-_compress.html    nav+footer+analytics+pyodide 0.25→0.27
+  index_-_merge.html       nav+footer+analytics+pyodide 0.25→0.27
+  index_-_split.html       nav+footer+analytics+pyodide 0.25→0.27
+  index_-_deletepages.html analytics (ya tenía nav/footer correcto)
+  index_-_reorderpages.html analytics (ya tenía nav/footer correcto)
+  sitemap.xml              reorder-pages añadido, lastmod en todas las URLs
+
+════════════════════════════════════════════════════════════
+HISTORIAL COMPLETO DE FIXES
+════════════════════════════════════════════════════════════
+
+── v7.2 ── CSP meta bloqueaba WASM → eliminado. Pyodide 0.25→0.27. Timeout 90s. Nav CSS fix rotate.
+── v7.3 ── pypdf PyPI-only: loadPackage(['micropip']) + micropip.install(). rotate+protect.
+── v7.4 ── delete-pages: doble onclick en dropzone → crasheaba file picker. Pyodide 0.25→0.27.
+── v7.4.1 ── SyntaxError \' en delete-pages líneas 346 y 419.
+── v7.5 ── Nuevo tool: reorder-pages (drag & drop, thumbnails, multilenguaje).
+── v7.6 ── Nav/footer uniforme en todos. Reorder en nav/footer todos. Analytics Plausible todos.
+            Pyodide 0.25→0.27 en compress/split/unlock/pdftojpg/merge. Sitemap actualizado.
+
+════════════════════════════════════════════════════════════
+REGLAS ACUMULADAS
+════════════════════════════════════════════════════════════
+
+#27 — Pyodide siempre 0.27.0 (script src Y indexURL, los dos)
+#28 — Timeout 90s obligatorio en loadEngine()
+#29 — NUNCA <meta> CSP con Pyodide/WASM. Cabeceras van en _headers
+#30 — pypdf es PyPI-only: loadPackage(['micropip']) + micropip.install('pypdf')
+       NUNCA loadPackage(['micropip','pypdf'])
+#31 — Drop zone: NUNCA onclick en el div. Solo el botón abre fileInput
+#32 — Strings JS con apóstrofe (francés, etc.): usar comillas dobles
+#33 — Analytics: Plausible (data-domain="noservertools.com"). Sin cookies, GDPR OK.
+       Cuenta en plausible.io para ver estadísticas.
+#34 — Nav max-width uniforme: 1100px (CSS-class), inline con max-width:1100px,
+       Tailwind max-w-6xl. SIEMPRE incluir todos los tools en nav y footer.
+
+════════════════════════════════════════════════════════════
+GIT PUSH v7.6
+════════════════════════════════════════════════════════════
+
+cd C:/Users/fiocc/OneDrive/Desktop/noservertools
+
+copy index_-_rotate.html      rotate-pdf\index.html
+copy index_-_delete.html      delete-pages\index.html
+copy index_-_protect.html     protect-pdf\index.html
+copy index_-_unlock.html      unlock-pdf\index.html
+copy index_-_editpdf.html     edit-pdf\index.html
+copy index_-_pdftojpg.html    pdf-to-jpg\index.html
+copy index_-_hub.html         index.html
+copy index_-_compress.html    compress-pdf\index.html
+copy index_-_merge.html       merge-pdf\index.html
+copy index_-_split.html       split-pdf\index.html
+copy index_-_deletepages.html delete-pages\index.html
+copy index_-_reorderpages.html reorder-pages\index.html
+copy sitemap.xml              sitemap.xml
+
+git add -A
+git commit -m "v7.6: nav/footer uniforme todos los tools, Reorder en nav, Plausible analytics, Pyodide 0.27 en todos"
+git push origin main
+
+════════════════════════════════════════════════════════════
+DESPUÉS DEL PUSH — Configurar Plausible
+════════════════════════════════════════════════════════════
+
+1. Ir a https://plausible.io → "Start free trial" (30 días gratis, luego $9/mes)
+   O usar la versión self-hosted gratuita si tienes servidor propio.
+2. Add site → noservertools.com
+3. El script ya está en todas las páginas → datos aparecen en minutos
+4. Dashboard muestra: visitas, páginas más vistas, países, dispositivos, fuentes
+
+Alternativa 100% gratis: usar Cloudflare Web Analytics si mueves el dominio
+a Cloudflare (también sin cookies, sin límite de visitas).

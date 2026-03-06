@@ -62,6 +62,8 @@
     .ls-opt:hover{background:rgba(90,135,255,.1);color:#fff}
     .ls-opt.active{color:#5a87ff;background:rgba(90,135,255,.08)}
   </style>
+  <!-- Plausible Analytics: privacy-friendly, no cookies, GDPR compliant -->
+  <script defer data-domain="noservertools.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="bg-grid min-h-screen">
 <div class="blob-1"></div><div class="blob-2"></div>
@@ -75,16 +77,18 @@
       </div>
       <span class="font-display font-bold text-white text-[15px] tracking-tight">NoServer<span class="text-brand-400">Tools</span></span>
     </a>
-    <nav class="hidden md:flex items-center gap-1">
-      <a href="/merge-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Merge PDF</a>
-      <a href="/compress-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Compress PDF</a>
-      <a href="/split-pdf/" class="px-3 py-1.5 rounded-lg text-sm bg-brand-600/20 text-brand-400 font-semibold">Split PDF</a>
-      <a href="/pdf-to-jpg/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">PDF to JPG</a>
-      <a href="/rotate-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Rotate PDF</a>
-      <a href="/protect-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Protect PDF</a>
-      <a href="/unlock-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Unlock PDF</a>
-      <a href="/edit-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Edit PDF</a>
-      <a href="/" class="ml-2 px-4 py-1.5 rounded-lg text-sm bg-brand-600 text-white font-medium hover:bg-brand-500">All tools</a>
+    <nav class="hidden md:flex items-center gap-1 overflow-x-auto">
+      <a href="/merge-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Merge</a>
+      <a href="/compress-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Compress</a>
+      <a href="/split-pdf/" class="px-3 py-1.5 rounded-lg text-sm bg-brand-600/20 text-brand-400 font-semibold">Split</a>
+      <a href="/pdf-to-jpg/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">JPG</a>
+      <a href="/rotate-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Rotate</a>
+      <a href="/protect-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Protect</a>
+      <a href="/unlock-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Unlock</a>
+      <a href="/edit-pdf/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Edit</a>
+      <a href="/delete-pages/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Delete</a>
+      <a href="/reorder-pages/" class="px-3 py-1.5 rounded-lg text-sm text-white/60 hover:bg-white/5">Reorder</a>
+      <a href="/" class="ml-2 px-4 py-1.5 rounded-lg text-sm bg-brand-600 text-white font-medium hover:bg-brand-500 whitespace-nowrap">All tools</a>
     </nav>
   </div>
 </header>
@@ -188,7 +192,6 @@
   </div>
 </main>
 
-<!-- FOOTER -->
 <footer class="relative z-10 border-t border-white/5 bg-black/30">
   <div class="max-w-6xl mx-auto px-5 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
     <div>
@@ -207,6 +210,8 @@
       <a href="/protect-pdf/" class="text-xs text-white/35 hover:text-brand-400">Protect PDF</a>
       <a href="/unlock-pdf/" class="text-xs text-white/35 hover:text-brand-400">Unlock PDF</a>
       <a href="/edit-pdf/" class="text-xs text-white/35 hover:text-brand-400">Edit PDF</a>
+      <a href="/delete-pages/" class="text-xs text-white/35 hover:text-brand-400">Delete Pages</a>
+      <a href="/reorder-pages/" class="text-xs text-white/35 hover:text-brand-400">Reorder Pages</a>
     </nav>
   </div>
 </footer>
@@ -289,10 +294,11 @@
     pyLoading=true;
     setProgress(10,'Loading engine (first time: ~15s)...');
     try{
-      pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/'});
+      pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
       setProgress(60,'Installing pypdf...');
-      await pyodide.loadPackage('micropip');
-      await pyodide.runPythonAsync(`import micropip; await micropip.install('pypdf')`);
+      await pyodide.loadPackage(['micropip']);
+      await pyodide.runPythonAsync(`import micropip
+await micropip.install('pypdf')`);
       pyodideReady=true;
       pyLoading=false;
       setProgress(100,'Ready');
@@ -410,7 +416,7 @@ o=BytesIO(); w.write(o); range_result=o.getvalue()
     setMode('all');
   }
 </script>
-<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
 <script>
 'use strict';
 (function(){

@@ -121,6 +121,8 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"PDF to JPG and JPG to PDF","url":"https://noservertools.com/pdf-to-jpg/","description":"Convert PDF pages to JPG images or combine images into a PDF. Free, no upload, runs in browser.","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
   </script>
+  <!-- Plausible Analytics: privacy-friendly, no cookies, GDPR compliant -->
+  <script defer data-domain="noservertools.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
@@ -150,17 +152,28 @@
       </div>
       <span class="fd" style="font-weight:800;font-size:15px;color:#fff">NoServer<span style="color:#5a87ff">Tools</span></span>
     </a>
-    <nav style="display:flex;align-items:center;gap:2px;overflow-x:auto" aria-label="Main navigation">
-      <a href="/merge-pdf/" class="nav-link">Merge PDF</a>
-      <a href="/compress-pdf/" class="nav-link">Compress</a>
-      <a href="/split-pdf/" class="nav-link">Split PDF</a>
-      <a href="/pdf-to-jpg/" class="nav-link on" aria-current="page">PDF ↔ JPG</a>
-      <a href="/rotate-pdf/" class="nav-link">Rotate PDF</a>
-      <a href="/protect-pdf/" class="nav-link">Protect PDF</a>
-      <a href="/unlock-pdf/" class="nav-link">Unlock PDF</a>
-      <a href="/edit-pdf/" class="nav-link">Edit PDF</a>
-      <a href="/" class="nav-cta" style="margin-left:6px">All tools</a>
-    </nav>
+    <nav style="position:sticky;top:0;z-index:100;height:54px;width:100%;backdrop-filter:blur(16px);background:rgba(14,17,23,.7);border-bottom:1px solid rgba(255,255,255,.08)">
+  <div style="max-width:1100px;margin:0 auto;height:54px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px">
+    <a href="../" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <div style="width:28px;height:28px;background:#1f45e0;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".3"/></svg>
+      </div>
+      <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:rgba(255,255,255,.88)">NoServer<span style="color:#5a87ff">Tools</span></span>
+    </a>
+    <div style="display:flex;gap:4px;overflow-x:auto">
+      <a href="../merge-pdf/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Merge</a>
+      <a href="../compress-pdf/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Compress</a>
+      <a href="../split-pdf/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Split</a>
+      <a href="../pdf-to-jpg/" style="color:var(--brand,#5a87ff);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;white-space:nowrap">JPG</a>
+      <a href="../rotate-pdf/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Rotate</a>
+      <a href="../protect-pdf/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Protect</a>
+      <a href="../unlock-pdf/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Unlock</a>
+      <a href="../edit-pdf/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Edit</a>
+      <a href="../delete-pages/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Delete</a>
+      <a href="../reorder-pages/" style="color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap">Reorder</a>
+    </div>
+  </div>
+</nav>
   </div>
 </header>
 
@@ -356,32 +369,28 @@
 </main>
 
 <!-- FOOTER -->
-<footer style="border-top:1px solid rgba(255,255,255,.05);background:rgba(0,0,0,.3);position:relative;z-index:1">
-  <div style="max-width:1100px;margin:0 auto;padding:28px 20px;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:20px">
-    <div>
-      <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:5px">
-        <div style="width:20px;height:20px;border-radius:5px;background:#1f45e0;display:flex;align-items:center;justify-content:center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".3"/></svg></div>
-        <span class="fd" style="font-size:13.5px;font-weight:700;color:#fff">NoServer<span style="color:#5a87ff">Tools</span></span>
-      </a>
-      <p class="fm" style="font-size:10.5px;color:rgba(255,255,255,.2);margin:0">No uploads · No accounts · No tracking · Free forever</p>
+<footer style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.3);padding:28px 20px">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+      <a href="../merge-pdf/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Merge PDF</a>
+      <a href="../compress-pdf/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Compress PDF</a>
+      <a href="../split-pdf/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Split PDF</a>
+      <a href="../pdf-to-jpg/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">PDF to JPG</a>
+      <a href="../rotate-pdf/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Rotate PDF</a>
+      <a href="../protect-pdf/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Protect PDF</a>
+      <a href="../unlock-pdf/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Unlock PDF</a>
+      <a href="../edit-pdf/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Edit PDF</a>
+      <a href="../delete-pages/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Delete Pages</a>
+      <a href="../reorder-pages/" style="color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;transition:all .2s">Reorder Pages</a>
     </div>
-    <nav style="display:flex;flex-wrap:wrap;gap:8px 18px" aria-label="Footer navigation">
-      <a href="/merge-pdf/" class="fl">Merge PDF</a>
-      <a href="/compress-pdf/" class="fl">Compress PDF</a>
-      <a href="/split-pdf/" class="fl">Split PDF</a>
-      <a href="/pdf-to-jpg/" class="fl on">PDF ↔ JPG</a>
-      <a href="/rotate-pdf/" class="fl">Rotate PDF</a>
-      <a href="/protect-pdf/" class="fl">Protect PDF</a>
-      <a href="/unlock-pdf/" class="fl">Unlock PDF</a>
-      <a href="/edit-pdf/" class="fl">Edit PDF</a>
-    </nav>
+    <div style="font-size:11px;color:rgba(255,255,255,.25)">NoServerTools &mdash; Your files never leave your computer.</div>
   </div>
 </footer>
 
 <!-- PDF.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <!-- Pyodide -->
-<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
 <script>
 'use strict';
 // ─── Security: escape user-inserted strings ───────────────────────────────────
@@ -664,9 +673,10 @@ async function initPyodide() {
   }
   pyLoading = true;
   try {
-    pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/' });
-    await pyodide.loadPackage('micropip');
-    await pyodide.runPythonAsync(`import micropip; await micropip.install(['pypdf','pillow'])`);
+    pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/' });
+    await pyodide.loadPackage(['micropip']);
+    await pyodide.runPythonAsync(`import micropip
+await micropip.install(['pypdf','pillow'])`);
     pyReady = true;
     pyLoading = false;
   } catch(e) {

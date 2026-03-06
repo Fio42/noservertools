@@ -1,0 +1,143 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOSERVERTOOLS — LOG v7.4  (Fix delete-pages + Google indexado)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+════════════════════════════════════════════════════════════
+HISTORIAL COMPLETO DE FIXES
+════════════════════════════════════════════════════════════
+
+── v7.2 ────────────────────────────────────────────────────
+PROBLEMA: "Loading engine" colgado para siempre
+CAUSA:    <meta CSP> bloqueaba wasm-unsafe-eval → Pyodide no cargaba
+FIXES:
+  - Eliminados todos los <meta http-equiv="Content-Security-Policy">
+  - Eliminados meta X-Frame-Options y X-Content-Type-Options (solo valen como HTTP headers)
+  - Creado _headers con las cabeceras de seguridad correctas (Netlify/servidor)
+  - Pyodide 0.25.0 → 0.27.0 (más estable, menos bugs WASM)
+  - Timeout 90s en loadEngine() para no colgar infinitamente
+  - Fix CSS: nav{width:100%}, #rightPanel{overflow:hidden} (nav de rotate se achicaba)
+ARCHIVOS: protect-pdf, unlock-pdf, pdf-to-jpg, split-pdf, compress-pdf,
+          merge-pdf, rotate-pdf, delete-pages, edit-pdf, index.html (hub)
+
+── v7.3 ────────────────────────────────────────────────────
+PROBLEMA: "Failed to load engine: No known package with name 'pypdf'"
+CAUSA:    loadPackage(['micropip','pypdf']) falla porque pypdf NO está
+          en el índice built-in de Pyodide. Es paquete PyPI puro.
+FIXES:
+  - rotate-pdf:  loadPackage(['micropip']) + runPythonAsync micropip.install('pypdf')
+  - protect-pdf: mismo fix
+ARCHIVOS: protect-pdf/index.html, rotate-pdf/index.html
+
+── v7.4 ────────────────────────────────────────────────────
+PROBLEMA: delete-pages — al seleccionar archivo no se carga (drop zone roto)
+CAUSA 1:  Drop zone tenía onclick en el DIV + onclick en el botón hijo.
+          Al hacer click, se abría el file picker DOS veces → el browser
+          cancelaba la selección sin disparar el onchange → archivo nunca cargaba.
+CAUSA 2:  Pyodide 0.25.0 en el script src (había quedado sin actualizar en v7.2)
+FIXES:
+  - Eliminado onclick del div .drop-zone (solo queda en el botón)
+  - Eliminado event.stopPropagation() del botón (ya no hace falta)
+  - Pyodide script src 0.25.0 → 0.27.0
+  - Engine: mismo fix v7.3 (loadPackage(['micropip']) + micropip.install)
+ARCHIVOS: delete-pages/index.html
+
+════════════════════════════════════════════════════════════
+REGLA #31 — Drop zone: NUNCA doble onclick
+════════════════════════════════════════════════════════════
+
+  CORRECTO:
+    <div class="drop-zone" ondragover="..." ondragleave="..." ondrop="...">
+      <button onclick="document.getElementById('fileInput').click()">Select file</button>
+      <input type="file" id="fileInput" onchange="handleFile(this.files[0])">
+    </div>
+
+  INCORRECTO (rompe la selección en muchos browsers):
+    <div onclick="document.getElementById('fileInput').click()"   ← NO
+         ondrop="...">
+      <button onclick="event.stopPropagation(); ...">             ← NO
+    </div>
+
+  MOTIVO: onclick en el div dispara el fileInput.click(). Luego el
+  click burbujea al botón si no hay stopPropagation, o si sí hay,
+  el evento ya fue consumido. En ambos casos el browser puede abrir
+  el picker dos veces o cancelarlo. Solo el botón debe abrir el picker.
+
+════════════════════════════════════════════════════════════
+REGLA #30 — pypdf es PyPI-only (recordatorio)
+════════════════════════════════════════════════════════════
+
+  SIEMPRE así en TODOS los tools:
+    await pyodide.loadPackage(['micropip']);
+    await pyodide.runPythonAsync(`
+  import micropip
+  await micropip.install('pypdf')
+  `);
+
+  NUNCA: loadPackage(['micropip','pypdf'])  ← pypdf no existe en índice Pyodide
+
+════════════════════════════════════════════════════════════
+GOOGLE SEARCH CONSOLE — Estado (v7.4)
+════════════════════════════════════════════════════════════
+
+COMPLETADO:
+  ✓ robots.txt en raíz del repo (Allow: /, Sitemap: apuntando al xml)
+  ✓ sitemap.xml en raíz del repo (todas las tools incluidas)
+  ✓ CNAME configurado: noservertools.com
+  ✓ DNS en Namecheap: registros A (185.199.108-111.153) + CNAME www
+  ✓ Google Search Console verificado con archivo HTML en raíz
+  ✓ Sitemap enviado en Search Console
+  ✓ Inspección + "Solicitar indexación" en todas las URLs:
+      https://noservertools.com/
+      https://noservertools.com/merge-pdf/
+      https://noservertools.com/compress-pdf/
+      https://noservertools.com/split-pdf/
+      https://noservertools.com/protect-pdf/
+      https://noservertools.com/rotate-pdf/
+      https://noservertools.com/unlock-pdf/
+      https://noservertools.com/pdf-to-jpg/
+      https://noservertools.com/edit-pdf/
+      https://noservertools.com/delete-pages/
+
+PENDIENTE (automático, solo esperar):
+  - Google indexa en 3-7 días con sitemap enviado
+  - Aparecer en resultados de búsqueda: 2-4 semanas
+
+════════════════════════════════════════════════════════════
+TOOLS PENDIENTES — Mismo fix de engine (si aún tienen 0.25)
+════════════════════════════════════════════════════════════
+
+  Verificar que estos tengan Pyodide 0.27 + fix micropip:
+    unlock-pdf/index.html
+    pdf-to-jpg/index.html
+    split-pdf/index.html
+    compress-pdf/index.html
+    merge-pdf/index.html
+    edit-pdf/index.html
+
+  Patrón a buscar y reemplazar:
+    v0.25.0 → v0.27.0  (en script src Y en indexURL del loadPyodide)
+    loadPackage(['micropip','pypdf']) → loadPackage(['micropip'])
+                                       + runPythonAsync micropip.install
+
+════════════════════════════════════════════════════════════
+GIT PUSH v7.4
+════════════════════════════════════════════════════════════
+
+cd C:/Users/fiocc/OneDrive/Desktop/noservertools
+
+copy index_-_deletepages.html delete-pages/index.html
+
+git add delete-pages/index.html
+git commit -m "v7.4: fix delete-pages - drop zone doble onclick + Pyodide 0.25->0.27 + fix micropip engine"
+git push origin main
+
+════════════════════════════════════════════════════════════
+REGLAS ACUMULADAS
+════════════════════════════════════════════════════════════
+
+#27 — Pyodide siempre 0.27.0 (script src + indexURL, los dos)
+#28 — Timeout 90s obligatorio en loadEngine()
+#29 — NUNCA <meta> CSP con Pyodide/WASM. Cabeceras van en servidor (_headers)
+#30 — pypdf es PyPI-only: loadPackage(['micropip']) + micropip.install('pypdf')
+       NUNCA loadPackage(['micropip','pypdf'])
+#31 — Drop zone: NUNCA onclick en el DIV. Solo el botón hijo abre el fileInput

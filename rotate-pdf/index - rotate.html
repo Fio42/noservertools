@@ -494,9 +494,13 @@ async function initPyodide(){
   }
 }
 async function _loadEngine(){
-  // Use loadPackage directly — more reliable than micropip.install in all browsers
+  // Use loadPackage for micropip, then micropip.install for pypdf (not in Pyodide built-in index)
   pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
-  await pyodide.loadPackage(['micropip','pypdf']);
+  await pyodide.loadPackage(['micropip']);
+  await pyodide.runPythonAsync(`
+import micropip
+await micropip.install('pypdf')
+`);
   pyReady=true;
   pyLoading=false;
   document.getElementById('loadingLine').style.display='none';

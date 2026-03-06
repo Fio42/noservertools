@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231f45e0'/><rect x='4' y='4' width='10' height='10' rx='2' fill='white'/><rect x='18' y='4' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='4' y='18' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='18' y='18' width='10' height='10' rx='2' fill='white' opacity='.3'/></svg>">
+  <title>Reorder PDF Pages Online Free — Drag &amp; Drop, No Upload | NoServerTools</title>
+  <meta name="description" content="Reorder PDF pages online free with drag and drop. See live thumbnails of every page, drag to rearrange, download instantly. No upload, no server, 100% private.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://noservertools.com/reorder-pages/">
+  <meta property="og:title" content="Reorder PDF Pages Online — Drag &amp; Drop | NoServerTools">
+  <meta property="og:description" content="Drag and drop to reorder PDF pages. Live thumbnails. No upload. 100% private.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    :root{--brand:#5a87ff;--brand-dark:#1f45e0;--brand-mid:#3363f5;--green:#4ade80;--red:#f87171;--yellow:#fbbf24;--text:rgba(255,255,255,.88);--muted:rgba(255,255,255,.42);--dim:rgba(255,255,255,.25);--surface:rgba(255,255,255,.028);--surface2:rgba(255,255,255,.05);--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.13);--bg:#0e1117}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(83,99,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(83,99,255,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+    .blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+    .blob-1{width:600px;height:600px;top:-200px;left:-200px;background:radial-gradient(circle,rgba(90,135,255,.12),transparent 70%)}
+    .blob-2{width:500px;height:500px;bottom:-150px;right:-150px;background:radial-gradient(circle,rgba(31,69,224,.1),transparent 70%)}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;height:54px;width:100%;backdrop-filter:blur(16px);background:rgba(14,17,23,.7);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:1100px;margin:0 auto;height:54px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-box{width:28px;height:28px;background:var(--brand-dark);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .logo-text{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+    .logo-text span{color:var(--brand)}
+    .nav-links{display:flex;gap:4px;overflow-x:auto}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap}
+    .nav-links a:hover{color:var(--text);background:var(--surface)}
+    .nav-links a.active{color:var(--brand)}
+
+    /* LANG */
+    #ls{position:fixed;top:12px;right:12px;z-index:9999;font-family:'DM Mono',monospace}
+    #ls-btn{display:flex;align-items:center;gap:5px;padding:5px 10px;background:rgba(14,17,23,.88);border:1px solid rgba(90,135,255,.32);border-radius:8px;color:rgba(255,255,255,.7);font-size:11px;cursor:pointer;backdrop-filter:blur(12px);letter-spacing:.04em;transition:border-color .15s}
+    #ls-btn:hover{border-color:rgba(90,135,255,.7);color:#fff}
+    #ls-menu{display:none;position:absolute;top:calc(100% + 5px);right:0;background:rgba(14,17,23,.97);border:1px solid rgba(90,135,255,.18);border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.55);min-width:138px}
+    #ls-menu.open{display:block}
+    .ls-opt{display:flex;align-items:center;gap:9px;width:100%;padding:9px 14px;background:none;border:none;color:rgba(255,255,255,.65);font-size:12px;font-family:'DM Mono',monospace;cursor:pointer;text-align:left;letter-spacing:.03em;transition:background .12s,color .12s}
+    .ls-opt:hover{background:rgba(90,135,255,.1);color:#fff}
+    .ls-opt.active{color:var(--brand);background:rgba(90,135,255,.08)}
+
+    /* MAIN */
+    main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 20px 80px}
+    .hero{text-align:center;margin-bottom:36px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,4.5vw,40px);font-weight:800;line-height:1.15;margin-bottom:12px}
+    .hero p{color:var(--muted);font-size:15px;line-height:1.6;max-width:520px;margin:0 auto 18px}
+    .privacy-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);color:var(--green);font-family:'DM Mono',monospace;font-size:11px;padding:5px 14px;border-radius:100px}
+
+    /* DROP ZONE */
+    .drop-zone{border:2px dashed var(--border);border-radius:16px;padding:44px 24px;text-align:center;transition:border-color .2s,background .2s;background:var(--surface);margin-bottom:24px}
+    .drop-zone.drag-over{border-color:var(--brand);background:rgba(90,135,255,.06)}
+    .drop-zone h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
+    .drop-zone p{color:var(--muted);font-size:14px}
+    .btn-select{display:inline-block;margin-top:16px;padding:10px 24px;background:var(--brand-dark);color:#fff;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:background .2s;font-family:'Outfit',sans-serif}
+    .btn-select:hover{background:var(--brand-mid)}
+    #fileInput{display:none}
+    .error-box{display:none;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:14px 18px;color:var(--red);font-size:14px;margin-bottom:16px}
+
+    /* EDITOR */
+    #editorWrap{display:none}
+    #editorWrap.visible{display:block}
+
+    /* TOOLBAR */
+    .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:16px}
+    .file-chip{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;font-size:13px;flex-shrink:0}
+    .chip-name{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+    .chip-size{color:var(--muted);font-family:'DM Mono',monospace;font-size:11px}
+    .chip-remove{background:none;border:none;color:var(--muted);cursor:pointer;padding:2px 4px;border-radius:4px;transition:color .2s;line-height:1;margin-left:2px}
+    .chip-remove:hover{color:var(--red)}
+    .toolbar-sep{width:1px;height:28px;background:var(--border);flex-shrink:0}
+    .toolbar-info{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted)}
+    .toolbar-actions{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+    .btn-toolbar{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .18s;font-family:'Outfit',sans-serif}
+    .btn-toolbar:hover{color:var(--text);border-color:var(--dim)}
+    .btn-toolbar.primary{background:var(--brand-dark);border-color:var(--brand-dark);color:#fff}
+    .btn-toolbar.primary:hover{background:var(--brand-mid);border-color:var(--brand-mid)}
+    .btn-toolbar.primary:disabled{opacity:.45;cursor:not-allowed}
+    .btn-toolbar svg{flex-shrink:0}
+
+    /* LOADING */
+    .spinner{display:inline-block;width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:5px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-line{display:none;text-align:center;padding:8px;color:var(--muted);font-size:12px;font-family:'DM Mono',monospace;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:12px}
+
+    /* HINT BAR */
+    .hint-bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(90,135,255,.06);border:1px solid rgba(90,135,255,.15);border-radius:8px;margin-bottom:14px;font-size:12px;color:var(--muted)}
+    .hint-bar svg{flex-shrink:0;color:var(--brand)}
+
+    /* THUMB GRID */
+    #thumbGrid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+      gap:12px;
+      min-height:200px;
+      padding:4px 2px 2px;
+    }
+
+    /* THUMB ITEM */
+    .thumb-item{
+      position:relative;
+      background:var(--surface);
+      border:1.5px solid var(--border);
+      border-radius:10px;
+      overflow:hidden;
+      cursor:grab;
+      transition:border-color .18s, box-shadow .18s, transform .15s, opacity .15s;
+      user-select:none;
+      -webkit-user-select:none;
+    }
+    .thumb-item:hover{border-color:var(--border2);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+    .thumb-item.dragging{opacity:.35;cursor:grabbing;transform:scale(.97)}
+    .thumb-item.drag-over-top{border-top:2.5px solid var(--brand);box-shadow:0 -2px 0 var(--brand)}
+    .thumb-item.drag-over-right{border-right:2.5px solid var(--brand)}
+
+    /* canvas wrapper keeps aspect ratio */
+    .thumb-canvas-wrap{
+      width:100%;
+      background:#1a1d26;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100px;
+      position:relative;
+      overflow:hidden;
+    }
+    .thumb-canvas-wrap canvas{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    /* page number badge */
+    .thumb-footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:6px 8px;
+      border-top:1px solid var(--border);
+      background:rgba(0,0,0,.2);
+    }
+    .thumb-num{
+      font-family:'DM Mono',monospace;
+      font-size:10px;
+      color:var(--muted);
+    }
+    .thumb-orig{
+      font-family:'DM Mono',monospace;
+      font-size:9px;
+      color:var(--dim);
+    }
+
+    /* drag handle icon */
+    .thumb-handle{
+      position:absolute;
+      top:5px;
+      right:5px;
+      width:20px;
+      height:20px;
+      background:rgba(14,17,23,.7);
+      border-radius:4px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      transition:opacity .15s;
+    }
+    .thumb-item:hover .thumb-handle{opacity:1}
+    .thumb-handle svg{color:var(--muted)}
+
+    /* drop indicator line between items */
+    .drop-indicator{
+      position:absolute;
+      top:0;bottom:0;
+      width:3px;
+      background:var(--brand);
+      border-radius:2px;
+      pointer-events:none;
+      display:none;
+      box-shadow:0 0 8px var(--brand);
+    }
+
+    /* RESULT */
+    #resultWrap{display:none;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.15);border-radius:12px;padding:24px;text-align:center;margin-bottom:24px}
+    #resultWrap h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--green);margin-bottom:6px}
+    #resultWrap p{font-size:13px;color:var(--muted);margin-bottom:16px}
+    .btn-dl{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:var(--green);color:#0e1117;border-radius:10px;font-weight:700;font-size:14px;border:none;cursor:pointer;text-decoration:none;transition:opacity .2s}
+    .btn-dl:hover{opacity:.85}
+    .btn-ghost{display:inline-block;margin-top:10px;padding:8px 18px;background:none;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+    .btn-ghost:hover{border-color:var(--dim);color:var(--text)}
+
+    /* INFO SECTIONS */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px;margin-bottom:36px}
+    @media(max-width:600px){.steps{grid-template-columns:1fr}}
+    .step{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+    .step-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--brand);margin-bottom:6px;letter-spacing:.06em}
+    .step h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px}
+    .step p{font-size:12.5px;color:var(--muted);line-height:1.5}
+    .why-section{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:36px}
+    .why-section h2{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:18px}
+    .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    @media(max-width:540px){.why-grid{grid-template-columns:1fr}}
+    .why-item{display:flex;gap:11px;align-items:flex-start}
+    .why-icon{width:30px;height:30px;background:rgba(90,135,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .why-icon svg{width:15px;height:15px;color:var(--brand)}
+    .why-text h4{font-size:13.5px;font-weight:600;margin-bottom:2px}
+    .why-text p{font-size:12.5px;color:var(--muted);line-height:1.5}
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);background:rgba(0,0,0,.3);padding:28px 20px}
+    .footer-inner{max-width:1100px;margin:0 auto}
+    .footer-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+    .footer-tools a{color:var(--muted);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;transition:all .2s}
+    .footer-tools a:hover{color:var(--text);border-color:var(--dim)}
+    .footer-copy{font-size:11px;color:var(--dim)}
+  </style>
+  <!-- Plausible Analytics: privacy-friendly, no cookies, GDPR compliant -->
+  <script defer data-domain="noservertools.com" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<!-- LANG SWITCHER -->
+<div id="ls" role="navigation" aria-label="Language selector">
+  <button id="ls-btn" onclick="lsToggle()" aria-haspopup="true" aria-expanded="false">
+    <span id="ls-flag">🌐</span><span id="ls-lbl">EN</span>
+    <svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 4L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <div id="ls-menu" role="menu">
+    <button class="ls-opt" onclick="lsSet('en')" role="menuitem">🇺🇸&nbsp; English</button>
+    <button class="ls-opt" onclick="lsSet('es')" role="menuitem">🇪🇸&nbsp; Español</button>
+    <button class="ls-opt" onclick="lsSet('pt')" role="menuitem">🇧🇷&nbsp; Português</button>
+    <button class="ls-opt" onclick="lsSet('fr')" role="menuitem">🇫🇷&nbsp; Français</button>
+    <button class="ls-opt" onclick="lsSet('de')" role="menuitem">🇩🇪&nbsp; Deutsch</button>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../" class="logo">
+      <div class="logo-box">
+        <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".3"/></svg>
+      </div>
+      <span class="logo-text">NoServer<span>Tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="../merge-pdf/">Merge</a>
+      <a href="../compress-pdf/">Compress</a>
+      <a href="../split-pdf/">Split</a>
+      <a href="../pdf-to-jpg/">JPG</a>
+      <a href="../rotate-pdf/">Rotate</a>
+      <a href="../protect-pdf/">Protect</a>
+      <a href="../unlock-pdf/">Unlock</a>
+      <a href="../edit-pdf/">Edit</a>
+      <a href="../reorder-pages/" class="active">Reorder</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="hero">
+    <h1 id="hero-title">Reorder PDF Pages Online</h1>
+    <p id="hero-sub">Drag and drop to rearrange pages with live thumbnails. No upload — everything runs in your browser.</p>
+    <div class="privacy-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span id="badge-text">Your file never leaves your device</span>
+    </div>
+  </div>
+
+  <div id="errorBox" class="error-box"></div>
+
+  <!-- DROP ZONE -->
+  <div class="drop-zone" id="dropZone"
+    ondragover="event.preventDefault();this.classList.add('drag-over')"
+    ondragleave="this.classList.remove('drag-over')"
+    ondrop="event.preventDefault();this.classList.remove('drag-over');handleFile(event.dataTransfer.files[0])">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40" style="color:var(--brand);margin-bottom:12px;opacity:.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="12" x2="12" y2="18"/><polyline points="9,15 12,18 15,15"/></svg>
+    <h2 id="dz-title">Drop your PDF here</h2>
+    <p id="dz-sub">or click to browse your files</p>
+    <button class="btn-select" id="btn-browse" onclick="document.getElementById('fileInput').click()">Select PDF file</button>
+    <input type="file" id="fileInput" accept=".pdf,application/pdf" onchange="handleFile(this.files[0])">
+  </div>
+
+  <!-- EDITOR -->
+  <div id="editorWrap">
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="file-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        <span class="chip-name" id="chipName"></span>
+        <span class="chip-size" id="chipSize"></span>
+        <button class="chip-remove" onclick="resetAll()" title="Remove file">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="toolbar-sep"></div>
+      <span class="toolbar-info" id="pageCount"></span>
+      <div class="toolbar-actions">
+        <button class="btn-toolbar" onclick="reverseAll()" title="Reverse page order">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="17,1 21,5 17,9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7,23 3,19 7,15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          <span id="btn-reverse-lbl">Reverse</span>
+        </button>
+        <button class="btn-toolbar" onclick="resetOrder()" title="Reset to original order">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M3 2v6h6"/><path d="M3 8a9 9 0 1018 4"/></svg>
+          <span id="btn-reset-lbl">Reset order</span>
+        </button>
+        <button class="btn-toolbar primary" id="btnApply" onclick="doReorder()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span id="btn-apply-lbl">Apply &amp; Download</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- HINT -->
+    <div class="hint-bar" id="hintBar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="hint-text">Drag thumbnails to reorder pages. The numbers show the new position (original page in gray).</span>
+    </div>
+
+    <!-- ENGINE LOADING -->
+    <div class="loading-line" id="loadingLine">
+      <span class="spinner"></span><span id="loading-text">Loading engine (first time: ~15s)...</span>
+    </div>
+
+    <!-- THUMB GRID -->
+    <div id="thumbGrid"></div>
+
+  </div><!-- /editorWrap -->
+
+  <!-- RESULT -->
+  <div id="resultWrap">
+    <div style="font-size:28px;margin-bottom:8px">✅</div>
+    <h3 id="result-title">PDF reordered successfully</h3>
+    <p id="result-desc"></p>
+    <a class="btn-dl" id="btnDownload" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span id="btn-dl-lbl">Download Reordered PDF</span>
+    </a>
+    <br>
+    <button class="btn-ghost" onclick="resetAll()" id="btn-another">Reorder another file</button>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="step-num">STEP 01</div><h4 id="s1h">Drop your PDF</h4><p id="s1p">Your file stays on your computer. Nothing is uploaded to any server.</p></div>
+    <div class="step"><div class="step-num">STEP 02</div><h4 id="s2h">Drag to reorder</h4><p id="s2p">Drag and drop the page thumbnails into any order you want.</p></div>
+    <div class="step"><div class="step-num">STEP 03</div><h4 id="s3h">Download result</h4><p id="s3p">Click Apply &amp; Download. Done in seconds, no account needed.</p></div>
+  </div>
+
+  <div class="why-section">
+    <h2 id="why-title">Why NoServerTools?</h2>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="why-text"><h4 id="w1h">Zero uploads</h4><p id="w1p">We never receive your files. Ever.</p></div></div>
+      <div class="why-item"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14H6L5 6"/></svg></div><div class="why-text"><h4 id="w2h">Zero storage</h4><p id="w2p">Nothing is saved anywhere.</p></div></div>
+      <div class="why-item"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div class="why-text"><h4 id="w3h">Zero tracking</h4><p id="w3p">We don't know what's in your documents.</p></div></div>
+      <div class="why-item"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6s1-1 4-1 6 2 8 2 4-1 4-1V22s-1 1-4 1-6-2-8-2-4 1-4 1V6z"/></svg></div><div class="why-text"><h4 id="w4h">Works offline</h4><p id="w4p">Once loaded, no internet needed.</p></div></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-tools">
+      <a href="../merge-pdf/">Merge PDF</a>
+      <a href="../compress-pdf/">Compress PDF</a>
+      <a href="../split-pdf/">Split PDF</a>
+      <a href="../pdf-to-jpg/">PDF to JPG</a>
+      <a href="../rotate-pdf/">Rotate PDF</a>
+      <a href="../protect-pdf/">Protect PDF</a>
+      <a href="../unlock-pdf/">Unlock PDF</a>
+      <a href="../edit-pdf/">Edit PDF</a>
+      <a href="../delete-pages/">Delete Pages</a>
+      <a href="../reorder-pages/">Reorder Pages</a>
+    </div>
+    <div class="footer-copy">NoServerTools &mdash; Your files never leave your computer.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
+<script>
+'use strict';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+/* ── State ── */
+let currentFile = null;
+let pdfDoc = null;
+let pyodide = null;
+let pyReady = false;
+let resultObjectUrl = null;
+// pageOrder[i] = original 1-based page index now at position i
+let pageOrder = [];
+
+/* ── Drag state ── */
+let dragSrcIndex = null;  // index in pageOrder being dragged
+
+/* ── Utils ── */
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
+function fmt(b){ return b>1048576?(b/1048576).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB' }
+function showError(m){ const b=document.getElementById('errorBox'); b.textContent=m; b.style.display='block'; setTimeout(()=>b.style.display='none',8000) }
+function setApplyBtn(){
+  const btn = document.getElementById('btnApply');
+  btn.disabled = !pyReady || pageOrder.length === 0;
+}
+
+/* ── File handling ── */
+async function handleFile(f){
+  if(!f) return;
+  if(f.type !== 'application/pdf' && !f.name.endsWith('.pdf')){ showError(T('err_pdf')); return }
+  if(f.size > 200*1024*1024){ showError(T('err_size')); return }
+
+  currentFile = f;
+  document.getElementById('dropZone').style.display = 'none';
+  document.getElementById('resultWrap').style.display = 'none';
+  document.getElementById('editorWrap').classList.add('visible');
+  document.getElementById('chipName').textContent = f.name;
+  document.getElementById('chipSize').textContent = fmt(f.size);
+
+  document.getElementById('thumbGrid').innerHTML =
+    '<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted);font-size:13px"><span class="spinner"></span> '+T('rendering')+'</div>';
+
+  try{
+    const ab = await f.arrayBuffer();
+    pdfDoc = await pdfjsLib.getDocument({data: ab}).promise;
+    const n = pdfDoc.numPages;
+    pageOrder = Array.from({length:n}, (_,i)=>i+1);
+    document.getElementById('pageCount').textContent = n + ' ' + T('pages');
+    await renderAllThumbs();
+  }catch(e){
+    showError(T('err_load') + ': ' + e.message);
+  }
+
+  initPyodide();
+}
+
+/* ── Render all thumbnails ── */
+async function renderAllThumbs(){
+  const grid = document.getElementById('thumbGrid');
+  grid.innerHTML = '';
+  for(let i=0; i<pageOrder.length; i++){
+    const item = await buildThumbItem(i);
+    grid.appendChild(item);
+  }
+}
+
+/* ── Build single thumb item ── */
+async function buildThumbItem(posIndex){
+  const origPage = pageOrder[posIndex];
+  const page = await pdfDoc.getPage(origPage);
+  const vp = page.getViewport({scale: 0.35});
+
+  const canvas = document.createElement('canvas');
+  canvas.width = vp.width;
+  canvas.height = vp.height;
+  await page.render({canvasContext: canvas.getContext('2d'), viewport: vp}).promise;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'thumb-canvas-wrap';
+  wrap.appendChild(canvas);
+
+  const footer = document.createElement('div');
+  footer.className = 'thumb-footer';
+  footer.innerHTML =
+    '<span class="thumb-num">' + (posIndex+1) + '</span>' +
+    '<span class="thumb-orig">' + T('orig') + ' ' + origPage + '</span>';
+
+  const handle = document.createElement('div');
+  handle.className = 'thumb-handle';
+  handle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/></svg>';
+
+  const item = document.createElement('div');
+  item.className = 'thumb-item';
+  item.dataset.index = posIndex;
+  item.draggable = true;
+  item.appendChild(handle);
+  item.appendChild(wrap);
+  item.appendChild(footer);
+
+  /* Drag events */
+  item.addEventListener('dragstart', onDragStart);
+  item.addEventListener('dragover',  onDragOver);
+  item.addEventListener('dragleave', onDragLeave);
+  item.addEventListener('drop',      onDrop);
+  item.addEventListener('dragend',   onDragEnd);
+
+  return item;
+}
+
+/* ── Drag & Drop handlers ── */
+function onDragStart(e){
+  dragSrcIndex = parseInt(this.dataset.index);
+  this.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', dragSrcIndex);
+}
+
+function onDragOver(e){
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  // remove all highlights first
+  document.querySelectorAll('.thumb-item').forEach(el=>el.classList.remove('drag-over-top'));
+  const targetIndex = parseInt(this.dataset.index);
+  if(targetIndex !== dragSrcIndex){
+    this.classList.add('drag-over-top');
+  }
+}
+
+function onDragLeave(e){
+  this.classList.remove('drag-over-top');
+}
+
+function onDrop(e){
+  e.preventDefault();
+  e.stopPropagation();
+  const targetIndex = parseInt(this.dataset.index);
+  if(dragSrcIndex === null || dragSrcIndex === targetIndex) return;
+
+  // Reorder pageOrder array
+  const moved = pageOrder.splice(dragSrcIndex, 1)[0];
+  // If we dragged from before target, target index shifted by 1
+  const insertAt = dragSrcIndex < targetIndex ? targetIndex : targetIndex;
+  pageOrder.splice(insertAt, 0, moved);
+
+  dragSrcIndex = null;
+  renderAllThumbs();
+}
+
+function onDragEnd(e){
+  dragSrcIndex = null;
+  document.querySelectorAll('.thumb-item').forEach(el=>{
+    el.classList.remove('dragging','drag-over-top');
+  });
+}
+
+/* ── Toolbar actions ── */
+function reverseAll(){
+  pageOrder.reverse();
+  renderAllThumbs();
+}
+
+function resetOrder(){
+  if(!pdfDoc) return;
+  pageOrder = Array.from({length: pdfDoc.numPages}, (_,i)=>i+1);
+  renderAllThumbs();
+}
+
+function resetAll(){
+  currentFile = null;
+  pdfDoc = null;
+  pageOrder = [];
+  if(resultObjectUrl){ URL.revokeObjectURL(resultObjectUrl); resultObjectUrl=null; }
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('editorWrap').classList.remove('visible');
+  document.getElementById('resultWrap').style.display = 'none';
+  document.getElementById('errorBox').style.display = 'none';
+  document.getElementById('thumbGrid').innerHTML = '';
+  document.getElementById('fileInput').value = '';
+  document.getElementById('btnApply').disabled = true;
+}
+
+/* ── Pyodide engine ── */
+async function initPyodide(){
+  if(pyodide || pyReady) return;
+  document.getElementById('loadingLine').style.display = 'block';
+  const timeout = new Promise((_,reject)=>setTimeout(()=>reject(new Error(T('err_timeout'))), 90000));
+  try{
+    await Promise.race([_loadEngine(), timeout]);
+  }catch(e){
+    document.getElementById('loadingLine').style.display = 'none';
+    showError(T('err_engine') + ': ' + e.message);
+  }
+}
+
+async function _loadEngine(){
+  // micropip is built-in to Pyodide; pypdf is PyPI-only → always use micropip.install
+  pyodide = await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
+  await pyodide.loadPackage(['micropip']);
+  await pyodide.runPythonAsync(`
+import micropip
+await micropip.install('pypdf')
+`);
+  pyReady = true;
+  document.getElementById('loadingLine').style.display = 'none';
+  setApplyBtn();
+}
+
+/* ── Apply reorder & download ── */
+async function doReorder(){
+  if(!currentFile || !pyReady || pageOrder.length === 0) return;
+
+  const btn = document.getElementById('btnApply');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>' + T('processing');
+
+  try{
+    const ab = await currentFile.arrayBuffer();
+    const arr = new Uint8Array(ab);
+    pyodide.globals.set('file_bytes', arr);
+    pyodide.globals.set('page_order_js', pageOrder);
+
+    await pyodide.runPythonAsync(`
+import io
+from pypdf import PdfReader, PdfWriter
+
+src = bytes(file_bytes)
+order = list(page_order_js)
+
+reader = PdfReader(io.BytesIO(src))
+writer = PdfWriter()
+
+for page_num in order:
+    writer.add_page(reader.pages[page_num - 1])
+
+out = io.BytesIO()
+writer.write(out)
+result_bytes = out.getvalue()
+`);
+
+    const result = pyodide.globals.get('result_bytes').toJs();
+    const blob = new Blob([result], {type:'application/pdf'});
+    if(resultObjectUrl) URL.revokeObjectURL(resultObjectUrl);
+    resultObjectUrl = URL.createObjectURL(blob);
+
+    const dlBtn = document.getElementById('btnDownload');
+    dlBtn.href = resultObjectUrl;
+    dlBtn.download = currentFile.name.replace(/\.pdf$/i,'') + '-reordered.pdf';
+
+    document.getElementById('result-desc').textContent =
+      currentFile.name + ' — ' + pageOrder.length + ' ' + T('pages') + ' ' + T('reordered_in') +
+      ' [' + pageOrder.join(', ') + ']';
+
+    document.getElementById('editorWrap').classList.remove('visible');
+    document.getElementById('resultWrap').style.display = 'block';
+
+  }catch(e){
+    showError(T('err_process') + ': ' + e.message);
+  }finally{
+    btn.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+      '<span id="btn-apply-lbl">' + T('btn_apply') + '</span>';
+    setApplyBtn();
+  }
+}
+
+/* ─────────────────────────────────────────
+   LANG SWITCHER
+───────────────────────────────────────── */
+const STRINGS = {
+  en:{
+    hero_title:'Reorder PDF Pages Online',
+    hero_sub:'Drag and drop to rearrange pages with live thumbnails. No upload — everything runs in your browser.',
+    badge:'Your file never leaves your device',
+    dz_title:'Drop your PDF here',
+    dz_sub:'or click to browse your files',
+    btn_browse:'Select PDF file',
+    pages:'pages',
+    rendering:'Rendering thumbnails...',
+    orig:'p.',
+    hint:'Drag thumbnails to reorder pages. The numbers show the new position (original page in gray).',
+    btn_reverse:'Reverse',
+    btn_reset:'Reset order',
+    btn_apply:'Apply & Download',
+    loading:'Loading engine (first time: ~15s)...',
+    result_title:'PDF reordered successfully',
+    btn_dl:'Download Reordered PDF',
+    btn_another:'Reorder another file',
+    reordered_in:'reordered:',
+    processing:'Processing...',
+    err_pdf:'Please select a valid PDF file.',
+    err_size:'File too large. Maximum 200 MB.',
+    err_load:'Could not load PDF',
+    err_timeout:'Timeout loading engine. Please refresh.',
+    err_engine:'Failed to load engine',
+    err_process:'Reorder failed',
+    s1h:'Drop your PDF', s1p:'Your file stays on your computer. Nothing is uploaded to any server.',
+    s2h:'Drag to reorder', s2p:'Drag and drop the page thumbnails into any order you want.',
+    s3h:'Download result', s3p:'Click Apply & Download. Done in seconds, no account needed.',
+    why_title:'Why NoServerTools?',
+    w1h:'Zero uploads',w1p:'We never receive your files. Ever.',
+    w2h:'Zero storage',w2p:'Nothing is saved anywhere.',
+    w3h:'Zero tracking',w3p:"We don't know what's in your documents.",
+    w4h:'Works offline',w4p:'Once loaded, no internet needed.',
+  },
+  es:{
+    hero_title:'Reordenar Páginas de PDF Online',
+    hero_sub:'Arrastra y suelta para reorganizar páginas con vista previa. Sin subida — todo se ejecuta en tu navegador.',
+    badge:'Tu archivo nunca sale de tu dispositivo',
+    dz_title:'Suelta tu PDF aquí',
+    dz_sub:'o haz clic para buscar archivos',
+    btn_browse:'Seleccionar PDF',
+    pages:'páginas',
+    rendering:'Generando miniaturas...',
+    orig:'p.',
+    hint:'Arrastra las miniaturas para reordenar páginas. Los números muestran la nueva posición (página original en gris).',
+    btn_reverse:'Invertir',
+    btn_reset:'Restablecer orden',
+    btn_apply:'Aplicar y Descargar',
+    loading:'Cargando motor (primera vez: ~15s)...',
+    result_title:'PDF reordenado con éxito',
+    btn_dl:'Descargar PDF reordenado',
+    btn_another:'Reordenar otro archivo',
+    reordered_in:'reordenado:',
+    processing:'Procesando...',
+    err_pdf:'Selecciona un archivo PDF válido.',
+    err_size:'Archivo demasiado grande. Máximo 200 MB.',
+    err_load:'No se pudo cargar el PDF',
+    err_timeout:'Tiempo de espera agotado. Recarga la página.',
+    err_engine:'Error al cargar el motor',
+    err_process:'Error al reordenar',
+    s1h:'Sube tu PDF',s1p:'Tu archivo permanece en tu computadora. Nada se sube al servidor.',
+    s2h:'Arrastra para reordenar',s2p:'Arrastra las miniaturas al orden que desees.',
+    s3h:'Descarga el resultado',s3p:'Haz clic en Aplicar y Descargar. Listo en segundos.',
+    why_title:'¿Por qué NoServerTools?',
+    w1h:'Cero subidas',w1p:'Nunca recibimos tus archivos.',
+    w2h:'Cero almacenamiento',w2p:'Nada se guarda en ningún lugar.',
+    w3h:'Cero rastreo',w3p:'No sabemos qué hay en tus documentos.',
+    w4h:'Funciona sin internet',w4p:'Una vez cargado, no necesita internet.',
+  },
+  pt:{
+    hero_title:'Reordenar Páginas de PDF Online',
+    hero_sub:'Arraste e solte para reorganizar páginas com miniaturas ao vivo. Sem upload — tudo no seu navegador.',
+    badge:'Seu arquivo nunca sai do dispositivo',
+    dz_title:'Solte seu PDF aqui',
+    dz_sub:'ou clique para procurar arquivos',
+    btn_browse:'Selecionar PDF',
+    pages:'páginas',
+    rendering:'Gerando miniaturas...',
+    orig:'p.',
+    hint:'Arraste as miniaturas para reordenar páginas. Os números mostram a nova posição (página original em cinza).',
+    btn_reverse:'Inverter',
+    btn_reset:'Redefinir ordem',
+    btn_apply:'Aplicar e Baixar',
+    loading:'Carregando motor (primeira vez: ~15s)...',
+    result_title:'PDF reordenado com sucesso',
+    btn_dl:'Baixar PDF reordenado',
+    btn_another:'Reordenar outro arquivo',
+    reordered_in:'reordenado:',
+    processing:'Processando...',
+    err_pdf:'Selecione um arquivo PDF válido.',
+    err_size:'Arquivo muito grande. Máximo 200 MB.',
+    err_load:'Não foi possível carregar o PDF',
+    err_timeout:'Tempo esgotado. Recarregue a página.',
+    err_engine:'Falha ao carregar o motor',
+    err_process:'Falha ao reordenar',
+    s1h:'Carregue seu PDF',s1p:'Seu arquivo fica no seu computador.',
+    s2h:'Arraste para reordenar',s2p:'Arraste as miniaturas para qualquer ordem.',
+    s3h:'Baixe o resultado',s3p:'Clique em Aplicar e Baixar. Pronto em segundos.',
+    why_title:'Por que NoServerTools?',
+    w1h:'Zero uploads',w1p:'Nunca recebemos seus arquivos.',
+    w2h:'Zero armazenamento',w2p:'Nada é salvo em lugar nenhum.',
+    w3h:'Zero rastreamento',w3p:'Não sabemos o que está em seus documentos.',
+    w4h:'Funciona offline',w4p:'Uma vez carregado, não precisa de internet.',
+  },
+  fr:{
+    hero_title:'Réorganiser les Pages PDF en Ligne',
+    hero_sub:'Glissez-déposez pour réorganiser les pages avec des aperçus en direct. Sans upload — tout dans votre navigateur.',
+    badge:'Votre fichier ne quitte jamais votre appareil',
+    dz_title:'Déposez votre PDF ici',
+    dz_sub:'ou cliquez pour parcourir vos fichiers',
+    btn_browse:'Sélectionner un PDF',
+    pages:'pages',
+    rendering:'Génération des aperçus...',
+    orig:'p.',
+    hint:'Glissez les aperçus pour réorganiser les pages. Les numéros indiquent la nouvelle position (page originale en gris).',
+    btn_reverse:'Inverser',
+    btn_reset:'Réinitialiser',
+    btn_apply:'Appliquer et Télécharger',
+    loading:'Chargement du moteur (première fois: ~15s)...',
+    result_title:'PDF réorganisé avec succès',
+    btn_dl:'Télécharger le PDF réorganisé',
+    btn_another:'Réorganiser un autre fichier',
+    reordered_in:'réorganisé:',
+    processing:'Traitement...',
+    err_pdf:'Veuillez sélectionner un fichier PDF valide.',
+    err_size:'Fichier trop volumineux. Maximum 200 Mo.',
+    err_load:'Impossible de charger le PDF',
+    err_timeout:'Délai dépassé. Veuillez rafraîchir.',
+    err_engine:'Échec du chargement du moteur',
+    err_process:'Échec de la réorganisation',
+    s1h:'Déposez votre PDF',s1p:'Votre fichier reste sur votre ordinateur.',
+    s2h:'Glissez pour réorganiser',s2p:"Glissez les aperçus dans l'ordre souhaité.",
+    s3h:'Téléchargez le résultat',s3p:'Cliquez sur Appliquer et Télécharger.',
+    why_title:'Pourquoi NoServerTools?',
+    w1h:'Zéro upload',w1p:'Nous ne recevons jamais vos fichiers.',
+    w2h:'Zéro stockage',w2p:"Rien n'est sauvegardé nulle part.",
+    w3h:'Zéro suivi',w3p:"Nous ne savons pas ce qu'il y a dans vos documents.",
+    w4h:'Fonctionne hors ligne',w4p:'Une fois chargé, aucune connexion requise.',
+  },
+  de:{
+    hero_title:'PDF-Seiten Online Neu Anordnen',
+    hero_sub:'Per Drag & Drop Seiten mit Live-Vorschau neu anordnen. Kein Upload — alles im Browser.',
+    badge:'Ihre Datei verlässt nie Ihr Gerät',
+    dz_title:'PDF hier ablegen',
+    dz_sub:'oder klicken zum Durchsuchen',
+    btn_browse:'PDF auswählen',
+    pages:'Seiten',
+    rendering:'Vorschauen werden erstellt...',
+    orig:'S.',
+    hint:'Ziehen Sie die Vorschauen, um Seiten neu anzuordnen. Die Zahlen zeigen die neue Position (Originalseite in Grau).',
+    btn_reverse:'Umkehren',
+    btn_reset:'Reihenfolge zurücksetzen',
+    btn_apply:'Anwenden und Herunterladen',
+    loading:'Engine wird geladen (erstes Mal: ~15s)...',
+    result_title:'PDF erfolgreich neu angeordnet',
+    btn_dl:'Neu angeordnetes PDF herunterladen',
+    btn_another:'Eine weitere Datei neu anordnen',
+    reordered_in:'neu angeordnet:',
+    processing:'Verarbeitung...',
+    err_pdf:'Bitte wählen Sie eine gültige PDF-Datei.',
+    err_size:'Datei zu groß. Maximum 200 MB.',
+    err_load:'PDF konnte nicht geladen werden',
+    err_timeout:'Zeitüberschreitung. Bitte neu laden.',
+    err_engine:'Fehler beim Laden der Engine',
+    err_process:'Neuanordnung fehlgeschlagen',
+    s1h:'PDF ablegen',s1p:'Ihre Datei bleibt auf Ihrem Computer.',
+    s2h:'Zum Neuanordnen ziehen',s2p:'Ziehen Sie die Vorschauen in die gewünschte Reihenfolge.',
+    s3h:'Ergebnis herunterladen',s3p:'Klicken Sie auf Anwenden und Herunterladen.',
+    why_title:'Warum NoServerTools?',
+    w1h:'Kein Upload',w1p:'Wir empfangen Ihre Dateien nie.',
+    w2h:'Keine Speicherung',w2p:'Nichts wird irgendwo gespeichert.',
+    w3h:'Kein Tracking',w3p:'Wir wissen nicht, was in Ihren Dokumenten steht.',
+    w4h:'Offline nutzbar',w4p:'Nach dem Laden kein Internet erforderlich.',
+  }
+};
+
+let currentLang = 'en';
+function T(k){ return (STRINGS[currentLang]||STRINGS.en)[k] || STRINGS.en[k] || k }
+
+function applyLang(){
+  const s = STRINGS[currentLang]||STRINGS.en;
+  const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
+  set('hero-title', s.hero_title);
+  set('hero-sub', s.hero_sub);
+  set('badge-text', s.badge);
+  set('dz-title', s.dz_title);
+  set('dz-sub', s.dz_sub);
+  set('btn-browse', s.btn_browse);
+  set('hint-text', s.hint);
+  set('btn-reverse-lbl', s.btn_reverse);
+  set('btn-reset-lbl', s.btn_reset);
+  set('btn-apply-lbl', s.btn_apply);
+  set('loading-text', s.loading);
+  set('result-title', s.result_title);
+  set('btn-dl-lbl', s.btn_dl);
+  set('btn-another', s.btn_another);
+  set('s1h',s.s1h); set('s1p',s.s1p);
+  set('s2h',s.s2h); set('s2p',s.s2p);
+  set('s3h',s.s3h); set('s3p',s.s3p);
+  set('why-title',s.why_title);
+  set('w1h',s.w1h); set('w1p',s.w1p);
+  set('w2h',s.w2h); set('w2p',s.w2p);
+  set('w3h',s.w3h); set('w3p',s.w3p);
+  set('w4h',s.w4h); set('w4p',s.w4p);
+  // update page count if showing
+  if(pdfDoc) document.getElementById('pageCount').textContent = pdfDoc.numPages + ' ' + s.pages;
+  // update thumbs orig labels
+  document.querySelectorAll('.thumb-orig').forEach((el,i)=>{
+    const origPageNum = el.textContent.replace(/\D/g,'');
+    el.textContent = s.orig + ' ' + origPageNum;
+  });
+  // flag
+  const flags = {en:'🇺🇸',es:'🇪🇸',pt:'🇧🇷',fr:'🇫🇷',de:'🇩🇪'};
+  const labels = {en:'EN',es:'ES',pt:'PT',fr:'FR',de:'DE'};
+  set('ls-flag', flags[currentLang]||'🌐');
+  set('ls-lbl', labels[currentLang]||'EN');
+  document.querySelectorAll('.ls-opt').forEach(el=>{
+    el.classList.toggle('active', el.getAttribute('onclick').includes("'"+currentLang+"'"));
+  });
+}
+
+function lsToggle(){
+  const m = document.getElementById('ls-menu');
+  const btn = document.getElementById('ls-btn');
+  const open = m.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open);
+}
+
+function lsSet(lang){
+  currentLang = lang;
+  document.getElementById('ls-menu').classList.remove('open');
+  document.getElementById('ls-btn').setAttribute('aria-expanded','false');
+  applyLang();
+  // re-render thumbs to update orig labels
+  if(pdfDoc) renderAllThumbs();
+}
+
+document.addEventListener('click', e=>{
+  if(!document.getElementById('ls').contains(e.target)){
+    document.getElementById('ls-menu').classList.remove('open');
+    document.getElementById('ls-btn').setAttribute('aria-expanded','false');
+  }
+});
+
+applyLang();
+</script>
+</body>
+</html>
