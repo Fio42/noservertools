@@ -11,9 +11,6 @@
   <meta property="og:title" content="Rotate PDF Online Free — Visual Preview | NoServerTools">
   <meta property="og:description" content="Rotate PDF pages with live preview. No upload. 100% private.">
   <meta property="og:type" content="website">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="DENY">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com; worker-src blob:; img-src 'self' data: blob:; style-src 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; connect-src cdn.jsdelivr.net;">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -25,8 +22,8 @@
     .blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
     .blob-1{width:600px;height:600px;top:-200px;left:-200px;background:radial-gradient(circle,rgba(90,135,255,.12),transparent 70%)}
     .blob-2{width:500px;height:500px;bottom:-150px;right:-150px;background:radial-gradient(circle,rgba(31,69,224,.1),transparent 70%)}
-    nav{position:sticky;top:0;z-index:100;height:54px;backdrop-filter:blur(16px);background:rgba(14,17,23,.7);border-bottom:1px solid var(--border)}
-    .nav-inner{max-width:960px;margin:0 auto;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px}
+    nav{position:sticky;top:0;z-index:100;height:54px;width:100%;backdrop-filter:blur(16px);background:rgba(14,17,23,.7);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:960px;margin:0 auto;height:54px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
     .logo-box{width:28px;height:28px;background:var(--brand-dark);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .logo-text{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
@@ -99,7 +96,7 @@
     .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px}
     @keyframes spin{to{transform:rotate(360deg)}}
     /* ── right panel: preview ── */
-    #rightPanel{flex:1;min-width:0}
+    #rightPanel{flex:1;min-width:0;overflow:hidden}
     #previewWrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px}
     #previewHeader{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
     #previewHeader span{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted)}
@@ -108,7 +105,7 @@
     .pn-btn:hover:not(:disabled){border-color:var(--brand);color:var(--brand)}
     .pn-btn:disabled{opacity:.3;cursor:default}
     #pageLabel{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap}
-    #canvasWrap{display:flex;align-items:center;justify-content:center;min-height:200px;position:relative}
+    #canvasWrap{display:flex;align-items:center;justify-content:center;min-height:200px;position:relative;overflow:hidden}
     #previewCanvas{border-radius:4px;max-width:100%;box-shadow:0 4px 20px rgba(0,0,0,.4);display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
     #previewHint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center;pointer-events:none}
     /* ── result ── */
@@ -335,7 +332,7 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
 <script>
 'use strict';
 
@@ -485,20 +482,25 @@ async function initPyodide(){
   pyLoading=true;
   document.getElementById('loadingLine').style.display='block';
   document.getElementById('btnProcess').disabled=true;
+  // Hard timeout: if engine hangs >90s, fail visibly instead of spinning forever
+  const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error('Timeout loading engine. Please refresh.')),90000));
   try{
-    pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/'});
-    await pyodide.loadPackage('micropip');
-    await pyodide.runPythonAsync(`import micropip; await micropip.install('pypdf')`);
-    pyReady=true;
-    pyLoading=false;
-    document.getElementById('loadingLine').style.display='none';
-    document.getElementById('btnProcess').disabled=false;
+    await Promise.race([_loadEngine(), timeout]);
   }catch(e){
     pyLoading=false;
     pyodide=null;
     document.getElementById('loadingLine').style.display='none';
-    showError('Failed to load engine: '+e.message+'. Please refresh and try again.');
+    showError('Failed to load engine: '+e.message+'. Try refreshing the page.');
   }
+}
+async function _loadEngine(){
+  // Use loadPackage directly — more reliable than micropip.install in all browsers
+  pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
+  await pyodide.loadPackage(['micropip','pypdf']);
+  pyReady=true;
+  pyLoading=false;
+  document.getElementById('loadingLine').style.display='none';
+  document.getElementById('btnProcess').disabled=false;
 }
 
 // ─── PROCESS ──────────────────────────────────────────────────────────────────

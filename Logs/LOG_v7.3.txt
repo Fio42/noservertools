@@ -1,0 +1,114 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOSERVERTOOLS — LOG v7.3  (Fix definitivo pypdf loading)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+════════════════════════════════════════════════════════════
+CONTEXTO — Qué se arregló en v7.2 (anterior)
+════════════════════════════════════════════════════════════
+
+v7.2 resolvió:
+  - CSP meta tag bloqueaba wasm-unsafe-eval → Pyodide colgado
+  - X-Frame-Options / X-Content-Type-Options como meta (inválido)
+  - Pyodide 0.25 → 0.27 (más estable)
+  - Nav de rotate se achicaba por reflow del canvas
+  - Timeout de 90s para no colgar infinitamente
+
+════════════════════════════════════════════════════════════
+ERROR RAÍZ v7.3 — "No known package with name 'pypdf'"
+════════════════════════════════════════════════════════════
+
+ERROR EXACTO EN CONSOLA:
+  Failed to load engine: No known package with name 'pypdf'.
+  Try refreshing the page.
+
+CAUSA:
+  En v7.2 se cambió micropip.install() por loadPackage(['micropip','pypdf'])
+  pensando que era más estable. El error: pypdf NO es un paquete built-in
+  de Pyodide. Pyodide solo conoce sus ~300 paquetes nativos (numpy, pandas,
+  etc.). pypdf es un paquete PyPI puro — Pyodide no lo tiene en su índice.
+
+  loadPackage(['micropip','pypdf'])
+    ✓ micropip   → existe en el índice de Pyodide, carga bien
+    ✗ pypdf      → NO existe en el índice → "No known package" → crash
+
+  Esto afectó: protect-pdf y rotate-pdf (los dos tools que usan pypdf).
+  rotate-pdf se arregló en v7.3-hotfix, protect-pdf se arregla aquí.
+
+SOLUCIÓN DEFINITIVA:
+  Separar en dos pasos:
+    1. loadPackage(['micropip'])        — carga micropip vía índice Pyodide (nativo)
+    2. micropip.install('pypdf')        — instala pypdf desde PyPI vía Python async
+
+  Esto es lo correcto y estable. micropip en Pyodide 0.27 no tiene los
+  bugs silenciosos que tenía en 0.25, así que el método es seguro.
+
+════════════════════════════════════════════════════════════
+REGLA CRÍTICA — Qué va en loadPackage vs micropip.install
+════════════════════════════════════════════════════════════
+
+  loadPackage([...])     → SOLO paquetes del índice oficial de Pyodide
+                           Ver lista: https://pyodide.org/en/stable/usage/packages-in-pyodide.html
+                           Ejemplos: micropip, numpy, pandas, Pillow, lxml...
+
+  micropip.install(...)  → Cualquier paquete de PyPI que NO esté en el índice
+                           Ejemplos: pypdf, reportlab, pymupdf...
+
+  NUNCA poner pypdf en loadPackage(). Nunca pondrá a estar en el índice.
+
+════════════════════════════════════════════════════════════
+PATRÓN CORRECTO — Copiar en TODOS los tools que usen pypdf
+════════════════════════════════════════════════════════════
+
+  async function _loadEngine(){
+    pyodide = await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
+    await pyodide.loadPackage(['micropip']);          // solo micropip, está en el índice
+    await pyodide.runPythonAsync(`
+  import micropip
+  await micropip.install('pypdf')
+  `);
+    pyReady = true;
+    pyLoading = false;
+    // ... resto del setup
+  }
+
+════════════════════════════════════════════════════════════
+ARCHIVOS MODIFICADOS EN v7.3
+════════════════════════════════════════════════════════════
+
+  protect-pdf/index.html  — fix _loadEngineProtect(): loadPackage(['micropip'])
+                            + runPythonAsync micropip.install('pypdf')
+  rotate-pdf/index.html   — mismo fix (hotfix anterior v7.3-rotate)
+
+  PENDIENTE (misma línea rota, aplicar el mismo fix):
+    unlock-pdf/index.html
+    pdf-to-jpg/index.html
+    split-pdf/index.html
+    compress-pdf/index.html
+    merge-pdf/index.html
+    delete-pages/index.html
+    edit-pdf/index.html
+
+════════════════════════════════════════════════════════════
+GIT PUSH v7.3
+════════════════════════════════════════════════════════════
+
+cd C:/Users/fiocc/OneDrive/Desktop/noservertools
+
+copy index_-_protect.html protect-pdf/index.html
+copy index_-_rotate.html  rotate-pdf/index.html
+
+git add protect-pdf/index.html rotate-pdf/index.html
+git commit -m "v7.3: fix protect-pdf engine - pypdf via micropip.install (PyPI-only, no está en índice Pyodide)"
+git push origin main
+
+════════════════════════════════════════════════════════════
+REGLAS ACUMULADAS (resumen)
+════════════════════════════════════════════════════════════
+
+REGLA #27 — Pyodide 0.27.0, nunca bajar de versión
+REGLA #28 — Timeout 90s obligatorio en loadEngine()
+REGLA #29 — NUNCA usar <meta> CSP con Pyodide/WASM
+             Las cabeceras van en _headers (servidor)
+REGLA #30 — pypdf es PyPI-only: SIEMPRE usar micropip.install('pypdf')
+             NUNCA poner pypdf en loadPackage([])
+             loadPackage solo acepta paquetes del índice oficial de Pyodide

@@ -54,6 +54,16 @@ edit-pdf/index.html      — eliminado CSP meta + X-Frame/X-Content meta
 index.html (hub)         — eliminado CSP meta + X-Frame/X-Content meta
 _headers                 — NUEVO: headers de seguridad correctos
 
+Bug 1 — micropip.install('pypdf') cuelga en ciertos browsers
+El método anterior hacía dos llamadas de red separadas: primero cargaba micropip, luego desde Python llamaba micropip.install() para bajar pypdf. Este segundo paso falla silenciosamente con algunas extensiones de browser (MetaMask/SES, bloqueadores, etc.) y la promesa nunca resuelve ni rechaza — se queda colgada para siempre.
+Fix: loadPackage(['micropip','pypdf']) — una sola llamada nativa de Pyodide que descarga todo directo sin pasar por Python. Es más rápido y no falla.
+Bug 2 — Sin timeout, cuelga infinitamente
+Si algo falla, no había límite de tiempo. Agregué un timeout de 90 segundos — si en 90s no cargó, muestra el error al usuario en lugar de quedarse en loading para siempre.
+Bug 3 — Pyodide v0.25.0 → v0.27.0
+La versión 0.25 tiene bugs conocidos de WASM instantiation. Actualicé a 0.27.0 que es la más estable actualmente.
+Bug 4 — Nav de rotate se hacía chico
+El canvas del preview al renderizarse causaba reflow del layout. Fix CSS: nav{width:100%}, #rightPanel{overflow:hidden}, #canvasWrap{overflow:hidden}.
+
 ════════════════════════════════════════════════════════════
 REGLA #29 — NUNCA usar <meta> CSP en tools con Pyodide/WASM
 ════════════════════════════════════════════════════════════
