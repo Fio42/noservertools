@@ -1,0 +1,92 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOSERVERTOOLS — LOG v7.8  (Compress rewrite, freeze fix, nav complete)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+════════════════════════════════════════════════════════════
+CAMBIOS v7.8
+════════════════════════════════════════════════════════════
+
+1. COMPRESS — REESCRITURA COMPLETA
+   Problema raíz del freeze: runPythonAsync corre en el main thread de JS.
+   Con PDFs grandes (>10MB) bloquea el event loop del browser — la página
+   se congela completamente hasta que termina.
+
+   SOLUCIÓN: Web Worker (background thread)
+   - Todo Pyodide corre dentro de un Worker creado vía Blob URL
+   - El main thread (UI) nunca bloquea
+   - Comunicación via postMessage con transferencia zero-copy del ArrayBuffer
+   - El buffer se transfiere al worker (no se copia) para máxima eficiencia
+
+   REGLA #35: Pyodide + procesamiento pesado SIEMPRE en Web Worker.
+   Nunca usar runPythonAsync directamente en el main thread para archivos grandes.
+
+2. COMPRESS — 5 NIVELES DE COMPRESIÓN (antes 3)
+   SCREEN    15% quality  → Smallest possible. Web/email.
+   EBOOK     30% quality  → Aggressive. Good for sharing.
+   BALANCED  50% quality  → Recommended default. (antes era 60%)
+   HIGH      72% quality  → Sharp images. Good visuals.
+   PRINT     88% quality  → Near lossless. Print ready.
+
+   Calidades más agresivas en los niveles bajos para mejor compresión real.
+   El algoritmo usa PIL para re-renderizar cada imagen embebida — más efectivo
+   que el método anterior que solo usaba compress_identical_objects.
+
+3. COMPRESS — LÍMITE SUBIDO A 200MB (antes 100MB)
+
+4. NAV/FOOTER — Confirmado completo en todos los archivos
+   Todos los 12 archivos tienen los 10 links en nav y footer.
+   delete-pages y reorder-pages ya tenían todos los links correctos.
+
+════════════════════════════════════════════════════════════
+HISTORIAL COMPLETO
+════════════════════════════════════════════════════════════
+
+── v7.2   ── CSP meta bloqueaba WASM. Pyodide 0.25→0.27. Timeout 90s.
+── v7.3   ── pypdf loadPackage(['micropip']) + micropip.install().
+── v7.4   ── delete-pages doble onclick en dropzone. Pyodide 0.25→0.27.
+── v7.4.1 ── SyntaxError \' en delete-pages.
+── v7.5   ── Nuevo tool: reorder-pages (drag & drop, thumbnails, multilenguaje).
+── v7.6   ── Nav/footer uniforme. Reorder en nav. Plausible analytics. Pyodide 0.27 todos.
+── v7.7   ── Fix lang switcher todos. Doble logo protect/unlock/edit/pdfjpg.
+── v7.7.1 ── Fix SyntaxError script huérfano del lang switcher.
+── v7.7.2 ── Fix doble logo protect/unlock/edit/pdfjpg. Edit blank screen (footerEl). Hub 10 live.
+── v7.8   ── Compress: Web Worker (no freeze), 5 niveles, 200MB, PIL re-encode.
+
+════════════════════════════════════════════════════════════
+REGLAS ACUMULADAS
+════════════════════════════════════════════════════════════
+
+#27 — Pyodide siempre 0.27.0 (script src Y indexURL)
+#28 — Timeout 90s obligatorio en loadEngine()
+#29 — NUNCA <meta> CSP con Pyodide/WASM
+#30 — pypdf: loadPackage(['micropip']) + micropip.install('pypdf')
+#31 — Drop zone: NUNCA onclick en el div padre
+#32 — Strings JS con apóstrofe: usar comillas dobles
+#33 — Analytics: Plausible data-domain="noservertools.com"
+#34 — Nav max-width uniforme 1100px inline, Tailwind max-w-6xl
+#35 — Pyodide + archivos grandes SIEMPRE en Web Worker (Blob URL)
+       main thread nunca bloquea. Transfer ArrayBuffer zero-copy.
+#36 — Cuando se reemplaza un footer, preservar id="footerEl" si el JS lo usa
+
+════════════════════════════════════════════════════════════
+GIT PUSH v7.8
+════════════════════════════════════════════════════════════
+
+cd C:/Users/fiocc/OneDrive/Desktop/noservertools
+
+copy index_-_compress.html     compress-pdf\index.html
+copy index_-_merge.html        merge-pdf\index.html
+copy index_-_split.html        split-pdf\index.html
+copy index_-_rotate.html       rotate-pdf\index.html
+copy index_-_protect.html      protect-pdf\index.html
+copy index_-_unlock.html       unlock-pdf\index.html
+copy index_-_editpdf.html      edit-pdf\index.html
+copy index_-_pdftojpg.html     pdf-to-jpg\index.html
+copy index_-_delete.html       delete-pages\index.html
+copy index_-_hub.html          index.html
+copy index_-_deletepages.html  delete-pages\index.html
+copy index_-_reorderpages.html reorder-pages\index.html
+
+git add -A
+git commit -m "v7.8: compress Web Worker (no freeze), 5 niveles, 200MB, PIL re-encode real"
+git push origin main
