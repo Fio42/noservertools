@@ -1,0 +1,20 @@
+LOG v8.3 — Resumen completo
+✅ Cambios aplicados en los 11 archivos
+1. Logo en el header — reemplazado en todos los archivos
+El viejo logo (4 cuadraditos SVG azules) fue reemplazado por tu logo NST en todos los headers y footers de las 11 páginas. El logo se carga como imagen base64 inline (sin necesidad de archivos externos). También se eliminó el fondo azul del logo-box en las páginas que lo tenían (rotate, delete, reorder, edit) para que el logo se vea limpio.
+2. Contador corregido — index.html
+Cambiado de "11 live" → "10 live" (el 11 era un error de la sesión anterior).
+3. Sección de donaciones — en las 11 páginas
+Añadida en todas las herramientas antes del </main> (o antes del footer en edit-pdf). Incluye botón ☕ Buy Me a Coffee, dirección Solana con botón Copy, y dirección USDT con botón Copy. La función nstCopy() funciona en todos los navegadores modernos con fallback.
+4. Orden de secciones en index.html (hub)
+El orden ahora es exactamente el que pediste:
+
+Why NoServerTools is Different (tabla comparativa)
+Support the project (donaciones)
+Our privacy promise
+Footer
+
+5. "Open source" eliminado — en todos los archivos
+Escaneados los 11 archivos. No había menciones de "open source" en los originales actuales. La etiqueta "Open Source & Free Forever" que hubiera podido aparecer en la sección de soporte fue reemplazada por simplemente "Free Forever".
+6. Favicon — actualizado en todos los archivos
+Reemplazado el SVG inline genérico por el favicon real generado desde tu logo NST (ICO + PNG 32px + Apple Touch Icon 180px).
