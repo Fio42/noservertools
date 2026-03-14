@@ -145,46 +145,8 @@
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "s52BRCjtQpxKmC2x3-ZnR84r5GZta7CKESfuXJdH"}'></script>
 </head>
 <body>
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-
-<!-- LANG SWITCHER -->
-<div id="ls" role="navigation" aria-label="Language selector">
-  <button id="ls-btn" onclick="lsToggle()" aria-haspopup="true" aria-expanded="false">
-    <span id="ls-flag">🌐</span><span id="ls-lbl">EN</span>
-    <svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 4L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-  </button>
-  <div id="ls-menu" role="menu">
-    <button class="ls-opt" onclick="lsSet('en')" role="menuitem">🇺🇸&nbsp; English</button>
-    <button class="ls-opt" onclick="lsSet('es')" role="menuitem">🇪🇸&nbsp; Español</button>
-    <button class="ls-opt" onclick="lsSet('pt')" role="menuitem">🇧🇷&nbsp; Português</button>
-    <button class="ls-opt" onclick="lsSet('fr')" role="menuitem">🇫🇷&nbsp; Français</button>
-    <button class="ls-opt" onclick="lsSet('de')" role="menuitem">🇩🇪&nbsp; Deutsch</button>
-  </div>
+<script src="/nst-shell.js"></script>
 </div>
-
-<nav>
-  <div class="nav-inner">
-    <a href="../" class="logo">
-      <div class="logo-box">
-        <img src="data:image/png;base64,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" alt="NoServerTools" width="28" height="28" style="display:block;border-radius:50%;object-fit:cover">
-      </div>
-      <span class="logo-text">NoServer<span>Tools</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="../merge-pdf/">Merge</a>
-      <a href="../compress-pdf/">Compress</a>
-      <a href="../split-pdf/">Split</a>
-      <a href="../pdf-to-jpg/">JPG</a>
-      <a href="../rotate-pdf/" class="active">Rotate</a>
-      <a href="../protect-pdf/">Protect</a>
-      <a href="../unlock-pdf/">Unlock</a>
-      <a href="../edit-pdf/">Edit</a>
-      <a href="../delete-pages/">Delete</a>
-      <a href="../reorder-pages/">Reorder</a>
-    </div>
-  </div>
-</nav>
 
 <main>
   <div class="hero">

@@ -1,58 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231f45e0'/><rect x='4' y='4' width='10' height='10' rx='2' fill='white'/><rect x='18' y='4' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='4' y='18' width='10' height='10' rx='2' fill='white' opacity='.6'/><rect x='18' y='18' width='10' height='10' rx='2' fill='white' opacity='.3'/></svg>">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Split PDF Free Online — No Upload, 100% Private | NoServerTools</title>
-  <meta name="description" content="Split PDF files online for free. Extract pages or split all pages. No upload, no server, no account. Runs locally in your browser." />
-  <meta name="keywords" content="split pdf free, separate pdf pages, extract pages from pdf, divide pdf, pdf splitter no upload" />
-  <link rel="canonical" href="https://noservertools.com/split-pdf/" />
-  <meta property="og:title" content="Split PDF Free — No Upload | NoServerTools" />
-  <meta property="og:url" content="https://noservertools.com/split-pdf/" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <meta name="description" content="Split PDF files online for free. Visual page preview — click to select exactly which pages to extract. No upload, no server, 100% private.">
+  <meta name="keywords" content="split pdf free, separate pdf pages, extract pages from pdf, divide pdf, pdf splitter no upload">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://noservertools.com/split-pdf/">
+  <meta property="og:title" content="Split PDF Free — Visual Preview, No Upload | NoServerTools">
+  <meta property="og:description" content="Click pages to select them visually. Extract to a single PDF or one-per-page. 100% in your browser.">
+  <meta property="og:url" content="https://noservertools.com/split-pdf/">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: { colors: { brand:{50:'#eef3ff',400:'#5a87ff',500:'#3363f5',600:'#1f45e0'}, ink:'#0e1117' } } }
-    }
-  </script>
   <style>
-    body{font-family:'Outfit',sans-serif;background:#0e1117;color:#e8eaf0}
-    .font-display{font-family:'Syne',sans-serif}
-    .font-mono-custom{font-family:'DM Mono',monospace}
-    .bg-grid{background-image:linear-gradient(rgba(83,99,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(83,99,255,0.06) 1px,transparent 1px);background-size:48px 48px}
-    .blob-1{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(63,94,251,0.12) 0%,transparent 70%);top:-150px;left:-100px;pointer-events:none;z-index:0}
-    .blob-2{position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(99,63,251,0.10) 0%,transparent 70%);top:200px;right:-100px;pointer-events:none;z-index:0}
-    .gradient-text{background:linear-gradient(100deg,#5a87ff,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .tool-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px}
-    .drop-zone{border:2px dashed rgba(83,99,255,0.3);border-radius:16px;background:rgba(83,99,255,0.04);transition:all 0.2s}
-    .drop-zone.dragover{border-color:#5a87ff;background:rgba(83,99,255,0.10)}
-    .btn-primary{background:#1f45e0;color:white;font-weight:600;border-radius:12px;padding:12px 28px;transition:all 0.2s;cursor:pointer}
-    .btn-primary:hover{background:#3363f5}
-    .btn-primary:disabled{opacity:0.4;cursor:not-allowed}
-    .btn-ghost{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border-radius:12px;padding:10px 20px;transition:all 0.2s;cursor:pointer}
-    .btn-ghost:hover{background:rgba(255,255,255,0.09)}
-    .progress-bar{height:4px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden}
-    .progress-fill{height:100%;background:linear-gradient(90deg,#3363f5,#a78bfa);border-radius:4px;transition:width 0.3s ease}
-    .mode-btn{border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 16px;background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.2s;flex:1;text-align:center}
-    .mode-btn.active{border-color:#5a87ff;background:rgba(83,99,255,0.15)}
-    .mode-btn:hover{border-color:rgba(83,99,255,0.4)}
-    .download-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-    .fade-up{animation:fadeUp 0.5s ease both}
-    .fade-up-2{animation:fadeUp 0.5s 0.08s ease both}
-    .fade-up-3{animation:fadeUp 0.5s 0.16s ease both}
-    .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(83,99,255,0.12);border:1px solid rgba(83,99,255,0.25);border-radius:999px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#8aaeff;text-transform:uppercase}
-    input[type=text]{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:white;padding:10px 14px;width:100%;outline:none;font-family:'DM Mono',monospace;font-size:13px}
-    input[type=text]:focus{border-color:#5a87ff}
-    input[type=text]::placeholder{color:rgba(255,255,255,0.25)}
-  
-    /* lang switcher */
+    :root{--brand:#5a87ff;--brand-dark:#1f45e0;--brand-mid:#3363f5;--green:#4ade80;--text:rgba(255,255,255,.88);--muted:rgba(255,255,255,.42);--dim:rgba(255,255,255,.25);--surface:rgba(255,255,255,.028);--border:rgba(255,255,255,.08);--bg:#0e1117}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(83,99,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(83,99,255,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+    .blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+    .blob-1{width:600px;height:600px;top:-200px;left:-200px;background:radial-gradient(circle,rgba(90,135,255,.12),transparent 70%)}
+    .blob-2{width:500px;height:500px;bottom:-150px;right:-150px;background:radial-gradient(circle,rgba(31,69,224,.1),transparent 70%)}
     #ls{position:fixed;top:12px;right:12px;z-index:9999;font-family:'DM Mono',monospace}
     #ls-btn{display:flex;align-items:center;gap:5px;padding:5px 10px;background:rgba(14,17,23,.88);border:1px solid rgba(90,135,255,.32);border-radius:8px;color:rgba(255,255,255,.7);font-size:11px;cursor:pointer;backdrop-filter:blur(12px);letter-spacing:.04em;transition:border-color .15s}
     #ls-btn:hover{border-color:rgba(90,135,255,.7);color:#fff}
@@ -60,12 +31,115 @@
     #ls-menu.open{display:block}
     .ls-opt{display:flex;align-items:center;gap:9px;width:100%;padding:9px 14px;background:none;border:none;color:rgba(255,255,255,.65);font-size:12px;font-family:'DM Mono',monospace;cursor:pointer;text-align:left;letter-spacing:.03em;transition:background .12s,color .12s}
     .ls-opt:hover{background:rgba(90,135,255,.1);color:#fff}
-    .ls-opt.active{color:#5a87ff;background:rgba(90,135,255,.08)}
+    .ls-opt.active{color:var(--brand);background:rgba(90,135,255,.08)}
+    nav{position:sticky;top:0;z-index:100;height:54px;backdrop-filter:blur(16px);background:rgba(14,17,23,.7);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:960px;margin:0 auto;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-box{width:28px;height:28px;background:var(--brand-dark);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .logo-text{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+    .logo-text span{color:var(--brand)}
+    .nav-links{display:flex;gap:4px;overflow-x:auto}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:12px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s;white-space:nowrap}
+    .nav-links a:hover{color:var(--text);background:var(--surface)}
+    .nav-links a.active{color:var(--brand)}
+    main{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:40px 20px 80px}
+    .hero{text-align:center;margin-bottom:36px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,4.5vw,40px);font-weight:800;line-height:1.15;margin-bottom:12px}
+    .hero p{color:var(--muted);font-size:15px;line-height:1.6;max-width:480px;margin:0 auto 18px}
+    .privacy-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);color:var(--green);font-family:'DM Mono',monospace;font-size:11px;padding:5px 14px;border-radius:100px}
+    .drop-zone{border:2px dashed var(--border);border-radius:16px;padding:44px 24px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--surface);margin-bottom:24px}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--brand);background:rgba(90,135,255,.06)}
+    .drop-zone h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
+    .drop-zone p{color:var(--muted);font-size:14px}
+    .btn-select{display:inline-block;margin-top:16px;padding:10px 24px;background:var(--brand-dark);color:#fff;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:background .2s;font-family:'Outfit',sans-serif}
+    .btn-select:hover{background:var(--brand-mid)}
+    #fileInput{display:none}
+    .error-box{display:none;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:14px 18px;color:#f87171;font-size:14px;margin-bottom:16px}
+    #editorWrap{display:none;margin-bottom:24px}
+    .editor-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+    .editor-header h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+    .editor-meta{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted)}
+    .header-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn-sm{padding:6px 14px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;white-space:nowrap}
+    .btn-sm:hover{color:var(--text);border-color:var(--dim)}
+    .btn-sm.danger{border-color:rgba(248,113,113,.3);color:rgba(248,113,113,.7)}
+    .btn-sm.danger:hover{background:rgba(248,113,113,.08);color:#f87171;border-color:#f87171}
+    #thumbGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:14px;margin-bottom:20px}
+    @media(min-width:600px){#thumbGrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}}
+    .thumb-item{position:relative;cursor:pointer;border-radius:8px;border:2px solid var(--border);background:var(--surface);overflow:hidden;transition:border-color .15s,transform .12s,box-shadow .15s;aspect-ratio:0.77}
+    .thumb-item:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:0 4px 20px rgba(90,135,255,.15)}
+    .thumb-item.selected{border-color:var(--brand);background:rgba(90,135,255,.08);box-shadow:0 0 0 1px rgba(90,135,255,.3)}
+    .thumb-item.selected .thumb-overlay{display:flex}
+    .thumb-canvas{width:100%;height:100%;display:block;object-fit:contain}
+    .thumb-overlay{display:none;position:absolute;inset:0;background:rgba(90,135,255,.2);align-items:center;justify-content:center;pointer-events:none}
+    .thumb-overlay svg{filter:drop-shadow(0 1px 4px rgba(0,0,0,.5))}
+    .thumb-num{position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:10px;font-family:'DM Mono',monospace;padding:4px;background:rgba(14,17,23,.72);color:rgba(255,255,255,.6)}
+    .thumb-item.selected .thumb-num{color:var(--brand);background:rgba(14,17,23,.85)}
+    .action-bar{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .action-bar.sticky-top{position:sticky;top:54px;z-index:50;background:rgba(14,17,23,.92);backdrop-filter:blur(14px);margin-bottom:14px;border-color:rgba(90,135,255,.2)}
+    .action-info{font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;line-height:1.6}
+    .action-info strong{color:var(--brand)}
+    .action-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .mode-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted)}
+    .mode-btn{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif;white-space:nowrap}
+    .mode-btn.active{background:rgba(90,135,255,.12);border-color:var(--brand);color:var(--brand)}
+    .mode-btn:hover:not(.active){border-color:var(--dim);color:var(--text)}
+    .btn-process{padding:10px 22px;background:var(--brand-dark);border:none;border-radius:9px;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .2s,background .2s;display:flex;align-items:center;gap:7px;white-space:nowrap}
+    .btn-process:hover{background:var(--brand-mid)}
+    .btn-process:disabled{opacity:.4;cursor:not-allowed}
+    .loading-line{font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);display:none;align-items:center;gap:6px}
+    .spinner{display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .hint-bar{display:none;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);padding:8px 14px;background:rgba(90,135,255,.04);border:1px solid rgba(90,135,255,.1);border-radius:8px;margin-bottom:12px;text-align:center}
+    #resultWrap{display:none;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.15);border-radius:12px;padding:20px;text-align:center;margin-bottom:24px}
+    #resultWrap h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--green);margin-bottom:6px}
+    #resultWrap p{font-size:13px;color:var(--muted);margin-bottom:14px}
+    .result-files{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;text-align:left;max-height:300px;overflow-y:auto}
+    .result-file{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:rgba(74,222,128,.04);border:1px solid rgba(74,222,128,.12);border-radius:8px}
+    .result-file-name{font-size:12px;color:rgba(255,255,255,.65);font-family:'DM Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+    .result-file-size{font-size:11px;color:var(--muted);flex-shrink:0}
+    .btn-dl{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;background:var(--green);color:#0e1117;border-radius:7px;font-weight:700;font-size:12px;border:none;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap;flex-shrink:0}
+    .btn-dl:hover{opacity:.85}
+    .btn-ghost{display:inline-block;margin-top:10px;padding:8px 18px;background:none;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+    .btn-ghost:hover{border-color:var(--dim);color:var(--text)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
+    @media(max-width:600px){.steps{grid-template-columns:1fr}}
+    .step{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+    .step-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--brand);margin-bottom:6px;letter-spacing:.06em}
+    .step h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px}
+    .step p{font-size:12.5px;color:var(--muted);line-height:1.5}
+    .why-section{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:36px}
+    .why-section h2{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:18px}
+    .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    @media(max-width:540px){.why-grid{grid-template-columns:1fr}}
+    .why-item{display:flex;gap:11px}
+    .why-icon{width:30px;height:30px;background:rgba(90,135,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .why-icon svg{width:15px;height:15px;color:var(--brand)}
+    .why-text h4{font-size:13.5px;font-weight:600;margin-bottom:2px}
+    .why-text p{font-size:12.5px;color:var(--muted);line-height:1.5}
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);background:rgba(0,0,0,.3);padding:28px 20px}
+    .footer-inner{max-width:960px;margin:0 auto}
+    .footer-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+    .footer-tools a{color:var(--muted);text-decoration:none;font-size:12px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;transition:all .2s}
+    .footer-tools a:hover{color:var(--text);border-color:var(--dim)}
+    .footer-copy{font-size:11px;color:var(--dim)}
+    .support-block{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:36px;text-align:center}
+    .support-block .sup-label{font-size:11px;font-family:'DM Mono',monospace;color:rgba(74,222,128,.65);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+    .support-block p{font-size:13px;color:var(--muted);margin-bottom:14px}
+    .crypto-row{display:flex;flex-direction:column;gap:8px;text-align:left;margin-top:14px}
+    .crypto-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+    .crypto-item code{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);word-break:break-all}
+    .crypto-label{font-family:'DM Mono',monospace;font-size:10px;color:rgba(144,196,255,.55);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px}
+    .btn-copy{flex-shrink:0;background:rgba(90,135,255,.1);border:1px solid rgba(90,135,255,.2);border-radius:6px;color:#8aaeff;font-size:10px;font-family:'DM Mono',monospace;padding:4px 10px;cursor:pointer;transition:background .15s}
+    .btn-copy:hover{background:rgba(90,135,255,.2)}
   </style>
-  <!-- Cloudflare Web Analytics: privacy-friendly, no cookies, GDPR compliant -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Split PDF","url":"https://noservertools.com/split-pdf/","description":"Split or extract pages from a PDF. Visual thumbnail selection. 100% in your browser. No upload.","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "s52BRCjtQpxKmC2x3-ZnR84r5GZta7CKESfuXJdH"}'></script>
 </head>
-<body class="bg-grid min-h-screen">
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
 <div id="ls" role="navigation" aria-label="Language selector">
   <button id="ls-btn" onclick="lsToggle()" aria-haspopup="true" aria-expanded="false">
     <span id="ls-flag">🌐</span><span id="ls-lbl">EN</span>
@@ -79,370 +153,431 @@
     <button class="ls-opt" onclick="lsSet('de')" role="menuitem">🇩🇪&nbsp; Deutsch</button>
   </div>
 </div>
-<div class="blob-1"></div><div class="blob-2"></div>
 
-<!-- NAV -->
-<header class="relative z-20 border-b border-white/5 backdrop-blur-sm bg-ink/60 sticky top-0">
-  <div class="max-w-6xl mx-auto px-5 h-[54px] flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2.5">
-      <div class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity="0.6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity="0.6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity="0.35"/></svg>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-box">
+        <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity=".3"/></svg>
       </div>
-      <span class="font-display font-bold text-white text-[15px] tracking-tight">NoServer<span class="text-brand-400">Tools</span></span>
+      <span class="logo-text">NoServer<span>Tools</span></span>
     </a>
-    <nav class="hidden md:flex items-center gap-1 overflow-x-auto">
-      <a href="/merge-pdf/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">Merge</a>
-      <a href="/compress-pdf/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">Compress</a>
-      <a href="/split-pdf/" class="px-2 py-1 rounded-lg text-xs bg-brand-600/20 text-brand-400 font-semibold">Split</a>
-      <a href="/pdf-to-jpg/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">JPG</a>
-      <a href="/rotate-pdf/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">Rotate</a>
-      <a href="/protect-pdf/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">Protect</a>
-      <a href="/unlock-pdf/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">Unlock</a>
-      <a href="/edit-pdf/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">Edit</a>
-      <a href="/delete-pages/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">Delete</a>
-      <a href="/reorder-pages/" class="px-2 py-1 rounded-lg text-xs text-white/60 hover:bg-white/5">Reorder</a>
-      <a href="/" class="ml-2 px-3 py-1 rounded-lg text-sm bg-brand-600 text-white font-medium hover:bg-brand-500 whitespace-nowrap">All tools</a>
-    </nav>
+    <div class="nav-links">
+      <a href="/merge-pdf/">Merge</a>
+      <a href="/compress-pdf/">Compress</a>
+      <a href="/split-pdf/" class="active">Split</a>
+      <a href="/pdf-to-jpg/">JPG</a>
+      <a href="/rotate-pdf/">Rotate</a>
+      <a href="/protect-pdf/">Protect</a>
+      <a href="/unlock-pdf/">Unlock</a>
+      <a href="/edit-pdf/">Edit</a>
+      <a href="/delete-pages/">Delete</a>
+      <a href="/reorder-pages/">Reorder</a>
+    </div>
   </div>
-</header>
+</nav>
 
-<main class="relative z-10 max-w-3xl mx-auto px-5 py-12">
-  <div class="text-center mb-10">
-    <div class="fade-up flex justify-center mb-4">
-      <span class="badge"><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span>No upload · Local processing</span>
-    </div>
-    <h1 class="fade-up-2 font-display font-extrabold text-4xl md:text-5xl text-white mb-3">Split PDF <span class="gradient-text">for free</span></h1>
-    <p class="fade-up-3 text-white/50 text-base max-w-lg mx-auto">Extract pages or split into individual files. All processing happens inside your browser.</p>
-  </div>
-
-  <div id="tool" class="tool-card p-6 md:p-8">
-    <!-- Drop Zone -->
-    <div id="drop-zone" class="drop-zone p-10 text-center cursor-pointer mb-6" onclick="triggerFileInput()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
-      <div class="text-4xl mb-3">✂️</div>
-      <p class="text-white/70 font-medium mb-1">Drop a PDF here or <span class="text-brand-400">browse</span></p>
-      <p class="text-white/30 text-sm">Single file · Max 100 MB</p>
-      <input type="file" id="file-input" accept=".pdf" class="hidden" onchange="handleFiles(this.files)" />
-    </div>
-
-    <!-- File Preview -->
-    <div id="file-preview" class="hidden mb-6">
-      <div class="flex items-center gap-3 bg-white/4 border border-white/8 rounded-xl px-4 py-3">
-        <span class="text-xl">📄</span>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm text-white/80 truncate" id="file-name"></p>
-          <p class="text-xs text-white/30" id="file-size"></p>
-        </div>
-        <button onclick="resetFull()" class="text-white/20 hover:text-red-400 text-xl leading-none">×</button>
-      </div>
-    </div>
-
-    <!-- Mode selector -->
-    <div id="mode-section" class="hidden mb-6">
-      <p class="text-sm text-white/50 mb-3">Split mode</p>
-      <div class="flex gap-2">
-        <div class="mode-btn active" onclick="setMode('all')" id="mode-all">
-          <div class="font-semibold text-white text-sm">All pages</div>
-          <div class="text-xs text-white/35 mt-0.5">One PDF per page</div>
-        </div>
-        <div class="mode-btn" onclick="setMode('range')" id="mode-range">
-          <div class="font-semibold text-white text-sm">Custom range</div>
-          <div class="text-xs text-white/35 mt-0.5">Extract specific pages</div>
-        </div>
-      </div>
-      <div id="range-input-section" class="hidden mt-4">
-        <label class="text-xs text-white/40 block mb-2 font-mono-custom">Pages to extract (e.g. 1-3, 5, 7-9)</label>
-        <input type="text" id="range-input" placeholder="1-3, 5, 7-9" />
-        <p class="text-xs text-white/25 mt-1.5">PDF has <span id="total-pages">?</span> pages</p>
-      </div>
-    </div>
-
-    <!-- Progress -->
-    <div id="progress-area" class="hidden mb-6">
-      <div class="flex justify-between mb-2">
-        <span class="text-sm text-white/60" id="progress-label">Loading...</span>
-        <span class="font-mono-custom text-xs text-white/30" id="progress-pct">0%</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-    </div>
-
-    <!-- Result -->
-    <div id="result-area" class="hidden mb-6">
-      <p class="text-green-400 font-semibold text-sm mb-3">✅ Split complete</p>
-      <div id="download-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
-    </div>
-
-    <!-- Error -->
-    <div id="error-area" class="hidden mb-6 p-4 rounded-xl bg-red-400/8 border border-red-400/20">
-      <p class="text-red-400 text-sm" id="error-msg"></p>
-    </div>
-
-    <div class="flex gap-3">
-      <button id="split-btn" class="btn-primary flex-1" onclick="startSplit()" disabled>Split PDF</button>
-      <button class="btn-ghost" onclick="resetFull()">Reset</button>
+<main>
+  <div class="hero">
+    <h1>Split PDF Online Free</h1>
+    <p>See every page as a thumbnail. Click to select the pages you want — then extract them as one PDF or split each into its own file.</p>
+    <div class="privacy-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Your file never leaves your device
     </div>
   </div>
 
-  <!-- HOW TO -->
-  <div class="mt-12 mb-10">
-    <h2 class="font-display font-bold text-xl text-white mb-6 text-center">How to split a PDF</h2>
-    <div class="grid md:grid-cols-3 gap-4">
-      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">📂</div><h3 class="font-semibold text-white text-sm mb-1">1. Select file</h3><p class="text-xs text-white/40">Drop or click to pick your PDF.</p></div>
-      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">✂️</div><h3 class="font-semibold text-white text-sm mb-1">2. Choose mode</h3><p class="text-xs text-white/40">Split all pages or enter a custom range.</p></div>
-      <div class="tool-card p-5 text-center"><div class="text-2xl mb-2">⬇️</div><h3 class="font-semibold text-white text-sm mb-1">3. Download</h3><p class="text-xs text-white/40">Download each page or the extracted range.</p></div>
+  <div id="errorBox" class="error-box"></div>
+
+  <div class="drop-zone" id="dropZone"
+    onclick="document.getElementById('fileInput').click()"
+    ondragover="event.preventDefault();this.classList.add('drag-over')"
+    ondragleave="this.classList.remove('drag-over')"
+    ondrop="event.preventDefault();this.classList.remove('drag-over');handleFile(event.dataTransfer.files[0])">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40" style="color:var(--brand);margin-bottom:12px;opacity:.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
+    <h2>Drop your PDF here</h2>
+    <p>or click to browse your files</p>
+    <button class="btn-select" onclick="event.stopPropagation();document.getElementById('fileInput').click()">Select PDF file</button>
+    <input type="file" id="fileInput" accept=".pdf,application/pdf" onchange="handleFile(this.files[0])">
+  </div>
+
+  <div id="editorWrap">
+    <div class="editor-header">
+      <div>
+        <h3>Select pages to extract</h3>
+        <div class="editor-meta" id="editorMeta"></div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-sm" onclick="selectAll()">Select all</button>
+        <button class="btn-sm" onclick="deselectAll()">Clear</button>
+        <button class="btn-sm" onclick="invertSelection()">Invert</button>
+        <button class="btn-sm danger" onclick="resetAll()">&#x2715; Change file</button>
+      </div>
+    </div>
+
+    <!-- STICKY BAR -->
+    <div class="action-bar sticky-top" id="actionBarTop">
+      <div>
+        <div class="action-info" id="actionInfoTop"><strong>0</strong> pages selected</div>
+        <div class="loading-line" id="loadingLineTop"><span class="spinner"></span>Loading engine…</div>
+      </div>
+      <div class="action-right">
+        <span class="mode-label">Output:</span>
+        <button class="mode-btn active" id="modeMergeBtn" onclick="setOutputMode('merge')">Single PDF</button>
+        <button class="mode-btn" id="modeSplitBtn" onclick="setOutputMode('split')">One per page</button>
+        <button class="btn-process" id="btnProcessTop" onclick="doSplit()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14" height="14"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Extract pages
+        </button>
+      </div>
+    </div>
+
+    <div class="hint-bar" id="hintBar">💡 Shift+click to select a range of pages at once</div>
+
+    <div id="thumbGrid"></div>
+
+    <!-- BOTTOM BAR -->
+    <div class="action-bar" id="actionBarBottom">
+      <div>
+        <div class="action-info" id="actionInfo"><strong>0</strong> pages selected</div>
+        <div class="loading-line" id="loadingLine"><span class="spinner"></span>Loading engine…</div>
+      </div>
+      <div class="action-right">
+        <button class="btn-process" id="btnProcess" onclick="doSplit()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14" height="14"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Extract pages
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- FAQ -->
-  <div class="tool-card p-6 md:p-8 mb-10">
-    <h2 class="font-display font-bold text-xl text-white mb-6">FAQ</h2>
-    <div class="space-y-5">
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">What is the difference between the two modes?</h3><p class="text-white/45 text-sm">All pages splits every page into a separate PDF file. Custom range extracts a specific set of pages into a single PDF.</p></div>
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">How do I write a custom range?</h3><p class="text-white/45 text-sm">Use commas to separate pages and dashes for ranges. Example: 1-3, 5, 7-9 extracts pages 1, 2, 3, 5, 7, 8, and 9.</p></div>
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Are my files uploaded anywhere?</h3><p class="text-white/45 text-sm">No. Everything runs locally in your browser via WebAssembly. Your files never leave your device.</p></div>
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Is there a page limit?</h3><p class="text-white/45 text-sm">No page limit. Files can be up to 100 MB.</p></div>
-      <div><h3 class="font-semibold text-white/90 text-sm mb-1">Can I extract just one page?</h3><p class="text-white/45 text-sm">Yes. Use custom range mode and enter a single page number, like "3".</p></div>
+  <div id="resultWrap">
+    <div style="font-size:28px;margin-bottom:8px">✅</div>
+    <h3 id="resultTitle">Split complete</h3>
+    <p id="resultDesc"></p>
+    <div class="result-files" id="resultFiles"></div>
+    <button class="btn-ghost" onclick="resetAll()">Split another file</button>
+  </div>
+
+  <div class="steps" style="margin-top:40px">
+    <div class="step"><div class="step-num">STEP 01</div><h4>Drop your PDF</h4><p>All pages render as thumbnails. Nothing uploaded.</p></div>
+    <div class="step"><div class="step-num">STEP 02</div><h4>Click pages to select</h4><p>Shift+click for ranges. Invert to flip selection.</p></div>
+    <div class="step"><div class="step-num">STEP 03</div><h4>Extract &amp; download</h4><p>Get one combined PDF or one file per page.</p></div>
+  </div>
+
+  <div class="why-section">
+    <h2>Why NoServerTools?</h2>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="why-text"><h4>Zero uploads</h4><p>We never receive your files. Ever.</p></div></div>
+      <div class="why-item"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="why-text"><h4>Visual preview</h4><p>See every page before you extract.</p></div></div>
+      <div class="why-item"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div class="why-text"><h4>Zero tracking</h4><p>We don't know what's in your documents.</p></div></div>
+      <div class="why-item"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6s1-1 4-1 6 2 8 2 4-1 4-1V22s-1 1-4 1-6-2-8-2-4 1-4 1V6z"/></svg></div><div class="why-text"><h4>Works offline</h4><p>Once loaded, no internet needed.</p></div></div>
+    </div>
+  </div>
+
+  <div class="support-block">
+    <p class="sup-label">Support the project</p>
+    <p>If NoServerTools helps you, consider supporting it — it keeps the project free and running.</p>
+    <a href="https://www.buymeacoffee.com/noservertools" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:7px;background:#FFDD00;color:#0e1117;font-weight:700;font-size:13px;padding:9px 20px;border-radius:8px;text-decoration:none"><span style="font-size:16px">☕</span> Buy me a coffee</a>
+    <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:14px">
+      <p style="font-size:10px;font-family:'DM Mono',monospace;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">Crypto donations</p>
+      <div class="crypto-row">
+        <div class="crypto-item"><div><span class="crypto-label">Solana (SOL)</span><code id="nst-sol">5W5unCGexDkAgh4NBETrx6J3Sx1CKcXhgs9AqkmUjvTn</code></div><button class="btn-copy" onclick="nstCopy('nst-sol',this)">Copy</button></div>
+        <div class="crypto-item"><div><span class="crypto-label">USDT (ETH / BNB)</span><code id="nst-usdt">0xfc32fb970443478272f7e3d71c83eab2eaf54b5f</code></div><button class="btn-copy" onclick="nstCopy('nst-usdt',this)">Copy</button></div>
+      </div>
     </div>
   </div>
 </main>
 
-<footer class="relative z-10 border-t border-white/5 bg-black/30">
-  <div class="max-w-6xl mx-auto px-5 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-    <div>
-      <a href="/" class="flex items-center gap-2 mb-1">
-        <div class="w-5 h-5 rounded-md bg-brand-600 flex items-center justify-center"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" fill="white"/><rect x="8" y="1" width="5" height="5" rx="1.5" fill="white" opacity="0.6"/><rect x="1" y="8" width="5" height="5" rx="1.5" fill="white" opacity="0.6"/><rect x="8" y="8" width="5" height="5" rx="1.5" fill="white" opacity="0.35"/></svg></div>
-        <span class="font-display font-bold text-white text-sm">NoServer<span class="text-brand-400">Tools</span></span>
-      </a>
-      <p class="text-xs text-white/20 font-mono-custom">No uploads · No accounts · No tracking · Free forever</p>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-tools">
+      <a href="/merge-pdf/">Merge PDF</a><a href="/compress-pdf/">Compress PDF</a><a href="/split-pdf/">Split PDF</a>
+      <a href="/pdf-to-jpg/">PDF to JPG</a><a href="/rotate-pdf/">Rotate PDF</a><a href="/protect-pdf/">Protect PDF</a>
+      <a href="/unlock-pdf/">Unlock PDF</a><a href="/edit-pdf/">Edit PDF</a><a href="/delete-pages/">Delete Pages</a><a href="/reorder-pages/">Reorder Pages</a>
     </div>
-    <nav class="flex flex-wrap gap-x-4 gap-y-2">
-      <a href="/merge-pdf/" class="text-xs text-white/35 hover:text-brand-400">Merge PDF</a>
-      <a href="/compress-pdf/" class="text-xs text-white/35 hover:text-brand-400">Compress PDF</a>
-      <a href="/split-pdf/" class="text-xs text-brand-400 font-semibold">Split PDF</a>
-      <a href="/pdf-to-jpg/" class="text-xs text-white/35 hover:text-brand-400">PDF to JPG</a>
-      <a href="/rotate-pdf/" class="text-xs text-white/35 hover:text-brand-400">Rotate PDF</a>
-      <a href="/protect-pdf/" class="text-xs text-white/35 hover:text-brand-400">Protect PDF</a>
-      <a href="/unlock-pdf/" class="text-xs text-white/35 hover:text-brand-400">Unlock PDF</a>
-      <a href="/edit-pdf/" class="text-xs text-white/35 hover:text-brand-400">Edit PDF</a>
-      <a href="/delete-pages/" class="text-xs text-white/35 hover:text-brand-400">Delete Pages</a>
-      <a href="/reorder-pages/" class="text-xs text-white/35 hover:text-brand-400">Reorder Pages</a>
-    </nav>
+    <div class="footer-copy">NoServerTools &mdash; Your files never leave your computer.</div>
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
 <script>
-  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  let selectedFile=null, pyodide=null, pyodideReady=false, pyLoading=false, splitMode='all', totalPages=0, objectURLs=[];
+'use strict';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  function triggerFileInput(){document.getElementById('file-input').click()}
-  function formatSize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB'}
-  function handleDragOver(e){e.preventDefault();document.getElementById('drop-zone').classList.add('dragover')}
-  function handleDragLeave(e){document.getElementById('drop-zone').classList.remove('dragover')}
-  function handleDrop(e){e.preventDefault();document.getElementById('drop-zone').classList.remove('dragover');handleFiles(e.dataTransfer.files)}
+let currentFile = null, pdfDoc = null, pyodide = null, pyReady = false;
+let selectedPages = new Set(); // 1-based page numbers
+let totalPages = 0, outputMode = 'merge';
+let resultObjectUrls = [], lastClickedPage = null;
 
-  function setMode(mode){
-    splitMode=mode;
-    document.getElementById('mode-all').classList.toggle('active',mode==='all');
-    document.getElementById('mode-range').classList.toggle('active',mode==='range');
-    document.getElementById('range-input-section').classList.toggle('hidden',mode==='all');
-  }
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(b){return b>1048576?(b/1048576).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB'}
+function showError(m){const b=document.getElementById('errorBox');b.textContent=m;b.style.display='block';setTimeout(()=>b.style.display='none',8000)}
 
-  function parseRange(str, total){
-    if(!total) return null;
-    const parts=str.split(',').map(s=>s.trim()).filter(Boolean);
-    if(!parts.length) return null;
-    const indices=[];
-    for(const p of parts){
-      if(p.includes('-')){
-        const[a,b]=p.split('-').map(Number);
-        if(isNaN(a)||isNaN(b)||a<1||b>total||a>b) return null;
-        for(let i=a;i<=b;i++) indices.push(i-1);
-      } else {
-        const n=Number(p);
-        if(isNaN(n)||n<1||n>total) return null;
-        indices.push(n-1);
+function setOutputMode(mode){
+  outputMode = mode;
+  document.getElementById('modeMergeBtn').classList.toggle('active', mode==='merge');
+  document.getElementById('modeSplitBtn').classList.toggle('active', mode==='split');
+}
+
+async function handleFile(f){
+  if(!f) return;
+  if(f.type!=='application/pdf' && !f.name.endsWith('.pdf')){showError('Please select a PDF file.');return}
+  currentFile = f; selectedPages = new Set(); lastClickedPage = null;
+  document.getElementById('dropZone').style.display = 'none';
+  document.getElementById('editorWrap').style.display = 'block';
+  document.getElementById('resultWrap').style.display = 'none';
+  document.getElementById('errorBox').style.display = 'none';
+  document.getElementById('thumbGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-size:13px"><span class="spinner"></span> Rendering thumbnails…</div>';
+  try{
+    const ab = await f.arrayBuffer();
+    pdfDoc = await pdfjsLib.getDocument({data: ab}).promise;
+    totalPages = pdfDoc.numPages;
+    document.getElementById('editorMeta').textContent = esc(f.name)+' · '+fmt(f.size)+' · '+totalPages+' pages';
+    document.getElementById('thumbGrid').innerHTML = '';
+    // Sequential rendering guarantees DOM order = page order
+    for(let i = 1; i <= totalPages; i++) await renderThumb(i);
+    document.getElementById('hintBar').style.display = totalPages > 4 ? 'block' : 'none';
+    updateActionBar();
+  }catch(e){showError('Could not load PDF: '+e.message)}
+  initPyodide();
+}
+
+async function renderThumb(pageNum){
+  const page = await pdfDoc.getPage(pageNum);
+  const vp = page.getViewport({scale: 0.3});
+  const canvas = document.createElement('canvas');
+  canvas.className = 'thumb-canvas';
+  canvas.width = vp.width; canvas.height = vp.height;
+  await page.render({canvasContext: canvas.getContext('2d'), viewport: vp}).promise;
+
+  const item = document.createElement('div');
+  item.className = 'thumb-item';
+  item.dataset.page = String(pageNum);
+  item.title = 'Page '+pageNum+' — click to select';
+
+  const overlay = document.createElement('div');
+  overlay.className = 'thumb-overlay';
+  overlay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" width="26" height="26"><polyline points="20,6 9,17 4,12"/></svg>';
+
+  const num = document.createElement('div');
+  num.className = 'thumb-num';
+  num.textContent = 'Page '+pageNum;
+
+  item.appendChild(canvas); item.appendChild(overlay); item.appendChild(num);
+
+  item.addEventListener('click', function(e){
+    const pg = parseInt(this.dataset.page);
+    if(e.shiftKey && lastClickedPage !== null){
+      const lo = Math.min(lastClickedPage, pg);
+      const hi = Math.max(lastClickedPage, pg);
+      // Determine intent: if target is not selected, add the range; else remove
+      const adding = !selectedPages.has(pg);
+      for(let i = lo; i <= hi; i++){
+        const el = document.querySelector('.thumb-item[data-page="'+i+'"]');
+        if(adding){ selectedPages.add(i); if(el) el.classList.add('selected'); }
+        else { selectedPages.delete(i); if(el) el.classList.remove('selected'); }
       }
-    }
-    return indices.length ? [...new Set(indices)].sort((a,b)=>a-b) : null;
-  }
-
-  // Read total pages immediately with PDF.js (no Pyodide needed)
-  async function readTotalPages(f){
-    try{
-      const ab=await f.arrayBuffer();
-      const pdf=await pdfjsLib.getDocument({data:ab}).promise;
-      totalPages=pdf.numPages;
-      document.getElementById('total-pages').textContent=totalPages;
-    }catch(e){ totalPages=0; }
-  }
-
-  function handleFiles(files){
-    const f=Array.from(files).find(f=>f.type==='application/pdf'||f.name.endsWith('.pdf'));
-    if(!f){showError('Please select a PDF file.');return}
-    selectedFile=f;
-    totalPages=0;
-    document.getElementById('total-pages').textContent='?';
-    document.getElementById('drop-zone').classList.add('hidden');
-    document.getElementById('file-preview').classList.remove('hidden');
-    document.getElementById('mode-section').classList.remove('hidden');
-    document.getElementById('file-name').textContent=esc(f.name);
-    document.getElementById('file-size').textContent=formatSize(f.size);
-    document.getElementById('error-area').classList.add('hidden');
-    document.getElementById('result-area').classList.add('hidden');
-    readTotalPages(f); // sets totalPages immediately via PDF.js
-    if(pyodideReady){
-      document.getElementById('split-btn').disabled=false;
     } else {
-      initPyodide();
+      if(selectedPages.has(pg)){ selectedPages.delete(pg); this.classList.remove('selected'); }
+      else { selectedPages.add(pg); this.classList.add('selected'); }
     }
-  }
+    lastClickedPage = pg;
+    updateActionBar();
+  });
 
-  async function initPyodide(){
-    if(pyodideReady){
-      document.getElementById('progress-area').classList.add('hidden');
-      if(selectedFile) document.getElementById('split-btn').disabled=false;
-      return;
+  document.getElementById('thumbGrid').appendChild(item);
+}
+
+function selectAll(){
+  for(let i=1;i<=totalPages;i++){
+    selectedPages.add(i);
+    const el=document.querySelector('.thumb-item[data-page="'+i+'"]');
+    if(el) el.classList.add('selected');
+  }
+  updateActionBar();
+}
+
+function deselectAll(){
+  selectedPages.clear(); lastClickedPage = null;
+  document.querySelectorAll('.thumb-item').forEach(el=>el.classList.remove('selected'));
+  updateActionBar();
+}
+
+function invertSelection(){
+  for(let i=1;i<=totalPages;i++){
+    const el=document.querySelector('.thumb-item[data-page="'+i+'"]');
+    if(selectedPages.has(i)){ selectedPages.delete(i); if(el) el.classList.remove('selected'); }
+    else { selectedPages.add(i); if(el) el.classList.add('selected'); }
+  }
+  updateActionBar();
+}
+
+function updateActionBar(){
+  const n = selectedPages.size;
+  const canAct = n > 0 && pyReady;
+  let label;
+  if(n===0){
+    label = '<strong>0</strong> pages selected';
+  } else {
+    // Build compact range string, e.g. "1–3, 5, 7–9"
+    const sorted = [...selectedPages].sort((a,b)=>a-b);
+    const ranges = [];
+    let s = sorted[0], e2 = sorted[0];
+    for(let i=1;i<sorted.length;i++){
+      if(sorted[i]===e2+1){ e2=sorted[i]; }
+      else { ranges.push(s===e2?String(s):s+'–'+e2); s=e2=sorted[i]; }
     }
-    if(pyLoading) return;
-    pyLoading=true;
-    setProgress(10,'Loading engine (first time: ~15s)...');
-    try{
-      pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
-      setProgress(60,'Installing pypdf...');
-      await pyodide.loadPackage(['micropip']);
-      await pyodide.runPythonAsync(`import micropip
-await micropip.install('pypdf')`);
-      pyodideReady=true;
-      pyLoading=false;
-      setProgress(100,'Ready');
-      setTimeout(()=>document.getElementById('progress-area').classList.add('hidden'),600);
-      if(selectedFile) document.getElementById('split-btn').disabled=false;
-    }catch(e){
-      pyLoading=false;
-      pyodide=null;
-      showError('Failed to load engine: '+e.message+'. Please refresh and try again.');
-    }
+    ranges.push(s===e2?String(s):s+'–'+e2);
+    label = '<strong>'+n+'</strong> page'+(n===1?'':'s')+' selected <span style="color:var(--dim);font-size:11px">('+ranges.join(', ')+')</span>';
   }
+  ['actionInfo','actionInfoTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=label;});
+  ['btnProcess','btnProcessTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=!canAct;});
+}
 
-  function setProgress(pct,label){
-    document.getElementById('progress-area').classList.remove('hidden');
-    document.getElementById('progress-fill').style.width=pct+'%';
-    document.getElementById('progress-label').textContent=label;
-    document.getElementById('progress-pct').textContent=pct+'%';
+async function initPyodide(){
+  if(pyodide||pyReady) return;
+  ['loadingLine','loadingLineTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='flex';});
+  try{
+    pyodide = await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
+    await pyodide.loadPackage(['micropip']);
+    await pyodide.runPythonAsync(`import micropip\nawait micropip.install('pypdf')`);
+    pyReady = true;
+    ['loadingLine','loadingLineTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+    updateActionBar();
+  }catch(e){
+    ['loadingLine','loadingLineTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+    showError('Failed to load engine: '+e.message);
   }
+}
 
-  async function startSplit(){
-    if(!pyodideReady||!selectedFile) return;
-    document.getElementById('split-btn').disabled=true;
-    document.getElementById('result-area').classList.add('hidden');
-    document.getElementById('error-area').classList.add('hidden');
-    objectURLs.forEach(u=>URL.revokeObjectURL(u)); objectURLs=[];
-    setProgress(20,'Reading file...');
-    try{
-      const buf=await selectedFile.arrayBuffer();
-      const arr=new Uint8Array(buf);
-      pyodide.globals.set('file_bytes_js',arr);
-      // Load PDF in Python (totalPages already known from PDF.js)
-      await pyodide.runPythonAsync(`
+async function doSplit(){
+  if(!currentFile||!pyReady||selectedPages.size===0) return;
+  const PROC = '<span class="spinner"></span>Processing…';
+  const DONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="14" height="14"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Extract pages';
+  ['btnProcess','btnProcessTop'].forEach(id=>{const el=document.getElementById(id);if(el){el.disabled=true;el.innerHTML=PROC;}});
+  resultObjectUrls.forEach(u=>URL.revokeObjectURL(u)); resultObjectUrls=[];
+
+  // Sorted 1-based list — this is the canonical order
+  const pageList = [...selectedPages].sort((a,b)=>a-b);
+  const baseName = currentFile.name.replace(/\.pdf$/i,'');
+
+  try{
+    const ab = await currentFile.arrayBuffer();
+    const bytes = new Uint8Array(ab);
+    pyodide.globals.set('pdf_bytes', bytes);
+    pyodide.globals.set('page_list_js', pageList);
+
+    if(outputMode==='merge'){
+      const result = await pyodide.runPythonAsync(`
+import base64
 from pypdf import PdfReader, PdfWriter
 from io import BytesIO
-_reader=PdfReader(BytesIO(bytes(file_bytes_js)))
-_total_pages=len(_reader.pages)
-      `);
-      // Update totalPages from Python in case PDF.js count differed
-      const pyTotal=pyodide.globals.get('_total_pages');
-      if(pyTotal) { totalPages=pyTotal; document.getElementById('total-pages').textContent=totalPages; }
+reader = PdfReader(BytesIO(bytes(pdf_bytes)))
+writer = PdfWriter()
+for pg in page_list_js:
+    writer.add_page(reader.pages[int(pg)-1])
+out = BytesIO()
+writer.write(out)
+base64.b64encode(out.getvalue()).decode('ascii')
+`);
+      const blob = b64toBlob(result);
+      const url = URL.createObjectURL(blob); resultObjectUrls.push(url);
+      const fname = baseName+'-pages-'+pageList.join(',')+'.pdf';
+      document.getElementById('resultFiles').innerHTML = `
+        <div class="result-file">
+          <span class="result-file-name">${esc(fname)}</span>
+          <span class="result-file-size">${fmt(blob.size)}</span>
+          <a class="btn-dl" href="${url}" download="${esc(fname)}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>`;
+      document.getElementById('resultTitle').textContent = 'Extraction complete';
+      document.getElementById('resultDesc').textContent = pageList.length+' page'+(pageList.length===1?'':'s')+' extracted into one PDF.';
 
-      let pageIndices;
-      if(splitMode==='range'){
-        const rangeStr=document.getElementById('range-input').value.trim();
-        if(!rangeStr){showError('Please enter a page range. Example: 1-3 or 1,3,5');document.getElementById('split-btn').disabled=false;return}
-        pageIndices=parseRange(rangeStr,totalPages);
-        if(!pageIndices){showError(`Invalid range. Enter numbers between 1 and ${totalPages}. Example: 1-3, 5`);document.getElementById('split-btn').disabled=false;return}
-      } else {
-        pageIndices=[...Array(totalPages).keys()];
-      }
+    } else {
+      // One PDF per page — Python returns list in same order as pageList
+      const results = await pyodide.runPythonAsync(`
+import base64, json
+from pypdf import PdfReader, PdfWriter
+from io import BytesIO
+reader = PdfReader(BytesIO(bytes(pdf_bytes)))
+out_list = []
+for pg in page_list_js:
+    w = PdfWriter()
+    w.add_page(reader.pages[int(pg)-1])
+    buf = BytesIO(); w.write(buf)
+    out_list.append(base64.b64encode(buf.getvalue()).decode('ascii'))
+json.dumps(out_list)
+`);
+      const b64list = JSON.parse(results);
+      const filesDiv = document.getElementById('resultFiles');
+      filesDiv.innerHTML = '';
+      // b64list[i] corresponds to pageList[i] — order is guaranteed
+      b64list.forEach((b64, i) => {
+        const pg = pageList[i];
+        const blob = b64toBlob(b64);
+        const url = URL.createObjectURL(blob); resultObjectUrls.push(url);
+        const fname = baseName+'-page-'+pg+'.pdf';
+        const row = document.createElement('div');
+        row.className = 'result-file';
+        row.innerHTML = `
+          <span class="result-file-name">Page ${pg} — ${esc(fname)}</span>
+          <span class="result-file-size">${fmt(blob.size)}</span>
+          <a class="btn-dl" href="${url}" download="${esc(fname)}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>`;
+        filesDiv.appendChild(row);
+      });
+      document.getElementById('resultTitle').textContent = 'Split complete';
+      document.getElementById('resultDesc').textContent = pageList.length+' individual PDF'+(pageList.length===1?'':'s')+' created.';
+    }
 
-      setProgress(50,'Splitting...');
-      const baseName=selectedFile.name.replace(/\.pdf$/i,'');
+    document.getElementById('editorWrap').style.display = 'none';
+    document.getElementById('resultWrap').style.display = 'block';
 
-      if(splitMode==='all'){
-        pyodide.globals.set('page_indices_js',pageIndices);
-        await pyodide.runPythonAsync(`
-results=[]
-for idx in page_indices_js:
-    w=PdfWriter(); w.add_page(_reader.pages[int(idx)])
-    o=BytesIO(); w.write(o); results.append(o.getvalue())
-        `);
-        const results=pyodide.globals.get('results').toJs();
-        setProgress(85,'Creating download links...');
-        const list=document.getElementById('download-list');
-        list.innerHTML='';
-        results.forEach((bytes,i)=>{
-          const blob=new Blob([bytes],{type:'application/pdf'});
-          const url=URL.createObjectURL(blob); objectURLs.push(url);
-          const fname=esc(baseName)+'-page-'+(pageIndices[i]+1)+'.pdf';
-          list.innerHTML+=`<div class="download-item"><span class="text-sm text-white/70">Page ${pageIndices[i]+1}</span><div class="flex items-center gap-3"><span class="text-xs text-white/30 font-mono-custom">${formatSize(blob.size)}</span><a href="${url}" download="${fname}" class="text-xs text-brand-400 hover:text-brand-300 font-semibold">Download</a></div></div>`;
-        });
-      } else {
-        pyodide.globals.set('page_indices_js',pageIndices);
-        await pyodide.runPythonAsync(`
-w=PdfWriter()
-for idx in page_indices_js: w.add_page(_reader.pages[int(idx)])
-o=BytesIO(); w.write(o); range_result=o.getvalue()
-        `);
-        const result=pyodide.globals.get('range_result').toJs();
-        const blob=new Blob([result],{type:'application/pdf'});
-        const url=URL.createObjectURL(blob); objectURLs.push(url);
-        const rangeStr=document.getElementById('range-input').value.trim().replace(/\s/g,'');
-        const fname=esc(baseName)+'-pages-'+rangeStr+'.pdf';
-        document.getElementById('download-list').innerHTML=`<div class="download-item"><span class="text-sm text-white/70">Pages ${esc(rangeStr)} — ${pageIndices.length} page${pageIndices.length!==1?'s':''}</span><div class="flex items-center gap-3"><span class="text-xs text-white/30 font-mono-custom">${formatSize(blob.size)}</span><a href="${url}" download="${fname}" class="text-xs text-brand-400 hover:text-brand-300 font-semibold">Download</a></div></div>`;
-      }
+  }catch(e){ showError('Error: '+e.message); }
 
-      setProgress(100,'Done');
-      setTimeout(()=>{
-        document.getElementById('progress-area').classList.add('hidden');
-        document.getElementById('result-area').classList.remove('hidden');
-        document.getElementById('split-btn').disabled=false;
-      },400);
-    }catch(e){showError('Split failed: '+e.message);document.getElementById('split-btn').disabled=false}
-  }
+  ['btnProcess','btnProcessTop'].forEach(id=>{const el=document.getElementById(id);if(el){el.disabled=selectedPages.size===0;el.innerHTML=DONE;}});
+}
 
-  function showError(msg){
-    document.getElementById('error-area').classList.remove('hidden');
-    document.getElementById('error-msg').textContent=msg;
-    document.getElementById('progress-area').classList.add('hidden');
-  }
+function b64toBlob(b64){
+  const bin = atob(b64); const arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+  return new Blob([arr],{type:'application/pdf'});
+}
 
-  function resetFull(){
-    selectedFile=null; totalPages=0;
-    objectURLs.forEach(u=>URL.revokeObjectURL(u)); objectURLs=[];
-    document.getElementById('drop-zone').classList.remove('hidden');
-    document.getElementById('file-preview').classList.add('hidden');
-    document.getElementById('mode-section').classList.add('hidden');
-    document.getElementById('result-area').classList.add('hidden');
-    document.getElementById('error-area').classList.add('hidden');
-    document.getElementById('progress-area').classList.add('hidden');
-    document.getElementById('split-btn').disabled=true;
-    document.getElementById('file-input').value='';
-    document.getElementById('range-input').value='';
-    setMode('all');
-  }
+function nstCopy(id,btn){
+  const text=document.getElementById(id).textContent;
+  if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000)})}
+  else{const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000)}catch(e){}document.body.removeChild(ta)}
+}
+
+function resetAll(){
+  currentFile=null;pdfDoc=null;selectedPages=new Set();totalPages=0;lastClickedPage=null;
+  resultObjectUrls.forEach(u=>URL.revokeObjectURL(u));resultObjectUrls=[];
+  document.getElementById('dropZone').style.display='';
+  document.getElementById('editorWrap').style.display='none';
+  document.getElementById('resultWrap').style.display='none';
+  document.getElementById('errorBox').style.display='none';
+  document.getElementById('thumbGrid').innerHTML='';
+  document.getElementById('fileInput').value='';
+  document.getElementById('hintBar').style.display='none';
+  updateActionBar();
+}
 </script>
-<script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
 <script>
 (function(){
   var FLAGS={'en':'🇺🇸','es':'🇪🇸','pt':'🇧🇷','fr':'🇫🇷','de':'🇩🇪'};
   var LABELS={'en':'EN','es':'ES','pt':'PT','fr':'FR','de':'DE'};
   var SAVED='nst_lang';
-  var cur='en';
   function detect(){var s=localStorage.getItem(SAVED);if(s&&FLAGS[s])return s;var n=(navigator.language||'en').toLowerCase().slice(0,2);return FLAGS[n]?n:'en';}
   function apply(lang){
-    cur=lang;
     var f=document.getElementById('ls-flag');var l=document.getElementById('ls-lbl');
     if(f)f.textContent=FLAGS[lang];if(l)l.textContent=LABELS[lang];
     document.querySelectorAll('.ls-opt').forEach(function(b,i){b.classList.toggle('active',['en','es','pt','fr','de'][i]===lang);});
-    document.querySelectorAll('[data-i18n]').forEach(function(el){var t=window._T&&window._T[lang];if(t&&t[el.getAttribute('data-i18n')]!==undefined)el.textContent=t[el.getAttribute('data-i18n')];});
   }
   window.lsToggle=function(){
     var m=document.getElementById('ls-menu');var b=document.getElementById('ls-btn');

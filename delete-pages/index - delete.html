@@ -81,6 +81,7 @@
     .thumb-item.selected .thumb-num{color:var(--red);background:rgba(14,17,23,.85)}
     /* action bar */
     .action-bar{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .action-bar.sticky-top{position:sticky;top:54px;z-index:50;background:rgba(14,17,23,.92);backdrop-filter:blur(14px);margin-bottom:14px;border-color:rgba(90,135,255,.2)}
     .action-info{font-size:13px;color:var(--muted);font-family:'DM Mono',monospace}
     .action-info strong{color:var(--red)}
     .btn-process{padding:11px 28px;background:var(--red);border:none;border-radius:9px;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;gap:8px}
@@ -205,9 +206,20 @@
       </div>
     </div>
 
+    <!-- STICKY DELETE BAR (always visible while scrolling) -->
+    <div class="action-bar sticky-top" id="actionBarTop">
+      <div class="action-info" id="actionInfoTop"><strong>0</strong> pages selected for deletion</div>
+      <div class="loading-line" id="loadingLineTop"><span class="spinner"></span>Loading engine...</div>
+      <button class="btn-process" id="btnProcessTop" onclick="doDelete()" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        Delete selected pages
+      </button>
+    </div>
+
     <div id="thumbGrid"></div>
 
-    <div class="action-bar">
+    <!-- BOTTOM BAR (convenient when already scrolled down) -->
+    <div class="action-bar" id="actionBarBottom">
       <div class="action-info" id="actionInfo"><strong>0</strong> pages selected for deletion</div>
       <div class="loading-line" id="loadingLine"><span class="spinner"></span>Loading engine...</div>
       <button class="btn-process" id="btnProcess" onclick="doDelete()" disabled>
@@ -346,17 +358,17 @@ function deselectAll(){
 function updateActionBar(){
   const n=selectedPages.size;
   const remaining=totalPages-n;
-  const info=document.getElementById('actionInfo');
-  info.innerHTML='<strong>'+n+'</strong> page'+(n===1?'':'s')+' selected for deletion — '+remaining+' will remain';
-  document.getElementById('btnProcess').disabled=n===0||!pyReady||remaining===0;
-  if(remaining===0&&n>0){
-    info.innerHTML+=' <span style="color:var(--red)">(cannot delete all pages)</span>';
-  }
+  const canAct=n>0&&pyReady&&remaining>0;
+  let label='<strong>'+n+'</strong> page'+(n===1?'':'s')+' selected for deletion — '+remaining+' will remain';
+  if(remaining===0&&n>0) label+=' <span style="color:var(--red)">(cannot delete all pages)</span>';
+  // sync both bars
+  ['actionInfo','actionInfoTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=label;});
+  ['btnProcess','btnProcessTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=!canAct;});
 }
 
 async function initPyodide(){
   if(pyodide||pyReady)return;
-  document.getElementById('loadingLine').style.display='block';
+  ['loadingLine','loadingLineTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='block';});
   try{
     pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/'});
     await pyodide.loadPackage(['micropip']);
@@ -365,10 +377,10 @@ import micropip
 await micropip.install('pypdf')
 `);
     pyReady=true;
-    document.getElementById('loadingLine').style.display='none';
+    ['loadingLine','loadingLineTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
     updateActionBar();
   }catch(e){
-    document.getElementById('loadingLine').style.display='none';
+    ['loadingLine','loadingLineTop'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
     showError('Failed to load engine: '+e.message);
   }
 }
@@ -378,9 +390,9 @@ async function doDelete(){
   const remaining=totalPages-selectedPages.size;
   if(remaining<=0){showError('You must keep at least one page.');return}
 
-  const btn=document.getElementById('btnProcess');
-  btn.disabled=true;
-  btn.innerHTML='<span class="spinner"></span>Processing...';
+  const PROCESSING_LABEL='<span class="spinner"></span>Processing...';
+  const DONE_LABEL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>Delete selected pages';
+  ['btnProcess','btnProcessTop'].forEach(id=>{const el=document.getElementById(id);if(el){el.disabled=true;el.innerHTML=PROCESSING_LABEL;}});
 
   try{
     const ab=await currentFile.arrayBuffer();
@@ -425,8 +437,7 @@ base64.b64encode(out.getvalue()).decode('ascii')
     document.getElementById('resultWrap').style.display='block';
   }catch(e){showError('Error: '+e.message)}
 
-  btn.disabled=false;
-  btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>Delete selected pages';
+  ['btnProcess','btnProcessTop'].forEach(id=>{const el=document.getElementById(id);if(el){el.disabled=false;el.innerHTML=DONE_LABEL;}});
 }
 
 function resetAll(){

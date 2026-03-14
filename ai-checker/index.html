@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <title>AI Text Detector — Free, No Upload | NoServerTools</title>
+  <meta name="description" content="Detect if text was written by AI. Free, no upload, runs locally in your browser. Paste any text and get an instant analysis.">
+  <link rel="canonical" href="https://noservertools.com/ai-checker/">
+  <meta property="og:title" content="AI Text Detector — Free, No Upload | NoServerTools">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "s52BRCjtQpxKmC2x3-ZnR84r5GZta7CKESfuXJdH"}'></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#0e1117;--brand:#5a87ff;--brand-dark:#1f45e0;--green:#4ade80;--red:#f87171;--yellow:#fbbf24;--text:#e8eaf0;--muted:rgba(255,255,255,.45);--surface:rgba(255,255,255,.028);--border:rgba(255,255,255,.07)}
+    body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(83,99,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(83,99,255,.055) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+    .fd{font-family:'Syne',sans-serif}
+    .fm{font-family:'DM Mono',monospace}
+    main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 20px 80px}
+    .hero{text-align:center;margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,139,250,.1);border:1px solid rgba(168,139,250,.25);border-radius:999px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;color:#a78bfa;text-transform:uppercase;margin-bottom:18px}
+    h1{font-family:'Syne',sans-serif;font-size:clamp(24px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:10px;color:#fff}
+    .hero p{color:var(--muted);font-size:14px;line-height:1.6}
+    .card{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px}
+    .card-label{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+    textarea{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:16px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;line-height:1.65;resize:vertical;min-height:180px;outline:none;transition:border-color .2s}
+    textarea:focus{border-color:rgba(90,135,255,.45)}
+    textarea::placeholder{color:rgba(255,255,255,.2)}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.25)}
+    .btn-analyze{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--brand-dark);color:#fff;font-weight:700;font-size:15px;font-family:'Outfit',sans-serif;border:none;border-radius:12px;cursor:pointer;transition:background .2s,transform .15s;margin-top:14px}
+    .btn-analyze:hover{background:#3363f5;transform:translateY(-1px)}
+    .btn-analyze:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .btn-clear{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.4);font-size:12px;font-family:'Outfit',sans-serif;border-radius:8px;padding:6px 14px;cursor:pointer;transition:all .15s;margin-top:8px}
+    .btn-clear:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+
+    /* RESULT */
+    #result{display:none}
+    .result-score{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .score-ring{width:84px;height:84px;flex-shrink:0}
+    .score-ring circle{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .8s ease,stroke .4s}
+    .score-text{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+    .score-pct{font-family:'DM Mono',monospace;font-size:28px;font-weight:700;display:block;line-height:1}
+    .score-label{font-size:12px;color:var(--muted);margin-top:4px}
+    .verdict{display:inline-flex;align-items:center;gap:7px;border-radius:10px;padding:7px 14px;font-weight:600;font-size:13px;margin-bottom:16px}
+    .verdict.human{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:#4ade80}
+    .verdict.mixed{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:#fbbf24}
+    .verdict.ai{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);color:#f87171}
+    .signals-title{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+    .signal-list{display:flex;flex-direction:column;gap:6px}
+    .signal{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+    .signal-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+    .signal-dot.red{background:rgba(248,113,113,.8)}
+    .signal-dot.yellow{background:rgba(251,191,36,.8)}
+    .signal-dot.green{background:rgba(74,222,128,.8)}
+    .disclaimer{font-size:11.5px;color:rgba(255,255,255,.2);line-height:1.6;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);margin-top:16px;font-style:italic}
+    .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .4s ease both}
+  </style>
+</head>
+<body>
+<script src="/nst-shell.js"></script>
+<main>
+  <div class="hero fu">
+    <span class="badge">&#129302; AI Tools · Free</span>
+    <h1 class="fd">AI Text Detector</h1>
+    <p>Paste any text to check if it was likely written by AI. Runs 100% in your browser — nothing is sent anywhere.</p>
+  </div>
+
+  <div class="card fu">
+    <p class="card-label fm">Your text</p>
+    <textarea id="txt-input" placeholder="Paste the text you want to analyze here... (minimum 50 words for best accuracy)" oninput="onInput()"></textarea>
+    <div class="meta-row">
+      <span id="word-count">0 words</span>
+      <span id="char-count">0 chars</span>
+    </div>
+    <button class="btn-analyze" id="btn-analyze" onclick="analyze()" disabled>
+      <span id="btn-label">Analyze text</span>
+    </button>
+    <div style="text-align:center">
+      <button class="btn-clear" onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <div class="card fu" id="result">
+    <div class="result-score">
+      <svg class="score-ring" viewBox="0 0 84 84">
+        <circle cx="42" cy="42" r="36" stroke="rgba(255,255,255,.06)"/>
+        <circle id="ring-fill" cx="42" cy="42" r="36" stroke="#5a87ff" stroke-dasharray="226" stroke-dashoffset="226" transform="rotate(-90 42 42)"/>
+      </svg>
+      <div>
+        <span class="score-pct fm" id="score-pct">0%</span>
+        <div class="score-label" id="score-label">Probability of AI authorship</div>
+        <div id="verdict" style="margin-top:10px"></div>
+      </div>
+    </div>
+    <p class="signals-title">Detected signals</p>
+    <div class="signal-list" id="signal-list"></div>
+    <p class="disclaimer">This tool uses heuristic analysis (sentence patterns, vocabulary diversity, punctuation density, average word length) to estimate AI likelihood. It is not 100% accurate and should not be used as definitive proof. No text is sent anywhere — analysis runs entirely in your browser.</p>
+  </div>
+</main>
+
+<script>
+function onInput() {
+  var txt = document.getElementById('txt-input').value;
+  var words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+  document.getElementById('word-count').textContent = words + ' words';
+  document.getElementById('char-count').textContent = txt.length + ' chars';
+  document.getElementById('btn-analyze').disabled = words < 20;
+}
+
+function clearAll() {
+  document.getElementById('txt-input').value = '';
+  document.getElementById('result').style.display = 'none';
+  onInput();
+}
+
+function analyze() {
+  var txt = document.getElementById('txt-input').value.trim();
+  if (!txt) return;
+
+  var btnLabel = document.getElementById('btn-label');
+  var btn = document.getElementById('btn-analyze');
+  btnLabel.innerHTML = '<div class="spinner"></div>';
+  btn.disabled = true;
+
+  setTimeout(function() {
+    var result = runAnalysis(txt);
+    showResult(result);
+    btnLabel.textContent = 'Analyze again';
+    btn.disabled = false;
+  }, 600);
+}
+
+function runAnalysis(text) {
+  var sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  var words = text.split(/\s+/).filter(function(w){ return w.length > 0; });
+  var totalWords = words.length;
+
+  // 1. Average sentence length
+  var avgSentLen = totalWords / Math.max(sentences.length, 1);
+  var sentLenScore = 0;
+  if (avgSentLen >= 18 && avgSentLen <= 28) sentLenScore = 25; // AI tends to 20-25 words/sentence
+  else if (avgSentLen >= 15 && avgSentLen < 18) sentLenScore = 12;
+  else if (avgSentLen > 28 && avgSentLen <= 35) sentLenScore = 10;
+
+  // 2. Sentence length variance (AI is very uniform)
+  var sentLengths = sentences.map(function(s){ return s.trim().split(/\s+/).length; });
+  var mean = sentLengths.reduce(function(a,b){ return a+b; },0) / sentLengths.length;
+  var variance = sentLengths.reduce(function(a,b){ return a + Math.pow(b-mean,2); },0) / sentLengths.length;
+  var stdDev = Math.sqrt(variance);
+  var uniformityScore = 0;
+  if (stdDev < 4) uniformityScore = 25; // very uniform = AI
+  else if (stdDev < 7) uniformityScore = 12;
+
+  // 3. Vocabulary diversity (Type-Token Ratio)
+  var uniqueWords = {};
+  words.forEach(function(w){ uniqueWords[w.toLowerCase().replace(/[^a-z]/g,'')] = 1; });
+  var ttr = Object.keys(uniqueWords).length / totalWords;
+  var ttrScore = 0;
+  if (ttr < 0.45) ttrScore = 20; // low diversity = repetitive = AI
+  else if (ttr < 0.55) ttrScore = 8;
+
+  // 4. AI filler phrases
+  var fillers = [
+    'it is worth noting','it is important to','in conclusion','furthermore','moreover',
+    'in addition','it should be noted','this ensures','this allows','this means that',
+    'in other words','as a result','overall','to summarize','delve','leverage','utilize',
+    'facilitate','paradigm','seamlessly','boundaries','multifaceted','nuanced','comprehensive',
+    'it goes without saying','needless to say','as mentioned','in terms of','with that said'
+  ];
+  var lowerText = text.toLowerCase();
+  var fillerCount = 0;
+  fillers.forEach(function(f){ if (lowerText.indexOf(f) > -1) fillerCount++; });
+  var fillerScore = Math.min(fillerCount * 5, 20);
+
+  // 5. Punctuation / comma density
+  var commas = (text.match(/,/g) || []).length;
+  var commaDensity = commas / totalWords;
+  var punctScore = 0;
+  if (commaDensity > 0.12 && commaDensity < 0.22) punctScore = 10;
+  else if (commaDensity > 0.08) punctScore = 5;
+
+  var totalScore = sentLenScore + uniformityScore + ttrScore + fillerScore + punctScore;
+  totalScore = Math.min(Math.max(totalScore, 0), 100);
+
+  // Build signals
+  var signals = [];
+  if (sentLenScore >= 20) signals.push({color:'red', text:'Sentence length is highly uniform (' + avgSentLen.toFixed(1) + ' words avg), typical of AI models'});
+  else if (sentLenScore > 0) signals.push({color:'yellow', text:'Sentence length is somewhat uniform (' + avgSentLen.toFixed(1) + ' words avg)'});
+  else signals.push({color:'green', text:'Sentence lengths vary naturally (' + avgSentLen.toFixed(1) + ' words avg)'});
+
+  if (uniformityScore >= 20) signals.push({color:'red', text:'Very low sentence length variance (std dev: ' + stdDev.toFixed(1) + '), indicating machine-like consistency'});
+  else if (uniformityScore > 0) signals.push({color:'yellow', text:'Moderate sentence length consistency (std dev: ' + stdDev.toFixed(1) + ')'});
+  else signals.push({color:'green', text:'Good natural variation in sentence structure (std dev: ' + stdDev.toFixed(1) + ')'});
+
+  if (ttrScore >= 15) signals.push({color:'red', text:'Low vocabulary diversity (TTR: ' + (ttr*100).toFixed(0) + '%) — repetitive word choice'});
+  else if (ttrScore > 0) signals.push({color:'yellow', text:'Moderate vocabulary diversity (TTR: ' + (ttr*100).toFixed(0) + '%)'});
+  else signals.push({color:'green', text:'Good vocabulary diversity (TTR: ' + (ttr*100).toFixed(0) + '%)'});
+
+  if (fillerScore >= 10) signals.push({color:'red', text:'Multiple AI filler phrases detected (' + fillerCount + ' matches: "moreover", "furthermore", "it is worth noting"...)'});
+  else if (fillerScore > 0) signals.push({color:'yellow', text:'Some AI-typical phrases detected (' + fillerCount + ' match)'});
+  else signals.push({color:'green', text:'No common AI filler phrases detected'});
+
+  return { score: totalScore, avgSentLen: avgSentLen, stdDev: stdDev, ttr: ttr, signals: signals };
+}
+
+function showResult(result) {
+  var pct = Math.round(result.score);
+  var resultEl = document.getElementById('result');
+  resultEl.style.display = 'block';
+  resultEl.classList.remove('fu');
+  void resultEl.offsetWidth;
+  resultEl.classList.add('fu');
+
+  document.getElementById('score-pct').textContent = pct + '%';
+
+  var color, verdict, verdictClass;
+  if (pct < 30) {
+    color = '#4ade80'; verdict = 'Likely Human'; verdictClass = 'human';
+  } else if (pct < 65) {
+    color = '#fbbf24'; verdict = 'Mixed / Uncertain'; verdictClass = 'mixed';
+  } else {
+    color = '#f87171'; verdict = 'Likely AI-generated'; verdictClass = 'ai';
+  }
+
+  var ring = document.getElementById('ring-fill');
+  var circ = 226;
+  ring.setAttribute('stroke', color);
+  ring.setAttribute('stroke-dashoffset', circ - (pct/100) * circ);
+
+  document.getElementById('score-pct').style.color = color;
+  document.getElementById('verdict').innerHTML =
+    '<div class="verdict ' + verdictClass + '">' +
+    (verdictClass==='human'?'&#9989;':verdictClass==='mixed'?'&#9888;&#65039;':'&#129302;') +
+    ' ' + verdict + '</div>';
+
+  var list = document.getElementById('signal-list');
+  list.innerHTML = result.signals.map(function(s){
+    return '<div class="signal"><div class="signal-dot ' + s.color + '"></div><span>' + s.text + '</span></div>';
+  }).join('');
+}
+</script>
+</body>
+</html>

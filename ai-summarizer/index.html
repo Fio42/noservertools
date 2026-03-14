@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <title>AI Text Summarizer — Free, No Upload | NoServerTools</title>
+  <meta name="description" content="Paste any text and get a clean, concise summary. Free, runs in your browser, no upload, no API keys needed.">
+  <link rel="canonical" href="https://noservertools.com/ai-summarizer/">
+  <meta property="og:title" content="AI Text Summarizer — Free, No Upload | NoServerTools">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "s52BRCjtQpxKmC2x3-ZnR84r5GZta7CKESfuXJdH"}'></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#0e1117;--brand:#5a87ff;--brand-dark:#1f45e0;--green:#4ade80;--text:#e8eaf0;--muted:rgba(255,255,255,.45);--surface:rgba(255,255,255,.028);--border:rgba(255,255,255,.07)}
+    body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(83,99,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(83,99,255,.055) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+    .fd{font-family:'Syne',sans-serif}
+    .fm{font-family:'DM Mono',monospace}
+    main{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:40px 20px 80px}
+    .hero{text-align:center;margin-bottom:32px}
+    .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,139,250,.1);border:1px solid rgba(168,139,250,.25);border-radius:999px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;color:#a78bfa;text-transform:uppercase;margin-bottom:18px}
+    h1{font-family:'Syne',sans-serif;font-size:clamp(24px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:10px;color:#fff}
+    .hero p{color:var(--muted);font-size:14px;line-height:1.6}
+    .two-col{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:700px){.two-col{grid-template-columns:1fr 1fr}}
+    .card{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:20px;padding:24px}
+    .card-label{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+    textarea{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:16px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;line-height:1.65;resize:vertical;min-height:220px;outline:none;transition:border-color .2s}
+    textarea:focus{border-color:rgba(90,135,255,.45)}
+    textarea::placeholder{color:rgba(255,255,255,.2)}
+    textarea[readonly]{background:rgba(83,99,255,.05);border-color:rgba(83,99,255,.15);cursor:default;min-height:220px}
+    .meta-row{display:flex;justify-content:space-between;margin-top:6px;font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.25)}
+    .options-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+    .options-label{font-size:12px;color:rgba(255,255,255,.3);font-family:'DM Mono',monospace;font-size:11px}
+    .opt-btn{border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;background:rgba(255,255,255,.03);cursor:pointer;font-family:'Outfit',sans-serif;font-size:12px;color:rgba(255,255,255,.45);transition:all .18s}
+    .opt-btn.on{border-color:#5a87ff;background:rgba(83,99,255,.15);color:#8aaeff}
+    .opt-btn:hover:not(.on){border-color:rgba(83,99,255,.3);color:rgba(255,255,255,.7)}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-summarize{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:var(--brand-dark);color:#fff;font-weight:700;font-size:14px;font-family:'Outfit',sans-serif;border:none;border-radius:12px;cursor:pointer;transition:background .2s,transform .15s}
+    .btn-summarize:hover{background:#3363f5;transform:translateY(-1px)}
+    .btn-summarize:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .btn-ghost{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.4);font-size:12px;font-family:'Outfit',sans-serif;border-radius:10px;padding:10px 18px;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .btn-ghost:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+    .btn-copy-result{background:rgba(83,99,255,.1);border:1px solid rgba(83,99,255,.2);border-radius:7px;color:#8aaeff;font-size:10px;font-family:'DM Mono',monospace;padding:3px 9px;cursor:pointer;transition:background .15s}
+    .btn-copy-result:hover{background:rgba(83,99,255,.2)}
+    .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;color:rgba(255,255,255,.18);text-align:center;gap:10px}
+    .empty-icon{font-size:32px;opacity:.4}
+    .empty-text{font-size:13px}
+    .stats-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+    .stat{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.2)}
+    .stat span{color:rgba(90,135,255,.7);margin-left:4px}
+    .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fadeUp .4s ease both}
+  </style>
+</head>
+<body>
+<script src="/nst-shell.js"></script>
+<main>
+  <div class="hero fu">
+    <span class="badge">&#129302; AI Tools · Free</span>
+    <h1 class="fd">Text Summarizer</h1>
+    <p>Paste any article, document or text and get a clean summary. Runs 100% in your browser — no API keys, no uploads.</p>
+  </div>
+
+  <div class="card fu" style="margin-bottom:16px">
+    <div style="margin-bottom:12px">
+      <p class="options-label fm" style="margin-bottom:8px">Summary length</p>
+      <div class="options-row">
+        <button class="opt-btn" data-len="short" onclick="setLen(this)">Short (2-3 sentences)</button>
+        <button class="opt-btn on" data-len="medium" onclick="setLen(this)">Medium (4-5 sentences)</button>
+        <button class="opt-btn" data-len="long" onclick="setLen(this)">Long (6-8 sentences)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card fu">
+      <div class="card-label fm">
+        <span>Input text</span>
+        <span id="in-words" style="font-size:10px">0 words</span>
+      </div>
+      <textarea id="input-text" placeholder="Paste your text here..." oninput="onInput()"></textarea>
+      <div class="meta-row"><span id="in-chars">0 chars</span><span id="in-sents">0 sentences</span></div>
+      <div class="btn-row" style="margin-top:12px">
+        <button class="btn-summarize" id="btn-sum" onclick="summarize()" disabled>
+          <span id="btn-label">Summarize</span>
+        </button>
+        <button class="btn-ghost" onclick="clearAll()">Clear</button>
+      </div>
+    </div>
+
+    <div class="card fu">
+      <div class="card-label fm">
+        <span>Summary</span>
+        <button class="btn-copy-result" id="btn-copy" onclick="copyResult()" style="display:none">Copy</button>
+      </div>
+      <div id="output-wrap">
+        <div class="empty-state">
+          <span class="empty-icon">&#128203;</span>
+          <span class="empty-text">Your summary will appear here</span>
+        </div>
+      </div>
+      <div class="stats-row" id="stats-row" style="display:none">
+        <div class="stat">Compression:<span id="stat-comp"></span></div>
+        <div class="stat">Output words:<span id="stat-words"></span></div>
+        <div class="stat">Reading time:<span id="stat-read"></span></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+var summaryLen = 'medium';
+
+function setLen(el) {
+  document.querySelectorAll('.opt-btn').forEach(function(b){ b.classList.remove('on'); });
+  el.classList.add('on');
+  summaryLen = el.getAttribute('data-len');
+}
+
+function onInput() {
+  var txt = document.getElementById('input-text').value;
+  var words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+  var chars = txt.length;
+  var sents = txt.match(/[^.!?]+[.!?]+/g);
+  var sentCount = sents ? sents.length : 0;
+  document.getElementById('in-words').textContent = words + ' words';
+  document.getElementById('in-chars').textContent = chars + ' chars';
+  document.getElementById('in-sents').textContent = sentCount + ' sentences';
+  document.getElementById('btn-sum').disabled = words < 30;
+}
+
+function clearAll() {
+  document.getElementById('input-text').value = '';
+  document.getElementById('output-wrap').innerHTML = '<div class="empty-state"><span class="empty-icon">&#128203;</span><span class="empty-text">Your summary will appear here</span></div>';
+  document.getElementById('btn-copy').style.display = 'none';
+  document.getElementById('stats-row').style.display = 'none';
+  onInput();
+}
+
+function copyResult() {
+  var ta = document.getElementById('summary-textarea');
+  if (!ta) return;
+  var btn = document.getElementById('btn-copy');
+  var orig = btn.textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(ta.value).then(function(){
+      btn.textContent = 'Copied!';
+      btn.style.color = '#4ade80';
+      setTimeout(function(){ btn.textContent = orig; btn.style.color = ''; }, 1600);
+    });
+  }
+}
+
+function summarize() {
+  var txt = document.getElementById('input-text').value.trim();
+  if (!txt) return;
+
+  var btn = document.getElementById('btn-sum');
+  var label = document.getElementById('btn-label');
+  label.innerHTML = '<div class="spinner"></div>';
+  btn.disabled = true;
+
+  setTimeout(function() {
+    var summary = extractiveSummarize(txt, summaryLen);
+    showSummary(summary, txt);
+    label.textContent = 'Summarize again';
+    btn.disabled = false;
+  }, 500);
+}
+
+function extractiveSummarize(text, lenMode) {
+  // Split into sentences
+  var sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  sentences = sentences.map(function(s){ return s.trim(); }).filter(function(s){ return s.split(/\s+/).length > 4; });
+
+  if (sentences.length === 0) return text;
+
+  var targetCount = { short: 2, medium: 4, long: 7 }[lenMode] || 4;
+  targetCount = Math.min(targetCount, sentences.length);
+
+  // Score sentences by importance
+  var allWords = text.toLowerCase().split(/\W+/).filter(function(w){ return w.length > 3; });
+  var wordFreq = {};
+  allWords.forEach(function(w){ wordFreq[w] = (wordFreq[w] || 0) + 1; });
+
+  // Stopwords
+  var stops = {the:1,and:1,that:1,this:1,with:1,from:1,have:1,been:1,were:1,their:1,there:1,they:1,will:1,when:1,which:1,also:1,into:1,than:1,then:1,some:1,what:1,about:1,would:1,could:1,should:1,more:1,very:1,just:1};
+
+  var scores = sentences.map(function(sent, idx) {
+    var words = sent.toLowerCase().split(/\W+/).filter(function(w){ return w.length > 3 && !stops[w]; });
+    var score = 0;
+    words.forEach(function(w){ score += wordFreq[w] || 0; });
+    score = words.length ? score / words.length : 0;
+    // Bonus: first and last sentences
+    if (idx === 0) score *= 1.5;
+    if (idx === sentences.length - 1) score *= 1.2;
+    // Bonus: sentences with numbers or proper nouns (capitalized mid-sentence)
+    if (/\d/.test(sent)) score *= 1.15;
+    return { sent: sent, score: score, idx: idx };
+  });
+
+  // Sort by score, pick top, then re-sort by original order
+  var sorted = scores.slice().sort(function(a,b){ return b.score - a.score; });
+  var picked = sorted.slice(0, targetCount).sort(function(a,b){ return a.idx - b.idx; });
+
+  return picked.map(function(p){ return p.sent; }).join(' ');
+}
+
+function showSummary(summary, original) {
+  var outWords = summary.trim().split(/\s+/).length;
+  var inWords  = original.trim().split(/\s+/).length;
+  var compression = Math.round((1 - outWords/inWords) * 100);
+  var readSec = Math.ceil(outWords / 200 * 60);
+  var readStr = readSec < 60 ? readSec + 's' : Math.ceil(readSec/60) + ' min';
+
+  document.getElementById('output-wrap').innerHTML =
+    '<textarea id="summary-textarea" readonly>' + summary + '</textarea>';
+
+  document.getElementById('btn-copy').style.display = 'inline-flex';
+
+  var statsEl = document.getElementById('stats-row');
+  statsEl.style.display = 'flex';
+  document.getElementById('stat-comp').textContent = compression + '%';
+  document.getElementById('stat-words').textContent = outWords;
+  document.getElementById('stat-read').textContent = readStr;
+}
+</script>
+</body>
+</html>
