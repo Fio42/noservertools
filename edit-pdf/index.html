@@ -129,9 +129,25 @@
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "s52BRCjtQpxKmC2x3-ZnR84r5GZta7CKESfuXJdH"}'></script>
 </head>
 <body>
-<script src="/nst-shell.js"></script>
 
+<!-- LANG SWITCHER -->
+<div id="ls" role="navigation" aria-label="Language selector">
+  <button id="ls-btn" onclick="lsToggle()" aria-haspopup="true" aria-expanded="false">
+    <span id="ls-flag">🌐</span><span id="ls-lbl">EN</span>
+    <svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 4L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <div id="ls-menu" role="menu">
+    <button class="ls-opt" onclick="lsSet('en')" role="menuitem">🇺🇸&nbsp; English</button>
+    <button class="ls-opt" onclick="lsSet('es')" role="menuitem">🇪🇸&nbsp; Español</button>
+    <button class="ls-opt" onclick="lsSet('pt')" role="menuitem">🇧🇷&nbsp; Português</button>
+    <button class="ls-opt" onclick="lsSet('fr')" role="menuitem">🇫🇷&nbsp; Français</button>
+    <button class="ls-opt" onclick="lsSet('de')" role="menuitem">🇩🇪&nbsp; Deutsch</button>
+  </div>
 </div>
+<div class="blob blob-a"></div>
+<div class="blob blob-b"></div>
+
+<!-- NAV -->
 <nav style="position:sticky;top:0;z-index:100;height:54px;width:100%;backdrop-filter:blur(16px);background:rgba(14,17,23,.75);border-bottom:1px solid rgba(255,255,255,.08)">
   <div style="max-width:1100px;margin:0 auto;height:54px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px">
     <a href="../" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0">
@@ -296,12 +312,26 @@
 <div id="sigModal">
   <div id="sigBox">
     <h3 class="fd" style="font-size:17px;font-weight:700;color:#fff;margin-bottom:6px">Draw your signature</h3>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Sign with your mouse or finger, then click Place.</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Sign with your mouse or finger, then save or place it.</p>
+    
+    <!-- Campo para nombre de firma -->
+    <div style="margin-bottom:12px">
+      <label style="font-size:11px;color:var(--muted);display:block;margin-bottom:5px;font-family:'DM Mono',monospace">SIGNATURE NAME (OPTIONAL)</label>
+      <input type="text" id="sigName" placeholder="e.g., My Official Signature" style="width:100%;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Outfit',sans-serif">
+    </div>
+    
     <canvas id="sigCanvas"></canvas>
     <div style="display:flex;gap:10px;margin-top:14px">
       <button onclick="clearSig()" style="padding:8px 18px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px">Clear</button>
+      <button onclick="saveSig()" style="padding:8px 18px;background:var(--surface);border:1px solid var(--border);color:var(--green);border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px">💾 Save</button>
       <button onclick="closeSigModal()" style="padding:8px 18px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px">Cancel</button>
-      <button onclick="placeSig()" style="padding:8px 22px;background:var(--brand-dark);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;margin-left:auto">Place Signature</button>
+      <button onclick="placeSig()" style="padding:8px 22px;background:var(--brand-dark);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;margin-left:auto">Place</button>
+    </div>
+    
+    <!-- Lista de firmas guardadas -->
+    <div id="savedSigsList" style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px">
+      <h4 style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;font-family:'DM Mono',monospace;letter-spacing:.05em">SAVED SIGNATURES</h4>
+      <div id="sigsContainer"></div>
     </div>
   </div>
 </div>
@@ -363,6 +393,7 @@ let textInputs  = {}; // { pageNum: [ domElement ] }
 let imageOverlays = {}; // { pageNum: [ domElement ] }
 let currentFile = null;
 let pendingSigDataUrl = null;
+let savedSignatures = JSON.parse(localStorage.getItem('nst_saved_signatures') || '[]');
 
 const pdfCanvas   = document.getElementById('pdfCanvas');
 const annCanvas   = document.getElementById('annotationCanvas');
@@ -686,12 +717,88 @@ function openSigModal(){
   sc.addEventListener('touchstart',e=>{e.preventDefault();sigDown(e.touches[0])},{passive:false});
   sc.addEventListener('touchmove',e=>{e.preventDefault();sigMove(e.touches[0])},{passive:false});
   sc.addEventListener('touchend',sigUp);
+  loadSavedSignatures();
 }
 function sigDown(e){sigDrawing=true;const r=document.getElementById('sigCanvas').getBoundingClientRect();sigCtx.beginPath();sigCtx.moveTo(e.clientX-r.left,e.clientY-r.top)}
 function sigMove(e){if(!sigDrawing)return;const r=document.getElementById('sigCanvas').getBoundingClientRect();sigCtx.lineTo(e.clientX-r.left,e.clientY-r.top);sigCtx.stroke()}
 function sigUp(){sigDrawing=false}
 function clearSig(){const sc=document.getElementById('sigCanvas');sigCtx.fillStyle='#fff';sigCtx.fillRect(0,0,sc.width,sc.height)}
-function closeSigModal(){document.getElementById('sigModal').classList.remove('open')}
+function closeSigModal(){document.getElementById('sigModal').classList.remove('open');document.getElementById('sigName').value=''}
+
+function saveSig(){
+  const sc=document.getElementById('sigCanvas');
+  const name=document.getElementById('sigName').value.trim()||'Signature '+(savedSignatures.length+1);
+  const url=sc.toDataURL('image/png');
+  const imgData=sigCtx.getImageData(0,0,sc.width,sc.height);
+  let isEmpty=true;
+  for(let i=0;i<imgData.data.length;i+=4){
+    if(imgData.data[i]!==255||imgData.data[i+1]!==255||imgData.data[i+2]!==255){
+      isEmpty=false;break;
+    }
+  }
+  if(isEmpty){alert('Please draw a signature first');return}
+  savedSignatures.push({id:Date.now(),name:name,data:url,date:new Date().toLocaleDateString()});
+  localStorage.setItem('nst_saved_signatures',JSON.stringify(savedSignatures));
+  loadSavedSignatures();
+  clearSig();
+  document.getElementById('sigName').value='';
+  setStatus('✓ Signature saved!');
+  setTimeout(()=>setStatus(''),2000);
+}
+
+function loadSavedSignatures(){
+  const container=document.getElementById('sigsContainer');
+  const list=document.getElementById('savedSigsList');
+  if(savedSignatures.length===0){
+    container.innerHTML='<p style="font-size:12px;color:var(--muted);text-align:center;padding:12px">No saved signatures yet</p>';
+    return;
+  }
+  list.style.display='block';
+  container.innerHTML='';
+  savedSignatures.forEach(sig=>{
+    const item=document.createElement('div');
+    item.style.cssText='display:flex;align-items:center;gap:10px;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;transition:all .2s';
+    item.onmouseover=()=>item.style.borderColor='var(--brand)';
+    item.onmouseout=()=>item.style.borderColor='var(--border)';
+    const preview=document.createElement('div');
+    preview.style.cssText='width:100px;height:40px;background:#fff;border-radius:4px;padding:4px;flex-shrink:0';
+    const img=document.createElement('img');
+    img.src=sig.data;
+    img.style.cssText='width:100%;height:100%;object-fit:contain';
+    preview.appendChild(img);
+    const info=document.createElement('div');
+    info.style.cssText='flex:1;min-width:0';
+    info.innerHTML='<div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px">'+esc(sig.name)+'</div><div style="font-size:11px;color:var(--muted)">'+sig.date+'</div>';
+    const btnUse=document.createElement('button');
+    btnUse.textContent='Use';
+    btnUse.style.cssText='padding:6px 12px;background:var(--brand-dark);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:Outfit,sans-serif';
+    btnUse.onclick=(e)=>{e.stopPropagation();useSignature(sig.id)};
+    const btnDel=document.createElement('button');
+    btnDel.textContent='×';
+    btnDel.style.cssText='width:28px;height:28px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:6px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center';
+    btnDel.onclick=(e)=>{e.stopPropagation();deleteSignature(sig.id)};
+    item.appendChild(preview);
+    item.appendChild(info);
+    item.appendChild(btnUse);
+    item.appendChild(btnDel);
+    container.appendChild(item);
+  });
+}
+
+function useSignature(id){
+  const sig=savedSignatures.find(s=>s.id===id);
+  if(!sig)return;
+  closeSigModal();
+  placeImage(sig.data);
+}
+
+function deleteSignature(id){
+  if(!confirm('Delete this signature?'))return;
+  savedSignatures=savedSignatures.filter(s=>s.id!==id);
+  localStorage.setItem('nst_saved_signatures',JSON.stringify(savedSignatures));
+  loadSavedSignatures();
+}
+
 function placeSig(){
   const sc=document.getElementById('sigCanvas');
   const url=sc.toDataURL('image/png');
